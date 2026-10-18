@@ -157,9 +157,15 @@ document.getElementById("loginForm").addEventListener("submit", async e => {
 
     loginMessage.textContent = "";
   } catch (error) {
-    console.error(error);
+    console.error("Firebase login error:", error);
+
     loginMessage.textContent =
-      "Login failed. Check your email, password and Firebase Authentication settings.";
+      "Login error: " +
+      (error.code || "unknown-error") +
+      " — " +
+      (error.message || "Please try again.");
+
+    loginMessage.style.color = "red";
   }
 });
 
@@ -380,4 +386,4 @@ async function loadApplications() {
 }
 </script>
 </body>
-</html>
+      </html>
