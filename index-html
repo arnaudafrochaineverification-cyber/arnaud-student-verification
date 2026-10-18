@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARNAUD STUDENT VERIFICATION</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3fff5;color:#17231a}
+header{background:#08783e;color:white;text-align:center;padding:25px 15px}
+header h1{margin:0;font-size:25px}
+header p{margin:8px 0 0;color:#ffe09a}
+main{max-width:650px;margin:28px auto;padding:20px}
+.card{background:white;padding:24px;border-radius:14px;box-shadow:0 4px 18px #0001}
+h2{color:#08783e}
+input,button{width:100%;padding:14px;margin-top:12px;border-radius:8px;font-size:16px}
+input{border:1px solid #bbb}
+button{border:0;background:#08783e;color:white;font-weight:bold;cursor:pointer}
+#result{margin-top:20px;padding:15px;border-radius:8px;overflow-wrap:anywhere}
+footer{text-align:center;padding:25px;color:#555;font-size:13px}
+.small{font-size:13px;color:#555;line-height:1.6}
+</style>
+</head>
+<body>
+
+<header>
+<h1>ARNAUD STUDENT VERIFICATION</h1>
+<p>African Roots, Global Vision</p>
+</header>
+
+<main>
+<div class="card">
+<h2>Verify a Certificate</h2>
+<p>Enter the certificate number or reference supplied by ARNAUD STUDENT VERIFICATION.</p>
+
+<form id="verifyForm">
+<input id="certificateNumber" type="text"
+placeholder="Enter certificate number or reference" required>
+<button type="submit">VERIFY CERTIFICATE</button>
+</form>
+
+<div id="result" aria-live="polite"></div>
+
+<p class="small">
+A search result alone does not establish that an award is genuine.
+Verification must be based on reliable records and, where necessary,
+confirmation from the issuing institution.
+</p>
+</div>
+</main>
+
+<footer>
+ARNAUD STUDENT VERIFICATION<br>
+African Roots, Global Vision
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCPoq6oxu0oNmIA19Iu4PXM1EKkIbxudPo",
+  authDomain: "arnaud-student-verification.firebaseapp.com",
+  projectId: "arnaud-student-verification",
+  storageBucket: "arnaud-student-verification.firebasestorage.app",
+  messagingSenderId: "1005059025981",
+  appId: "1:1005059025981:web:15d9f281e07470daf24e54",
+  measurementId: "G-LJ0ZCDFVSK"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const form = document.getElementById("verifyForm");
+const result = document.getElementById("result");
+
+form.addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const number = document.getElementById("certificateNumber").value.trim();
+
+  result.style.background = "#f2f2f2";
+  result.textContent = "Searching the verification database...";
+
+  try {
+    const collections = ["certificates"];
+    let found = null;
+
+    for (const collectionName of collections) {
+      const byNumber = await db.collection(collectionName)
+        .where("certificateNumber", "==", number).limit(1).get();
+
+      if (!byNumber.empty) {
+        found = byNumber.docs[0].data();
+        break;
+      }
+
+      const byReference = await db.collection(collectionName)
+        .where("ref", "==", number).limit(1).get();
+
+      if (!byReference.empty) {
+        found = byReference.docs[0].data();
+        break;
+      }
+    }
+
+    if (!found) {
+      result.style.background = "#fff0f0";
+      result.innerHTML = "<strong>No matching record found.</strong><br>This does not automatically mean the certificate is fake. Please contact the issuing institution or ARNAUD for further checks.";
+      return;
+    }
+
+    const status = String(found.status || "Pending");
+    const name = String(found.fullName || found.name || "Not provided");
+    const school = String(found.school || "Not provided");
+    const type = String(found.certificateType || "Not provided");
+    const course = String(found.course || "Not provided");
+    const issueDate = String(found.issueDate || "Not provided");
+
+    result.style.background = "#effaf0";
+    result.replaceChildren();
+
+    const heading = document.createElement("h3");
+    heading.textContent = "Record Found";
+    result.appendChild(heading);
+
+    [
+      ["Status", status],
+      ["Full Name", name],
+      ["Certificate Number", String(found.certificateNumber || number)],
+      ["Institution", school],
+      ["Certificate Type", type],
+      ["Course / Qualification", course],
+      ["Issue Date", issueDate]
+    ].forEach(function(item) {
+      const p = document.createElement("p");
+      const strong = document.createElement("strong");
+      strong.textContent = item[0] + ": ";
+      p.appendChild(strong);
+      p.appendChild(document.createTextNode(item[1]));
+      result.appendChild(p);
+    });
+
+    const note = document.createElement("p");
+    note.textContent = "This result reflects the record currently available in the ARNAUD database. Check the status and issuing institution before relying on it.";
+    result.appendChild(note);
+
+  } catch (error) {
+    console.error(error);
+    result.style.background = "#fff0f0";
+    result.textContent = "The search could not be completed. The database may still be locked or the connection may need configuration. Please try again later.";
+  }
+});
+</script>
+</body>
+</html>
