@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ARNAUD STUDENT VERIFICATION</title>
-
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#f3fff5;color:#17231a}
@@ -23,26 +22,20 @@ footer{text-align:center;padding:25px;color:#555;font-size:13px}
 .small{font-size:13px;color:#555;line-height:1.6}
 </style>
 </head>
-
 <body>
 <header>
 <h1>ARNAUD STUDENT VERIFICATION</h1>
 <p>African Roots, Global Vision</p>
 </header>
-
 <main>
 <div class="card">
 <h2>Verify a Certificate</h2>
 <p>Enter the certificate number or reference supplied by ARNAUD STUDENT VERIFICATION.</p>
-
 <form id="verifyForm">
-<input id="certificateNumber" type="text"
-placeholder="Enter certificate number or reference" required>
+<input id="certificateNumber" type="text" placeholder="Enter certificate number or reference" required>
 <button id="verifyButton" type="submit">VERIFY CERTIFICATE</button>
 </form>
-
 <div id="result" aria-live="polite"></div>
-
 <p class="small">
 A search result alone does not establish that an award is genuine.
 Verification must be based on reliable records and, where necessary,
@@ -50,7 +43,6 @@ confirmation from the issuing institution.
 </p>
 </div>
 </main>
-
 <footer>
 ARNAUD STUDENT VERIFICATION<br>
 African Roots, Global Vision
@@ -58,10 +50,9 @@ African Roots, Global Vision
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
 <script>
 const firebaseConfig = {
-  apiKey: "AIzaSyCPoq6oxu0oNmIA19uI4PXM1EKkIbxudPo",
+  apiKey: "AIzaSyCPoq6oxu0oNmIA19Iu4PXM1EKkIbxudPo",
   authDomain: "arnaud-student-verification.firebaseapp.com",
   projectId: "arnaud-student-verification",
   storageBucket: "arnaud-student-verification.firebasestorage.app",
@@ -69,87 +60,67 @@ const firebaseConfig = {
   appId: "1:1005059025981:web:15d9f281e07470daf24e54",
   measurementId: "G-LJ0ZCDFVSK"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-
 const form = document.getElementById("verifyForm");
 const result = document.getElementById("result");
 const verifyButton = document.getElementById("verifyButton");
 
 form.addEventListener("submit", async function(event) {
   event.preventDefault();
-
   const number = document.getElementById("certificateNumber").value.trim();
-
   if (!number) return;
-
   verifyButton.disabled = true;
   result.style.background = "#f2f2f2";
   result.textContent = "Searching the verification database...";
-
   try {
     let found = null;
-
-    // Search the public collection first, then the legacy collection.
-    const collections = ["publicCertificates", "certificates"];
-
+    const collections = ["applications", "publicCertificates", "certificates"];
     for (const collectionName of collections) {
-      // Search by certificate number.
-      const byNumber = await db.collection(collectionName)
-        .where("certificateNumber", "==", number)
-        .limit(1)
-        .get();
-
-      if (!byNumber.empty) {
-        found = byNumber.docs[0].data();
-        break;
-      }
-
-      // Search by reference.
-      const byReference = await db.collection(collectionName)
-        .where("ref", "==", number)
-        .limit(1)
-        .get();
-
-      if (!byReference.empty) {
-        found = byReference.docs[0].data();
-        break;
-      }
-
-      // Also support records whose reference is the document ID.
-      const byDocumentId = await db.collection(collectionName)
-        .doc(number)
-        .get();
-
-      if (byDocumentId.exists) {
-        found = byDocumentId.data();
-        break;
-      }
+      try {
+        const byDoc = await db.collection(collectionName).doc(number).get();
+        if (byDoc.exists) { found = byDoc.data(); break; }
+      } catch(e){}
+      try {
+        const byNumber = await db.collection(collectionName).where("certificateNumber","==",number).limit(1).get();
+        if (!byNumber.empty) { found = byNumber.docs[0].data(); break; }
+      } catch(e){}
+      try {
+        const byRef = await db.collection(collectionName).where("ref","==",number).limit(1).get();
+        if (!byRef.empty) { found = byRef.docs[0].data(); break; }
+      } catch(e){}
+      try {
+        const byRef2 = await db.collection(collectionName).where("reference","==",number).limit(1).get();
+        if (!byRef2.empty) { found = byRef2.docs[0].data(); break; }
+      } catch(e){}
     }
 
     if (!found) {
       result.style.background = "#fff0f0";
-      result.textContent =
-        "No matching record found. This does not automatically mean the certificate is fake. Check the certificate number or contact ARNAUD for assistance.";
+      result.textContent = "No matching record found. This does not automatically mean the certificate is fake. Check the certificate number or contact ARNAUD for assistance.";
       return;
     }
 
     const status = String(found.status || "Pending");
     const name = String(found.fullName || found.name || "Not provided");
     const school = String(found.school || found.institution || "Not provided");
-    const type = String(found.certificateType || "Not provided");
-    const course = String(found.course || found.qualification || "Not provided");
-    const issueDate = String(found.issueDate || "Not provided");
-    const certificateNumber = String(found.certificateNumber || number);
+    const type = String(found.certificateType || found.qualification || "Not provided");
+    const course = String(found.course || "Not provided");
+    const issueDate = String(found.issueDate || found.dateIssued || "Not provided");
+    const certificateNumber = String(found.certificateNumber || found.ref || found.reference || number);
+
+    if (status.toLowerCase() !== "approved") {
+      result.style.background = "#fff8e1";
+      result.innerHTML = `<strong>Record Found - ${status}</strong><br><br>Full Name: ${name}<br>Certificate: ${certificateNumber}<br><br>This certificate is not yet approved. Contact ARNAUD.`;
+      return;
+    }
 
     result.style.background = "#effaf0";
     result.replaceChildren();
-
     const heading = document.createElement("h3");
-    heading.textContent = "Record Found";
+    heading.textContent = "✅ VERIFIED - VALID";
+    heading.style.color = "#08783e";
     result.appendChild(heading);
-
     [
       ["Status", status],
       ["Full Name", name],
@@ -167,16 +138,10 @@ form.addEventListener("submit", async function(event) {
       result.appendChild(p);
     });
 
-    const note = document.createElement("p");
-    note.textContent =
-      "This result reflects the record available in the ARNAUD database. A record being found does not by itself prove that an award is genuine. Check the status and issuing institution before relying on it.";
-    result.appendChild(note);
-
   } catch (error) {
     console.error("Certificate search error:", error);
     result.style.background = "#fff0f0";
-    result.textContent =
-      "The search could not be completed. Please check the database connection and permissions, then try again.";
+    result.textContent = "The search could not be completed: " + error.message;
   } finally {
     verifyButton.disabled = false;
   }
