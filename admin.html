@@ -4,56 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin Dashboard | ARNAUD STUDENT VERIFICATION</title>
-
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f3fff5;
-  color:#17231a;
-}
-header{
-  background:#08783e;
-  color:white;
-  padding:22px 15px;
-  text-align:center;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#f3fff5;color:#17231a}
+header{background:#08783e;color:white;padding:22px 15px;text-align:center}
 header h1{margin:0;font-size:22px}
 header p{color:#ffe09a}
 main{max-width:950px;margin:25px auto;padding:15px}
-.card{
-  background:white;
-  padding:20px;
-  border-radius:12px;
-  margin-bottom:20px;
-  box-shadow:0 3px 15px #0001;
-}
+.card{background:white;padding:20px;border-radius:12px;margin-bottom:20px;box-shadow:0 3px 15px #0001}
 h2{color:#08783e}
-input,select,button{
-  width:100%;
-  padding:12px;
-  margin:7px 0;
-  font-size:15px;
-  border-radius:7px;
-}
+input,select,button{width:100%;padding:12px;margin:7px 0;font-size:15px;border-radius:7px}
 input,select{border:1px solid #bbb;background:white}
-button{
-  background:#08783e;
-  color:white;
-  border:0;
-  cursor:pointer;
-  font-weight:bold;
-}
+button{background:#08783e;color:white;border:0;cursor:pointer;font-weight:bold}
 button.secondary{background:#555}
 button:disabled{opacity:.6}
-.application{
-  border:1px solid #ddd;
-  border-radius:10px;
-  padding:15px;
-  margin:15px 0;
-  overflow-wrap:anywhere;
-}
+.application{border:1px solid #ddd;border-radius:10px;padding:15px;margin:15px 0;overflow-wrap:anywhere}
 .application p{line-height:1.5}
 .hidden{display:none}
 .status{font-weight:bold}
@@ -61,34 +26,23 @@ button:disabled{opacity:.6}
 .small{font-size:13px;color:#555}
 </style>
 </head>
-
 <body>
 <header>
   <h1>ARNAUD STUDENT VERIFICATION</h1>
   <p>African Roots, Global Vision</p>
   <div>Administrator Dashboard</div>
 </header>
-
 <main>
   <section class="card" id="loginPanel">
     <h2>Administrator Login</h2>
-    <p class="small">
-      Sign in using your authorized administrator account.
-    </p>
-
+    <p class="small">Sign in using your authorized administrator account.</p>
     <form id="loginForm">
-      <input id="email" type="email"
-        placeholder="Administrator email" required>
-
-      <input id="password" type="password"
-        placeholder="Password" required>
-
+      <input id="email" type="email" placeholder="Administrator email" required>
+      <input id="password" type="password" placeholder="Password" required>
       <button type="submit">SIGN IN</button>
     </form>
-
     <p id="loginMessage" class="notice" aria-live="polite"></p>
   </section>
-
   <section id="dashboard" class="hidden">
     <div class="card">
       <h2>Dashboard</h2>
@@ -97,25 +51,19 @@ button:disabled{opacity:.6}
       <button id="logoutButton" class="secondary">Sign Out</button>
       <p id="dashboardMessage" class="notice" aria-live="polite"></p>
     </div>
-
     <div class="card">
       <h2>Student Applications</h2>
-      <p class="small">
-        Only applications in the private applications collection
-        are displayed here.
-      </p>
+      <p class="small">Only applications in the private applications collection are displayed here.</p>
       <div id="applicationList">Sign in to load applications.</div>
     </div>
   </section>
 </main>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
 <script>
 const firebaseConfig = {
-  apiKey: "AIzaSyCPoq6oxu0oNmIA19uI4PXM1EKkIbxudPo",
+  apiKey: "AIzaSyCPoq6oxu0oNmIA19Iu4PXM1EKkIbxudPo",
   authDomain: "arnaud-student-verification.firebaseapp.com",
   projectId: "arnaud-student-verification",
   storageBucket: "arnaud-student-verification.firebasestorage.app",
@@ -123,97 +71,68 @@ const firebaseConfig = {
   appId: "1:1005059025981:web:15d9f281e07470daf24e54",
   measurementId: "G-LJ0ZCDFVSK"
 };
-
 firebase.initializeApp(firebaseConfig);
-
 const auth = firebase.auth();
 const db = firebase.firestore();
-
-// Only this Firebase account should be allowed into the dashboard.
 const ADMIN_UID = "5jEJoFV2QfM9BilsYMXJOZDimmQ2";
-
 const loginPanel = document.getElementById("loginPanel");
 const dashboard = document.getElementById("dashboard");
 const loginMessage = document.getElementById("loginMessage");
 const dashboardMessage = document.getElementById("dashboardMessage");
 const applicationList = document.getElementById("applicationList");
-
 document.getElementById("loginForm").addEventListener("submit", async e => {
   e.preventDefault();
   loginMessage.textContent = "Signing in...";
-
   try {
     const credential = await auth.signInWithEmailAndPassword(
       document.getElementById("email").value.trim(),
       document.getElementById("password").value
     );
-
     if (credential.user.uid !== ADMIN_UID) {
       await auth.signOut();
-      loginMessage.textContent =
-        "Access denied. This account is not authorized as administrator.";
+      loginMessage.textContent = "Access denied. This account is not authorized as administrator.";
       return;
     }
-
     loginMessage.textContent = "";
   } catch (error) {
     console.error("Firebase login error:", error);
-
-    loginMessage.textContent =
-      "Login error: " +
-      (error.code || "unknown-error") +
-      " — " +
-      (error.message || "Please try again.");
-
+    loginMessage.textContent = "Login error: " + (error.code || "unknown-error") + " — " + (error.message || "Please try again.");
     loginMessage.style.color = "red";
   }
 });
-
 auth.onAuthStateChanged(async user => {
   if (user && user.uid === ADMIN_UID) {
     loginPanel.classList.add("hidden");
     dashboard.classList.remove("hidden");
-    document.getElementById("accountInfo").textContent =
-      "Signed in as " + user.email;
+    document.getElementById("accountInfo").textContent = "Signed in as " + user.email;
     await loadApplications();
   } else {
     dashboard.classList.add("hidden");
     loginPanel.classList.remove("hidden");
   }
 });
-
 document.getElementById("logoutButton").addEventListener("click", async () => {
   await auth.signOut();
 });
-
 document.getElementById("refreshButton").addEventListener("click", async () => {
   await loadApplications();
 });
-
 function addText(parent, tag, text) {
   const element = document.createElement(tag);
   element.textContent = text;
   parent.appendChild(element);
   return element;
 }
-
 async function loadApplications() {
   applicationList.replaceChildren();
   dashboardMessage.textContent = "Loading applications...";
-
   try {
     const snapshot = await db.collection("applications").get();
-
     if (snapshot.empty) {
       dashboardMessage.textContent = "";
-      addText(
-        applicationList,
-        "p",
-        "No applications have been submitted yet."
-      );
+      addText(applicationList, "p", "No applications have been submitted yet.");
       return;
     }
-
     const documents = snapshot.docs.slice().sort((a, b) => {
       const ad = a.data().createdAt;
       const bd = b.data().createdAt;
@@ -221,31 +140,21 @@ async function loadApplications() {
       const bt = bd && bd.toMillis ? bd.toMillis() : 0;
       return bt - at;
     });
-
-    dashboardMessage.textContent =
-      "Applications found: " + documents.length;
-
+    dashboardMessage.textContent = "Applications found: " + documents.length;
     documents.forEach(doc => {
       const data = doc.data();
       const box = document.createElement("article");
       box.className = "application";
-
       addText(box, "h3", data.fullName || "Name not provided");
       addText(box, "p", "Reference: " + (data.ref || doc.id));
-      addText(box, "p", "Certificate number: " +
-        (data.certificateNumber || "Not provided"));
+      addText(box, "p", "Certificate number: " + (data.certificateNumber || "Not provided"));
       addText(box, "p", "Institution: " + (data.school || "Not provided"));
-      addText(box, "p", "Qualification: " +
-        (data.certificateType || "Not provided"));
+      addText(box, "p", "Qualification: " + (data.certificateType || "Not provided"));
       addText(box, "p", "Course: " + (data.course || "Not provided"));
       addText(box, "p", "Email: " + (data.email || "Not provided"));
       addText(box, "p", "Phone: " + (data.phone || "Not provided"));
-
-      const statusLabel = addText(
-        box, "p", "Application status: " + (data.status || "Pending")
-      );
+      const statusLabel = addText(box, "p", "Application status: " + (data.status || "Pending"));
       statusLabel.className = "status";
-
       const payment = document.createElement("select");
       ["Unpaid", "Pending", "Paid", "Refunded"].forEach(value => {
         const option = document.createElement("option");
@@ -255,7 +164,6 @@ async function loadApplications() {
         payment.appendChild(option);
       });
       box.appendChild(payment);
-
       const status = document.createElement("select");
       ["Pending", "Verified", "Rejected", "Unable to Verify"].forEach(value => {
         const option = document.createElement("option");
@@ -265,7 +173,6 @@ async function loadApplications() {
         status.appendChild(option);
       });
       box.appendChild(status);
-
       const save = document.createElement("button");
       save.textContent = "Save Application Updates";
       save.addEventListener("click", async () => {
@@ -273,16 +180,13 @@ async function loadApplications() {
           alert("Administrator authorization required.");
           return;
         }
-
         save.disabled = true;
-
         try {
           await db.collection("applications").doc(doc.id).update({
             paymentStatus: payment.value,
             status: status.value,
             updatedAt: firebase.firestore.FieldValue.serverTimestamp()
           });
-
           alert("Application updated.");
           await loadApplications();
         } catch (error) {
@@ -292,55 +196,28 @@ async function loadApplications() {
         }
       });
       box.appendChild(save);
-
       const whatsapp = document.createElement("button");
       whatsapp.textContent = "Contact Student on WhatsApp";
       whatsapp.className = "secondary";
       whatsapp.addEventListener("click", () => {
         let phone = String(data.phone || "").replace(/\D/g, "");
-
-        if (phone.startsWith("0")) {
-          phone = "234" + phone.slice(1);
-        }
-
-        if (!phone) {
-          alert("This application has no phone number.");
-          return;
-        }
-
-        const message = encodeURIComponent(
-          "Hello " + (data.fullName || "Student") +
-          ", we are contacting you about your ARNAUD certificate verification application. " +
-          "Reference: " + (data.ref || doc.id)
-        );
-
-        window.open(
-          "https://wa.me/" + phone + "?text=" + message,
-          "_blank",
-          "noopener,noreferrer"
-        );
+        if (phone.startsWith("0")) { phone = "234" + phone.slice(1); }
+        if (!phone) { alert("This application has no phone number."); return; }
+        const message = encodeURIComponent("Hello " + (data.fullName || "Student") + ", we are contacting you about your ARNAUD certificate verification application. Reference: " + (data.ref || doc.id));
+        window.open("https://wa.me/" + phone + "?text=" + message, "_blank", "noopener,noreferrer");
       });
       box.appendChild(whatsapp);
-
       if (data.status === "Verified") {
         const publish = document.createElement("button");
         publish.textContent = "Publish Approved Public Record";
-
         publish.addEventListener("click", async () => {
           if (!auth.currentUser || auth.currentUser.uid !== ADMIN_UID) {
             alert("Administrator authorization required.");
             return;
           }
-
-          const approved = confirm(
-            "Confirm that the issuing institution has verified this certificate " +
-            "and that publication of the limited details is authorized?"
-          );
-
+          const approved = confirm("Confirm that the issuing institution has verified this certificate and that publication of the limited details is authorized?");
           if (!approved) return;
-
           publish.disabled = true;
-
           try {
             const publicRecord = {
               ref: String(data.ref || doc.id),
@@ -353,11 +230,7 @@ async function loadApplications() {
               status: "Verified",
               publishedAt: firebase.firestore.FieldValue.serverTimestamp()
             };
-
-            await db.collection("publicCertificates")
-              .doc(String(data.ref || doc.id))
-              .set(publicRecord);
-
+            await db.collection("publicCertificates").doc(String(data.ref || doc.id)).set(publicRecord);
             alert("Public record published.");
           } catch (error) {
             console.error(error);
@@ -366,24 +239,16 @@ async function loadApplications() {
             publish.disabled = false;
           }
         });
-
         box.appendChild(publish);
       }
-
       applicationList.appendChild(box);
     });
-
   } catch (error) {
     console.error(error);
-    dashboardMessage.textContent =
-      "Unable to load applications. Check Firebase security rules and connection.";
-    addText(
-      applicationList,
-      "p",
-      "No application data was changed. Please check the database permissions."
-    );
+    dashboardMessage.textContent = "Unable to load applications. Check Firebase security rules and connection.";
+    addText(applicationList, "p", "No application data was changed. Please check the database permissions.");
   }
 }
 </script>
 </body>
-      </html>
+        </html>
