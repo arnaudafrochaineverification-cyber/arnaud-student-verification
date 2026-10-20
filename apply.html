@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>International Student Application | ARNAUD</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3fff5;
+  color: #17231a;
+}
+
+header {
+  background: #08783e;
+  color: white;
+  text-align: center;
+  padding: 25px 15px;
+}
+
+header h1 {
+  font-size: 23px;
+  margin: 0;
+}
+
+header p {
+  color: #ffe09a;
+  margin-bottom: 0;
+}
+
+main {
+  max-width: 760px;
+  margin: 25px auto;
+  padding: 15px;
+}
+
+.card {
+  background: white;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px #0001;
+}
+
+h2 {
+  color: #08783e;
+}
+
+.intro {
+  line-height: 1.7;
+  color: #555;
+}
+
+label {
+  display: block;
+  margin-top: 16px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+input, select, textarea, button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 7px;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+input, select, textarea {
+  border: 1px solid #bbb;
+  background: white;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+button {
+  background: #08783e;
+  color: white;
+  border: 0;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 22px;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.notice {
+  margin-top: 18px;
+  padding: 15px;
+  border-radius: 8px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.small {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #555;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 13px;
+  color: #555;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>ARNAUD STUDENT VERIFICATION</h1>
+  <p>African Roots, Global Vision</p>
+  <div>International Student Application Portal</div>
+</header>
+
+<main>
+  <section class="card">
+
+    <h2>Apply for Verification</h2>
+
+    <p class="intro">
+      Submit your academic verification request through
+      ARNAUD STUDENT VERIFICATION. Complete the form accurately.
+      Submission does not automatically mean that your qualification
+      has been verified or approved.
+    </p>
+
+    <form id="applicationForm">
+
+      <label for="fullName">Full Legal Name *</label>
+      <input
+        id="fullName"
+        name="fullName"
+        type="text"
+        maxlength="100"
+        autocomplete="name"
+        required
+      >
+
+      <label for="email">Email Address *</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        maxlength="254"
+        autocomplete="email"
+        required
+      >
+
+      <label for="phone">International Phone / WhatsApp Number *</label>
+      <input
+        id="phone"
+        name="phone"
+        type="tel"
+        maxlength="25"
+        placeholder="+2348012345678"
+        autocomplete="tel"
+        required
+      >
+
+      <label for="country">Country *</label>
+      <input
+        id="country"
+        name="country"
+        type="text"
+        maxlength="80"
+        placeholder="Country where you studied"
+        required
+      >
+
+      <label for="school">Institution Name *</label>
+      <input
+        id="school"
+        name="school"
+        type="text"
+        maxlength="150"
+        placeholder="Name of university or institution"
+        required
+      >
+
+      <label for="studentNumber">
+        Student / Matriculation Number *
+      </label>
+      <input
+        id="studentNumber"
+        name="studentNumber"
+        type="text"
+        maxlength="60"
+        required
+      >
+
+      <label for="course">Course of Study *</label>
+      <input
+        id="course"
+        name="course"
+        type="text"
+        maxlength="120"
+        required
+      >
+
+      <label for="certificateType">
+        Service Requested *
+      </label>
+      <select
+        id="certificateType"
+        name="certificateType"
+        required
+      >
+        <option value="">Select a service</option>
+        <option value="Certificate Verification">
+          Certificate Verification
+        </option>
+        <option value="Transcript Verification">
+          Transcript Verification
+        </option>
+        <option value="Academic Qualification Verification">
+          Academic Qualification Verification
+        </option>
+        <option value="Other Academic Verification">
+          Other Academic Verification
+        </option>
+      </select>
+
+      <label for="graduationYear">Graduation Year *</label>
+      <input
+        id="graduationYear"
+        name="graduationYear"
+        type="number"
+        min="1900"
+        max="2100"
+        required
+      >
+
+      <label for="purpose">Purpose of Verification *</label>
+      <select id="purpose" name="purpose" required>
+        <option value="">Select purpose</option>
+        <option value="Employment">Employment</option>
+        <option value="Further Studies">Further Studies</option>
+        <option value="WES or Credential Evaluation">
+          WES or Credential Evaluation
+        </option>
+        <option value="Immigration">Immigration</option>
+        <option value="Professional Registration">
+          Professional Registration
+        </option>
+        <option value="Other">Other</option>
+      </select>
+
+      <p class="small">
+        Submit only information needed for your application.
+        Do not enter passwords, payment card details, or unrelated
+        sensitive information. Additional documents may be requested
+        through an approved secure process.
+      </p>
+
+      <label>
+        <input
+          id="consent"
+          type="checkbox"
+          required
+          style="width:auto"
+        >
+        I confirm that the information provided is accurate and
+        agree to its use for processing this verification request.
+      </label>
+
+      <button id="submitButton" type="submit">
+        SUBMIT APPLICATION
+      </button>
+
+    </form>
+
+    <div
+      id="result"
+      class="notice hidden"
+      aria-live="polite"
+    ></div>
+
+  </section>
+</main>
+
+<footer>
+  ARNAUD STUDENT VERIFICATION<br>
+  African Roots, Global Vision
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCPoq6oxu0oNmIA19Iu4PXM1EKkIbxudPo",
+  authDomain: "arnaud-student-verification.firebaseapp.com",
+  projectId: "arnaud-student-verification",
+  storageBucket: "arnaud-student-verification.firebasestorage.app",
+  messagingSenderId: "1005059025981",
+  appId: "1:1005059025981:web:15d9f281e07470daf24e54",
+  measurementId: "G-LJ0ZCDFVSK"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
+const form = document.getElementById("applicationForm");
+const submitButton = document.getElementById("submitButton");
+const result = document.getElementById("result");
+
+function showMessage(message, success) {
+  result.classList.remove("hidden");
+  result.style.background = success ? "#e8f7eb" : "#fff0f0";
+  result.style.color = success ? "#075b2d" : "#8b0000";
+  result.replaceChildren();
+
+  const paragraph = document.createElement("p");
+  paragraph.textContent = message;
+  result.appendChild(paragraph);
+}
+
+function getValue(id) {
+  return document.getElementById(id).value.trim();
+}
+
+form.addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  if (!form.reportValidity()) return;
+
+  if (!document.getElementById("consent").checked) {
+    showMessage("Please confirm the consent statement.", false);
+    return;
+  }
+
+  const graduationYear = Number(getValue("graduationYear"));
+
+  if (
+    !Number.isInteger(graduationYear) ||
+    graduationYear < 1900 ||
+    graduationYear > 2100
+  ) {
+    showMessage("Please enter a valid graduation year.", false);
+    return;
+  }
+
+  const phone = getValue("phone");
+
+  if (!/^\+?[0-9\s().-]{7,25}$/.test(phone)) {
+    showMessage(
+      "Enter a valid international phone number, including your country code.",
+      false
+    );
+    return;
+  }
+
+  submitButton.disabled = true;
+  submitButton.textContent = "SUBMITTING...";
+
+  try {
+    // The database creates a unique document ID.
+    const applicationRef = db.collection("applications").doc();
+
+    // This reference is for tracking the application, not a certificate.
+    const applicationNumber =
+      "AA-INT-" +
+      applicationRef.id.substring(0, 8).toUpperCase();
+
+    const application = {
+      ref: applicationNumber,
+      certificateNumber: "",
+      fullName: getValue("fullName"),
+      email: getValue("email"),
+      phone: phone,
+      country: getValue("country"),
+      school: getValue("school"),
+      studentNumber: getValue("studentNumber"),
+      course: getValue("course"),
+      certificateType: getValue("certificateType"),
+      graduationYear: graduationYear,
+      purpose: getValue("purpose"),
+
+      status: "Pending",
+      paymentStatus: "Unpaid",
+
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    await applicationRef.set(application);
+
+    form.reset();
+
+    showMessage(
+      "Your application was submitted successfully. " +
+      "Your application reference is " + applicationNumber +
+      ". Keep this reference for future enquiries. " +
+      "Your application is pending review; this is not confirmation " +
+      "that your qualification has been verified.",
+      true
+    );
+
+  } catch (error) {
+    console.error("Application submission error:", error);
+
+    showMessage(
+      "Your application could not be submitted. " +
+      "Please try again later or contact the administrator. " +
+      "If you are unsure whether it was submitted, contact support " +
+      "before submitting another application.",
+      false
+    );
+
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "SUBMIT APPLICATION";
+  }
+});
+</script>
+
+</body>
+</html>
