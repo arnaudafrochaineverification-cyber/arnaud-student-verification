@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<meta name="description" content="International academic certificate, transcript and qualification verification application portal.">
+<meta name="theme-color" content="#08783e">
+
 <title>International Student Application | ARNAUD</title>
 
 <style>
@@ -27,15 +30,21 @@ header {
 
 header h1 {
   font-size: 23px;
+  line-height: 1.4;
   margin: 0;
 }
 
 header p {
   color: #ffe09a;
-  margin-bottom: 0;
+  margin-bottom: 8px;
+}
+
+header div {
+  font-size: 14px;
 }
 
 main {
+  width: 100%;
   max-width: 760px;
   margin: 25px auto;
   padding: 15px;
@@ -64,7 +73,10 @@ label {
   font-size: 14px;
 }
 
-input, select, textarea, button {
+input,
+select,
+textarea,
+button {
   width: 100%;
   padding: 13px;
   margin-top: 7px;
@@ -72,9 +84,19 @@ input, select, textarea, button {
   font-size: 15px;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   border: 1px solid #bbb;
   background: white;
+  color: #17231a;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid #08783e;
+  outline-offset: 2px;
 }
 
 textarea {
@@ -89,6 +111,11 @@ button {
   font-weight: bold;
   cursor: pointer;
   margin-top: 22px;
+  min-height: 48px;
+}
+
+button:hover:not(:disabled) {
+  background: #065c30;
 }
 
 button:disabled {
@@ -110,15 +137,44 @@ button:disabled {
   color: #555;
 }
 
+.consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-weight: normal;
+  line-height: 1.6;
+}
+
+.consent-label input {
+  width: auto;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
 footer {
   text-align: center;
-  padding: 25px;
+  padding: 25px 15px;
   font-size: 13px;
   color: #555;
+  line-height: 1.8;
 }
 
 .hidden {
   display: none;
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 20px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  main {
+    margin: 12px auto;
+  }
 }
 </style>
 </head>
@@ -150,6 +206,7 @@ footer {
         id="fullName"
         name="fullName"
         type="text"
+        minlength="2"
         maxlength="100"
         autocomplete="name"
         required
@@ -170,6 +227,7 @@ footer {
         id="phone"
         name="phone"
         type="tel"
+        minlength="7"
         maxlength="25"
         placeholder="+2348012345678"
         autocomplete="tel"
@@ -181,8 +239,10 @@ footer {
         id="country"
         name="country"
         type="text"
+        minlength="2"
         maxlength="80"
         placeholder="Country where you studied"
+        autocomplete="country-name"
         required
       >
 
@@ -191,6 +251,7 @@ footer {
         id="school"
         name="school"
         type="text"
+        minlength="2"
         maxlength="150"
         placeholder="Name of university or institution"
         required
@@ -203,6 +264,7 @@ footer {
         id="studentNumber"
         name="studentNumber"
         type="text"
+        minlength="1"
         maxlength="60"
         required
       >
@@ -212,28 +274,31 @@ footer {
         id="course"
         name="course"
         type="text"
+        minlength="2"
         maxlength="120"
         required
       >
 
-      <label for="certificateType">
-        Service Requested *
-      </label>
+      <label for="certificateType">Service Requested *</label>
       <select
         id="certificateType"
         name="certificateType"
         required
       >
         <option value="">Select a service</option>
+
         <option value="Certificate Verification">
           Certificate Verification
         </option>
+
         <option value="Transcript Verification">
           Transcript Verification
         </option>
+
         <option value="Academic Qualification Verification">
           Academic Qualification Verification
         </option>
+
         <option value="Other Academic Verification">
           Other Academic Verification
         </option>
@@ -246,21 +311,28 @@ footer {
         type="number"
         min="1900"
         max="2100"
+        step="1"
         required
       >
 
       <label for="purpose">Purpose of Verification *</label>
       <select id="purpose" name="purpose" required>
         <option value="">Select purpose</option>
+
         <option value="Employment">Employment</option>
+
         <option value="Further Studies">Further Studies</option>
+
         <option value="WES or Credential Evaluation">
           WES or Credential Evaluation
         </option>
+
         <option value="Immigration">Immigration</option>
+
         <option value="Professional Registration">
           Professional Registration
         </option>
+
         <option value="Other">Other</option>
       </select>
 
@@ -271,15 +343,17 @@ footer {
         through an approved secure process.
       </p>
 
-      <label>
+      <label for="consent" class="consent-label">
         <input
           id="consent"
+          name="consent"
           type="checkbox"
           required
-          style="width:auto"
         >
-        I confirm that the information provided is accurate and
-        agree to its use for processing this verification request.
+        <span>
+          I confirm that the information provided is accurate and
+          agree to its use for processing this verification request.
+        </span>
       </label>
 
       <button id="submitButton" type="submit">
@@ -291,6 +365,7 @@ footer {
     <div
       id="result"
       class="notice hidden"
+      role="status"
       aria-live="polite"
     ></div>
 
@@ -306,6 +381,20 @@ footer {
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <script>
+"use strict";
+
+/*
+  ARNAUD STUDENT VERIFICATION
+  Firebase project:
+  arnaud-student-verification
+
+  Collection:
+  applications
+
+  Compatibility:
+  Existing Firestore application field names and security rules.
+*/
+
 const firebaseConfig = {
   apiKey: "AIzaSyCPoq6oxu0oNmIA19Iu4PXM1EKkIbxudPo",
   authDomain: "arnaud-student-verification.firebaseapp.com",
@@ -316,55 +405,217 @@ const firebaseConfig = {
   measurementId: "G-LJ0ZCDFVSK"
 };
 
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.firestore();
-
 const form = document.getElementById("applicationForm");
 const submitButton = document.getElementById("submitButton");
 const result = document.getElementById("result");
 
+let db = null;
+let firebaseReady = false;
+
 function showMessage(message, success) {
   result.classList.remove("hidden");
+
   result.style.background = success ? "#e8f7eb" : "#fff0f0";
   result.style.color = success ? "#075b2d" : "#8b0000";
+
   result.replaceChildren();
 
   const paragraph = document.createElement("p");
   paragraph.textContent = message;
+
   result.appendChild(paragraph);
+
+  result.scrollIntoView({
+    behavior: "smooth",
+    block: "nearest"
+  });
 }
 
 function getValue(id) {
   return document.getElementById(id).value.trim();
 }
 
+/*
+  Generate a reference with exactly eight hexadecimal characters.
+  This matches the Firestore rule:
+  ^AA-INT-[A-F0-9]{8}$
+*/
+function generateApplicationReference() {
+  if (!window.crypto || !window.crypto.getRandomValues) {
+    throw new Error("Secure reference generation is unavailable.");
+  }
+
+  const randomBytes = new Uint8Array(4);
+
+  window.crypto.getRandomValues(randomBytes);
+
+  const suffix = Array.from(randomBytes)
+    .map(function(byte) {
+      return byte.toString(16).padStart(2, "0");
+    })
+    .join("")
+    .toUpperCase();
+
+  return "AA-INT-" + suffix;
+}
+
+/*
+  Initialize Firebase safely.
+*/
+try {
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+
+  db = firebase.firestore();
+  firebaseReady = true;
+
+} catch (error) {
+  console.error("Firebase initialization failed:", error);
+
+  showMessage(
+    "The application service is temporarily unavailable. " +
+    "Please try again later.",
+    false
+  );
+}
+
+/*
+  Submit the student application.
+*/
 form.addEventListener("submit", async function(event) {
   event.preventDefault();
 
-  if (!form.reportValidity()) return;
-
-  if (!document.getElementById("consent").checked) {
-    showMessage("Please confirm the consent statement.", false);
+  if (!form.reportValidity()) {
     return;
   }
 
-  const graduationYear = Number(getValue("graduationYear"));
+  if (!firebaseReady || !db) {
+    showMessage(
+      "The application service is not ready. " +
+      "Please refresh the page and try again.",
+      false
+    );
+    return;
+  }
+
+  if (!document.getElementById("consent").checked) {
+    showMessage(
+      "Please confirm the consent statement before submitting.",
+      false
+    );
+    return;
+  }
+
+  const fullName = getValue("fullName");
+  const email = getValue("email");
+  const phone = getValue("phone");
+  const country = getValue("country");
+  const school = getValue("school");
+  const studentNumber = getValue("studentNumber");
+  const course = getValue("course");
+  const certificateType = getValue("certificateType");
+  const purpose = getValue("purpose");
+
+  const graduationYearText = getValue("graduationYear");
+  const graduationYear = Number(graduationYearText);
+
+  if (fullName.length < 2 || fullName.length > 100) {
+    showMessage(
+      "Please enter your full legal name.",
+      false
+    );
+    return;
+  }
+
+  if (email.length > 254) {
+    showMessage(
+      "Please enter a valid email address.",
+      false
+    );
+    return;
+  }
+
+  if (phone.length < 7 || phone.length > 25 ||
+      !/^\+?[0-9\s().-]{7,25}$/.test(phone)) {
+    showMessage(
+      "Enter a valid international phone number, including your country code.",
+      false
+    );
+    return;
+  }
+
+  if (country.length < 2 || country.length > 80) {
+    showMessage(
+      "Please enter a valid country name.",
+      false
+    );
+    return;
+  }
+
+  if (school.length < 2 || school.length > 150) {
+    showMessage(
+      "Please enter your institution's name.",
+      false
+    );
+    return;
+  }
+
+  if (studentNumber.length < 1 || studentNumber.length > 60) {
+    showMessage(
+      "Please enter your student or matriculation number.",
+      false
+    );
+    return;
+  }
+
+  if (course.length < 2 || course.length > 120) {
+    showMessage(
+      "Please enter your course of study.",
+      false
+    );
+    return;
+  }
 
   if (
     !Number.isInteger(graduationYear) ||
     graduationYear < 1900 ||
     graduationYear > 2100
   ) {
-    showMessage("Please enter a valid graduation year.", false);
+    showMessage(
+      "Please enter a valid graduation year.",
+      false
+    );
     return;
   }
 
-  const phone = getValue("phone");
+  const allowedCertificateTypes = [
+    "Certificate Verification",
+    "Transcript Verification",
+    "Academic Qualification Verification",
+    "Other Academic Verification"
+  ];
 
-  if (!/^\+?[0-9\s().-]{7,25}$/.test(phone)) {
+  if (!allowedCertificateTypes.includes(certificateType)) {
     showMessage(
-      "Enter a valid international phone number, including your country code.",
+      "Please select a valid verification service.",
+      false
+    );
+    return;
+  }
+
+  const allowedPurposes = [
+    "Employment",
+    "Further Studies",
+    "WES or Credential Evaluation",
+    "Immigration",
+    "Professional Registration",
+    "Other"
+  ];
+
+  if (!allowedPurposes.includes(purpose)) {
+    showMessage(
+      "Please select a valid purpose of verification.",
       false
     );
     return;
@@ -374,27 +625,37 @@ form.addEventListener("submit", async function(event) {
   submitButton.textContent = "SUBMITTING...";
 
   try {
-    // The database creates a unique document ID.
+    /*
+      Use a Firestore-generated document ID.
+      Existing administrator dashboards can continue reading
+      the applications collection.
+    */
     const applicationRef = db.collection("applications").doc();
 
-    // This reference is for tracking the application, not a certificate.
-    const applicationNumber =
-      "AA-INT-" +
-      applicationRef.id.substring(0, 8).toUpperCase();
+    /*
+      Match the reference format required by the security rules.
+    */
+    const applicationNumber = generateApplicationReference();
 
+    /*
+      Keep the field names and values compatible with the rules.
+    */
     const application = {
       ref: applicationNumber,
+
       certificateNumber: "",
-      fullName: getValue("fullName"),
-      email: getValue("email"),
+
+      fullName: fullName,
+      email: email,
       phone: phone,
-      country: getValue("country"),
-      school: getValue("school"),
-      studentNumber: getValue("studentNumber"),
-      course: getValue("course"),
-      certificateType: getValue("certificateType"),
+      country: country,
+      school: school,
+      studentNumber: studentNumber,
+      course: course,
+
+      certificateType: certificateType,
       graduationYear: graduationYear,
-      purpose: getValue("purpose"),
+      purpose: purpose,
 
       status: "Pending",
       paymentStatus: "Unpaid",
@@ -402,15 +663,19 @@ form.addEventListener("submit", async function(event) {
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     };
 
+    /*
+      The Firestore security rules must permit this document.
+      The server timestamp is required by the supplied rules.
+    */
     await applicationRef.set(application);
 
     form.reset();
 
     showMessage(
       "Your application was submitted successfully. " +
-      "Your application reference is " + applicationNumber +
-      ". Keep this reference for future enquiries. " +
-      "Your application is pending review; this is not confirmation " +
+      "Your application reference is " + applicationNumber + ". " +
+      "Please save this reference for future enquiries. " +
+      "Your application is pending review. This is not confirmation " +
       "that your qualification has been verified.",
       true
     );
@@ -418,13 +683,23 @@ form.addEventListener("submit", async function(event) {
   } catch (error) {
     console.error("Application submission error:", error);
 
-    showMessage(
-      "Your application could not be submitted. " +
-      "Please try again later or contact the administrator. " +
-      "If you are unsure whether it was submitted, contact support " +
-      "before submitting another application.",
-      false
-    );
+    let message =
+      "Your application could not be confirmed. " +
+      "Please contact the administrator before submitting again " +
+      "if you are unsure whether your application was received.";
+
+    if (error && error.code === "permission-denied") {
+      message =
+        "The application was rejected by the database security rules. " +
+        "Please contact the administrator to check the form and " +
+        "Firestore rules.";
+    } else if (error && error.code === "unavailable") {
+      message =
+        "The service is temporarily unavailable. Check your internet " +
+        "connection and contact support if the problem continues.";
+    }
+
+    showMessage(message, false);
 
   } finally {
     submitButton.disabled = false;
@@ -434,4 +709,4 @@ form.addEventListener("submit", async function(event) {
 </script>
 
 </body>
-</html>
+  </html>
