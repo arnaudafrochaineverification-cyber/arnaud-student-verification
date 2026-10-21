@@ -1,161 +1,705 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Verify published academic certificates through ARNAUD Student Verification.">
-<meta name="theme-color" content="#08783e">
-<title>ARNAUD Student Verification</title>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-<style>
-* { box-sizing: border-box; }
-body { margin: 0; font-family: Arial, sans-serif; background: #f3f7f4; color: #202820; }
-header { background: #08783e; color: white; text-align: center; padding: 25px 15px; }
-header h1 { margin: 0 0 8px; font-size: 25px; }
-header p { margin: 5px 0; }
-.container { width: min(94%, 680px); margin: 25px auto; background: white; padding: 22px; border-radius: 12px; box-shadow: 0 3px 14px #00000012; }
-h2 { color: #08783e; }
-label { display: block; margin: 15px 0 7px; font-weight: bold; }
-input { width: 100%; padding: 13px; border: 1px solid #b8c9bc; border-radius: 7px; font-size: 16px; }
-button { width: 100%; padding: 14px; margin-top: 15px; border: 0; border-radius: 7px; background: #08783e; color: white; font-weight: bold; font-size: 16px; cursor: pointer; }
-button:disabled { opacity: .6; cursor: wait; }
-#message { margin-top: 18px; padding: 13px; border-radius: 7px; overflow-wrap: anywhere; }
-.error { background: #ffebee; color: #a31325; }
-.success { background: #e5f5e9; color: #075d2e; }
-.info { background: #edf3f8; color: #21425c; }
-#result { display: none; margin-top: 22px; padding: 18px; border: 2px solid #08783e; border-radius: 9px; }
-.row { padding: 10px 0; border-bottom: 1px solid #e5e9e6; overflow-wrap: anywhere; }
-.row strong { display: block; margin-bottom: 5px; color: #08783e; }
-#qrArea { text-align: center; margin: 20px 0; }
-#qrcode { display: inline-block; padding: 12px; background: white; }
-#qrcode img, #qrcode canvas { max-width: 100%; height: auto; }
-footer { text-align: center; padding: 20px 10px; color: #536158; font-size: 13px; line-height: 1.7; }
-@media print {
-  body { background: white; }
-  header { background: white; color: #08783e; }
-  .search-area, .no-print, footer { display: none !important; }
-  .container { width: 100%; box-shadow: none; margin: 0; }
-  #result { display: block !important; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#08783e">
+  <meta name="description"
+        content="ARNAUD AFROCHAINE TRUST SYSTEMS LTD — International student applications, academic document services, and certificate verification.">
+
+  <title>ARNAUD AFROCHAINE TRUST SYSTEMS LTD</title>
+
+  <style>
+    :root {
+      --green: #08783e;
+      --dark-green: #07552f;
+      --gold: #d9ad43;
+      --white: #ffffff;
+      --light: #f4f8f5;
+      --text: #26352c;
+      --muted: #68776d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 3px solid var(--gold);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar {
+      max-width: 1200px;
+      margin: auto;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--gold);
+      border: 2px solid var(--gold);
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .brand h1 {
+      color: var(--dark-green);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .brand p {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--dark-green);
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #b18319;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-align: center;
+      font-size: 14px;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-green {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .button-gold {
+      background: var(--gold);
+      color: #17251b;
+    }
+
+    .button-outline {
+      border: 1px solid var(--gold);
+      color: var(--white);
+    }
+
+    .hero {
+      background:
+        linear-gradient(
+          120deg,
+          rgba(4, 65, 35, 0.97),
+          rgba(8, 120, 62, 0.91)
+        );
+      color: var(--white);
+      padding: 90px 20px;
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .hero-content {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: #ffe5a0;
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+      margin-bottom: 22px;
+    }
+
+    .hero h2 {
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.2;
+      max-width: 800px;
+      margin-bottom: 20px;
+    }
+
+    .hero h2 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      max-width: 680px;
+      font-size: 17px;
+      color: #e4f0e8;
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .section {
+      padding: 70px 20px;
+    }
+
+    .section-light {
+      background: var(--light);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 38px;
+    }
+
+    .section-title h2 {
+      color: var(--dark-green);
+      font-size: clamp(25px, 4vw, 36px);
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      max-width: 680px;
+      margin: auto;
+      color: var(--muted);
+    }
+
+    .gold-line {
+      width: 65px;
+      height: 4px;
+      background: var(--gold);
+      margin: 14px auto;
+      border-radius: 5px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid #e0e9e2;
+      border-radius: 12px;
+      padding: 26px;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.035);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      background: #e7f3eb;
+      border-radius: 10px;
+      font-size: 24px;
+      margin-bottom: 17px;
+    }
+
+    .card h3 {
+      color: var(--dark-green);
+      margin-bottom: 10px;
+      font-size: 19px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .text-link {
+      color: var(--green);
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .step {
+      text-align: center;
+      padding: 20px 12px;
+    }
+
+    .step-number {
+      width: 45px;
+      height: 45px;
+      margin: 0 auto 15px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--gold);
+      font-weight: bold;
+      border: 2px solid var(--gold);
+    }
+
+    .step h3 {
+      color: var(--dark-green);
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .cta {
+      background: var(--dark-green);
+      color: var(--white);
+      padding: 55px 20px;
+      text-align: center;
+      border-top: 4px solid var(--gold);
+    }
+
+    .cta h2 {
+      font-size: clamp(25px, 4vw, 35px);
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      color: #dbece0;
+      margin-bottom: 25px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer {
+      background: #052f1b;
+      color: #d5e4d9;
+      padding: 35px 20px 20px;
+    }
+
+    .footer-grid {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 30px;
+    }
+
+    footer h3,
+    footer h4 {
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    footer p,
+    footer a {
+      color: #d5e4d9;
+      font-size: 13px;
+    }
+
+    footer a {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 25px auto 0;
+      padding-top: 18px;
+      border-top: 1px solid #28533b;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    @media (max-width: 800px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav {
+        gap: 12px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .grid,
+      .steps,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 60px 20px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      nav {
+        width: 100%;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+    }
+  </style>
 </head>
+
 <body>
+
 <header>
-  <h1>ARNAUD AFROCHAINE TRUST SYSTEMS LTD</h1>
-  <p><strong>ARNAUD STUDENT VERIFICATION</strong></p>
-  <p>African Roots, Global Vision</p>
+  <div class="topbar">
+
+    <a href="index.html" class="brand">
+      <div class="logo">AA</div>
+
+      <div>
+        <h1>ARNAUD AFROCHAINE<br>TRUST SYSTEMS LTD</h1>
+        <p>International Student & Verification Portal</p>
+      </div>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="#services">Services</a>
+      <a href="apply.html">Apply</a>
+      <a href="track.html">Track</a>
+      <a href="verify.html">Verify Certificate</a>
+      <a href="register.html">Register / Login</a>
+    </nav>
+
+  </div>
 </header>
-<main class="container">
-  <section class="search-area">
-    <h2>Certificate Verification</h2>
-    <p>Enter the certificate number or verification reference.</p>
-    <form id="verifyForm">
-      <label for="reference">Certificate Number / Reference</label>
-      <input id="reference" type="text" maxlength="150" placeholder="Enter certificate number or reference" required>
-      <button id="verifyButton" type="submit">Verify Certificate</button>
-    </form>
-  </section>
-  <div id="message" class="info" role="status">Enter a reference to begin verification.</div>
-  <section id="result">
-    <h2>Certificate Verification Result</h2>
-    <div class="row"><strong>Verification Status</strong><span id="outStatus"></span></div>
-    <div class="row"><strong>Certificate Number</strong><span id="outNumber"></span></div>
-    <div class="row"><strong>Student Name</strong><span id="outName"></span></div>
-    <div class="row"><strong>School / Institution</strong><span id="outSchool"></span></div>
-    <div class="row"><strong>Certificate Type</strong><span id="outType"></span></div>
-    <div class="row"><strong>Course / Qualification</strong><span id="outCourse"></span></div>
-    <div class="row"><strong>Issue Date</strong><span id="outDate"></span></div>
-    <div class="row"><strong>Verification Reference</strong><span id="outReference"></span></div>
-    <div id="qrArea">
-      <h3>Scan to Verify</h3>
-      <div id="qrcode"></div>
-      <p>Scan this QR code to open the online verification page.</p>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-content">
+
+      <div class="badge">
+        INTERNATIONAL STUDENT SERVICES
+      </div>
+
+      <h2>
+        Your Academic Journey.<br>
+        <span>Your Future. Your Verification.</span>
+      </h2>
+
+      <p>
+        Welcome to the ARNAUD AFROCHAINE TRUST SYSTEMS LTD
+        international portal. Access student application services,
+        follow your application progress, and check published
+        certificate verification records.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="apply.html" class="button button-gold">
+          Start an Application
+        </a>
+
+        <a href="register.html" class="button button-outline">
+          Create Student Account
+        </a>
+
+        <a href="verify.html" class="button button-outline">
+          Verify a Certificate
+        </a>
+      </div>
+
     </div>
-    <p><strong>Issued by:</strong><br>ARNAUD AFROCHAINE TRUST SYSTEMS LTD</p>
-    <p><em>African Roots, Global Vision</em></p>
-    <button class="no-print" type="button" onclick="window.print()">Print / Save Verification Result</button>
   </section>
+
+  <section class="section" id="services">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Our Portal Services</h2>
+        <div class="gold-line"></div>
+        <p>
+          Access the available services through the appropriate
+          portal. Each service will use its configured system
+          and security permissions.
+        </p>
+      </div>
+
+      <div class="grid">
+
+        <article class="card">
+          <div class="card-icon">📝</div>
+          <h3>Student Applications</h3>
+          <p>
+            Submit your application and provide the required
+            personal and academic information.
+          </p>
+          <a href="apply.html" class="text-link">
+            Apply Now →
+          </a>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">👤</div>
+          <h3>Student Registration</h3>
+          <p>
+            Create a student account and use email verification
+            to confirm ownership of your email address.
+          </p>
+          <a href="register.html" class="text-link">
+            Register or Sign In →
+          </a>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">📋</div>
+          <h3>Application Tracking</h3>
+          <p>
+            Access the tracking portal to check the progress
+            of your application.
+          </p>
+          <a href="track.html" class="text-link">
+            Track Application →
+          </a>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">🎓</div>
+          <h3>Certificate Verification</h3>
+          <p>
+            Search for a certificate record published for
+            public verification using its reference number.
+          </p>
+          <a href="verify.html" class="text-link">
+            Verify Certificate →
+          </a>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">🔐</div>
+          <h3>Secure Account Access</h3>
+          <p>
+            Use your own account to access features that
+            require student authentication.
+          </p>
+          <a href="register.html" class="text-link">
+            Access Your Account →
+          </a>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">🌐</div>
+          <h3>International Access</h3>
+          <p>
+            Open the portal on a supported phone, tablet,
+            or computer with an internet connection.
+          </p>
+          <a href="apply.html" class="text-link">
+            Explore Application Services →
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-light">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>How to Use the Portal</h2>
+        <div class="gold-line"></div>
+        <p>
+          Follow these general steps to begin your application
+          and access the relevant services.
+        </p>
+      </div>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Register or Apply</h3>
+          <p>
+            Create an account first or begin with the
+            available application form.
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Verify Your Email</h3>
+          <p>
+            If you create an account, follow the verification
+            instructions sent to your email.
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Track Progress</h3>
+          <p>
+            Use the tracking service to access your application
+            status when the tracking system is configured.
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Verify Certificates</h3>
+          <p>
+            Use the public verification service to check
+            certificate records that have been published.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+
+      <h2>Ready to Get Started?</h2>
+
+      <p>
+        Choose the service you need to continue to the
+        appropriate section of the portal.
+      </p>
+
+      <div class="cta-buttons">
+        <a href="apply.html" class="button button-gold">
+          Submit an Application
+        </a>
+
+        <a href="track.html" class="button button-outline">
+          Track Your Application
+        </a>
+
+        <a href="verify.html" class="button button-outline">
+          Verify a Certificate
+        </a>
+      </div>
+
+    </div>
+  </section>
+
 </main>
+
 <footer>
-  ARNAUD AFROCHAINE TRUST SYSTEMS LTD<br>
-  International Student and Academic Certificate Verification<br><br>
-  <span style="font-size:12.5px; color:#6b7a72;">For verification enquiries: ARNAUD AFROCHAINE TRUST SYSTEMS LTD | </span>
-  <a href="tel:+2349132851465" style="color:#08783e; font-weight:bold; text-decoration:underline;">Tel: +234 913 285 1465</a>
+  <div class="footer-grid">
+
+    <div>
+      <h3>ARNAUD AFROCHAINE TRUST SYSTEMS LTD</h3>
+      <p>
+        International student applications and certificate
+        verification services through the ARNAUD portal.
+      </p>
+    </div>
+
+    <div>
+      <h4>Student Services</h4>
+      <a href="register.html">Registration / Login</a>
+      <a href="apply.html">Student Application</a>
+      <a href="track.html">Application Tracking</a>
+    </div>
+
+    <div>
+      <h4>Verification</h4>
+      <a href="verify.html">Certificate Verification</a>
+      <a href="#services">Our Services</a>
+      <a href="index.html">Home</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    &copy; <span id="year"></span>
+    ARNAUD AFROCHAINE TRUST SYSTEMS LTD.
+    All rights reserved.
+  </div>
 </footer>
+
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyCPoq6oxu0oNmIA19Iu4PXM1EKkIbxudPo",
-  authDomain: "arnaud-student-verification.firebaseapp.com",
-  projectId: "arnaud-student-verification",
-  storageBucket: "arnaud-student-verification.firebasestorage.app",
-  messagingSenderId: "1005059025981",
-  appId: "1:1005059025981:web:15d9f281e07470daf24e54",
-  measurementId: "G-LJ0ZCDFVSK"
-};
-if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-const db = firebase.firestore();
-const form = document.getElementById("verifyForm");
-const input = document.getElementById("reference");
-const button = document.getElementById("verifyButton");
-const message = document.getElementById("message");
-const result = document.getElementById("result");
-function showMessage(text, type) { message.textContent = text; message.className = type; message.style.display = "block"; }
-function safeText(value) {
-  if (value === null || value === undefined) return "Not provided";
-  if (typeof value === "string" || typeof value === "number") return String(value);
-  if (value && typeof value.toDate === "function") return value.toDate().toLocaleDateString();
-  return "Not provided";
-}
-function setField(id, value) { document.getElementById(id).textContent = safeText(value); }
-function makeQr(reference) {
-  const qr = document.getElementById("qrcode");
-  qr.replaceChildren();
-  if (typeof QRCode === "undefined") {
-    showMessage("The QR-code service did not load. The certificate record was found, but the QR code could not be generated.", "info");
-    return;
-  }
-  const url = new URL(window.location.pathname, window.location.origin);
-  url.searchParams.set("ref", reference);
-  new QRCode(qr, { text: url.href, width: 190, height: 190, correctLevel: QRCode.CorrectLevel.M });
-}
-async function findRecord(reference) {
-  const direct = await db.collection("publicCertificates").doc(reference).get();
-  if (direct.exists) return { id: direct.id, data: direct.data() };
-  const fields = ["ref", "certificateNumber", "reference"];
-  for (const field of fields) {
-    const snapshot = await db.collection("publicCertificates").where(field, "==", reference).limit(1).get();
-    if (!snapshot.empty) { const doc = snapshot.docs[0]; return { id: doc.id, data: doc.data() }; }
-  }
-  return null;
-}
-async function verify(reference) {
-  reference = String(reference || "").trim();
-  if (!reference) { result.style.display = "none"; showMessage("Please enter a certificate number or reference.", "error"); return; }
-  button.disabled = true; button.textContent = "Checking..."; result.style.display = "none";
-  showMessage("Checking the published verification records...", "info");
-  try {
-    const record = await findRecord(reference);
-    if (!record) { showMessage("No matching public certificate record was found. Please check the reference or contact the issuing institution.", "error"); return; }
-    const data = record.data; const status = String(data.status || "").trim().toLowerCase();
-    if (status !== "verified") { showMessage("A public record exists, but it is not marked Verified. Please contact the issuing institution.", "error"); return; }
-    const publicReference = data.ref || data.certificateNumber || data.reference || record.id;
-    setField("outStatus", "VERIFIED"); setField("outNumber", data.certificateNumber || publicReference);
-    setField("outName", data.fullName); setField("outSchool", data.school);
-    setField("outType", data.certificateType); setField("outCourse", data.course);
-    setField("outDate", data.issueDate); setField("outReference", publicReference);
-    result.style.display = "block";
-    showMessage("Verified: a matching record marked Verified was found in the public certificate register.", "success");
-    makeQr(publicReference);
-  } catch (error) {
-    console.error("Verification error:", error);
-    showMessage("Verification could not be completed. Please check your internet connection and Firestore rules, then try again.", "error");
-  } finally { button.disabled = false; button.textContent = "Verify Certificate"; }
-}
-form.addEventListener("submit", function(event) { event.preventDefault(); verify(input.value); });
-const urlReference = new URLSearchParams(window.location.search).get("ref");
-if (urlReference) { input.value = urlReference; verify(urlReference); }
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
 </script>
+
 </body>
 </html>
