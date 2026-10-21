@@ -1,440 +1,482 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta name="theme-color" content="#08783e">
-  <meta name="description"
-        content="ARNAUD AFROCHAINE TRUST SYSTEMS LTD — International student applications, academic document services, and certificate verification.">
-
-  <title>ARNAUD AFROCHAINE TRUST SYSTEMS LTD</title>
-
-  <style>
-    :root {
-      --green: #08783e;
-      --dark-green: #07552f;
-      --gold: #d9ad43;
-      --white: #ffffff;
-      --light: #f4f8f5;
-      --text: #26352c;
-      --muted: #68776d;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background: var(--white);
-      line-height: 1.7;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    header {
-      background: var(--white);
-      border-bottom: 3px solid var(--gold);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .topbar {
-      max-width: 1200px;
-      margin: auto;
-      padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
-
-    .logo {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: var(--green);
-      color: var(--gold);
-      border: 2px solid var(--gold);
-      display: grid;
-      place-items: center;
-      font-size: 17px;
-      font-weight: bold;
-      flex-shrink: 0;
-    }
-
-    .brand h1 {
-      color: var(--dark-green);
-      font-size: 15px;
-      line-height: 1.4;
-    }
-
-    .brand p {
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      align-items: center;
-    }
-
-    nav a {
-      color: var(--dark-green);
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      color: #b18319;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 12px 20px;
-      border-radius: 6px;
-      font-weight: bold;
-      text-align: center;
-      font-size: 14px;
-      transition: 0.2s;
-      cursor: pointer;
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-    }
-
-    .button-green {
-      background: var(--green);
-      color: var(--white);
-    }
-
-    .button-gold {
-      background: var(--gold);
-      color: #17251b;
-    }
-
-    .button-outline {
-      border: 1px solid var(--gold);
-      color: var(--white);
-    }
-
-    .hero {
-      background:
-        linear-gradient(
-          120deg,
-          rgba(4, 65, 35, 0.97),
-          rgba(8, 120, 62, 0.91)
-        );
-      color: var(--white);
-      padding: 90px 20px;
-      border-bottom: 5px solid var(--gold);
-    }
-
-    .hero-content {
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .badge {
-      display: inline-block;
-      border: 1px solid var(--gold);
-      color: #ffe5a0;
-      padding: 6px 12px;
-      border-radius: 30px;
-      font-size: 12px;
-      margin-bottom: 22px;
-    }
-
-    .hero h2 {
-      font-size: clamp(30px, 5vw, 54px);
-      line-height: 1.2;
-      max-width: 800px;
-      margin-bottom: 20px;
-    }
-
-    .hero h2 span {
-      color: var(--gold);
-    }
-
-    .hero p {
-      max-width: 680px;
-      font-size: 17px;
-      color: #e4f0e8;
-      margin-bottom: 28px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .section {
-      padding: 70px 20px;
-    }
-
-    .section-light {
-      background: var(--light);
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 38px;
-    }
-
-    .section-title h2 {
-      color: var(--dark-green);
-      font-size: clamp(25px, 4vw, 36px);
-      margin-bottom: 10px;
-    }
-
-    .section-title p {
-      max-width: 680px;
-      margin: auto;
-      color: var(--muted);
-    }
-
-    .gold-line {
-      width: 65px;
-      height: 4px;
-      background: var(--gold);
-      margin: 14px auto;
-      border-radius: 5px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .card {
-      background: var(--white);
-      border: 1px solid #e0e9e2;
-      border-radius: 12px;
-      padding: 26px;
-      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.035);
-    }
-
-    .card-icon {
-      width: 48px;
-      height: 48px;
-      display: grid;
-      place-items: center;
-      background: #e7f3eb;
-      border-radius: 10px;
-      font-size: 24px;
-      margin-bottom: 17px;
-    }
-
-    .card h3 {
-      color: var(--dark-green);
-      margin-bottom: 10px;
-      font-size: 19px;
-    }
-
-    .card p {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 18px;
-    }
-
-    .text-link {
-      color: var(--green);
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .step {
-      text-align: center;
-      padding: 20px 12px;
-    }
-
-    .step-number {
-      width: 45px;
-      height: 45px;
-      margin: 0 auto 15px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: var(--green);
-      color: var(--gold);
-      font-weight: bold;
-      border: 2px solid var(--gold);
-    }
-
-    .step h3 {
-      color: var(--dark-green);
-      font-size: 16px;
-      margin-bottom: 8px;
-    }
-
-    .step p {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .cta {
-      background: var(--dark-green);
-      color: var(--white);
-      padding: 55px 20px;
-      text-align: center;
-      border-top: 4px solid var(--gold);
-    }
-
-    .cta h2 {
-      font-size: clamp(25px, 4vw, 35px);
-      margin-bottom: 12px;
-    }
-
-    .cta p {
-      color: #dbece0;
-      margin-bottom: 25px;
-    }
-
-    .cta-buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    footer {
-      background: #052f1b;
-      color: #d5e4d9;
-      padding: 35px 20px 20px;
-    }
-
-    .footer-grid {
-      max-width: 1100px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 30px;
-    }
-
-    footer h3,
-    footer h4 {
-      color: var(--gold);
-      margin-bottom: 12px;
-    }
-
-    footer p,
-    footer a {
-      color: #d5e4d9;
-      font-size: 13px;
-    }
-
-    footer a {
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    .footer-bottom {
-      max-width: 1100px;
-      margin: 25px auto 0;
-      padding-top: 18px;
-      border-top: 1px solid #28533b;
-      text-align: center;
-      font-size: 12px;
-    }
-
-    @media (max-width: 800px) {
-      .topbar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      nav {
-        gap: 12px;
-      }
-
-      .grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .steps {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .footer-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .grid,
-      .steps,
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding: 60px 20px;
-      }
-
-      .hero p {
-        font-size: 15px;
-      }
-
-      .button {
-        width: 100%;
-      }
-
-      nav {
-        width: 100%;
-      }
-
-      nav a {
-        font-size: 12px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08783e">
+<meta name="description" contVERIFICATIONt tcccctcttttfttftctcctcctctcccc cqqAFROCHAINE TRUST SYSTEMS LTD — International student applications, certificate verification, QR scanning and academic services.">
+
+<title>ARNAUD AFROCHAINE TRUST SYSTEMS LTD</title>
+
+<style>
+:root {
+  --green: #08783e;
+  --dark: #07552f;
+  --gold: #d9ad43;
+  --white: #fff;
+  --light: #f4f8f5;
+  --text: #26352c;
+  --muted: #68776d;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  line-height: 1.7;
+  background: var(--white);
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white;
+  border-bottom: 3px solid var(--gold);
+}
+
+.topbar {
+  max-width: 1200px;
+  margin: auto;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--dark);
+}
+
+.logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.brand h1 {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.brand p {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+nav a {
+  color: var(--dark);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #b18319;
+}
+
+.button {
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 7px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 0;
+}
+
+.button-green {
+  background: var(--green);
+  color: white;
+}
+
+.button-gold {
+  background: var(--gold);
+  color: #17251b;
+}
+
+.button-outline {
+  border: 1px solid var(--gold);
+  color: white;
+}
+
+.hero {
+  background: linear-gradient(120deg, #044123, #08783e);
+  color: white;
+  padding: 75px 20px;
+  border-bottom: 5px solid var(--gold);
+}
+
+.hero-content {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.badge {
+  display: inline-block;
+  border: 1px solid var(--gold);
+  color: #ffe5a0;
+  border-radius: 30px;
+  padding: 5px 12px;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.hero h2 {
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero h2 span {
+  color: var(--gold);
+}
+
+.hero p {
+  max-width: 700px;
+  color: #e4f0e8;
+  margin-bottom: 25px;
+}
+
+.hero-buttons,
+.cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.section {
+  padding: 65px 20px;
+}
+
+.section-light {
+  background: var(--light);
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.section-title h2 {
+  color: var(--dark);
+  font-size: clamp(25px, 4vw, 35px);
+}
+
+.section-title p {
+  max-width: 700px;
+  margin: 10px auto 0;
+  color: var(--muted);
+}
+
+.gold-line {
+  width: 65px;
+  height: 4px;
+  background: var(--gold);
+  margin: 13px auto;
+  border-radius: 5px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 24px;
+  border: 1px solid #e0e9e2;
+  border-radius: 12px;
+  box-shadow: 0 5px 18px #00000008;
+}
+
+.card-icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.card h3 {
+  color: var(--dark);
+  font-size: 19px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.text-link {
+  color: var(--green);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* QR scanner */
+.scanner-card {
+  max-width: 720px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  border: 1px solid #dce9df;
+  box-shadow: 0 5px 20px #0000000b;
+}
+
+.scanner-card p {
+  color: var(--muted);
+  margin-bottom: 15px;
+}
+
+#qr-reader {
+  width: 100%;
+  max-width: 500px;
+  margin: 18px auto;
+}
+
+#qr-reader video {
+  border-radius: 10px;
+}
+
+.scanner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.scanner-actions button {
+  flex: 1;
+  min-width: 150px;
+}
+
+.scanner-status {
+  margin-top: 15px;
+  padding: 12px;
+  background: #eef7f0;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #bbc9bd;
+  border-radius: 7px;
+  margin: 8px 0 12px;
+  font-size: 15px;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.step {
+  text-align: center;
+  padding: 15px;
+}
+
+.step-number {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  font-weight: bold;
+  margin: 0 auto 12px;
+}
+
+.step h3 {
+  color: var(--dark);
+  font-size: 16px;
+  margin-bottom: 7px;
+}
+
+.step p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.cta {
+  background: var(--dark);
+  color: white;
+  padding: 50px 20px;
+  text-align: center;
+  border-top: 4px solid var(--gold);
+}
+
+.cta h2 {
+  font-size: clamp(25px, 4vw, 35px);
+}
+
+.cta p {
+  color: #dbece0;
+  margin: 12px 0 22px;
+}
+
+.cta-buttons {
+  justify-content: center;
+}
+
+.contact-box {
+  text-align: center;
+  background: white;
+  border: 1px solid #dce9df;
+  padding: 25px;
+  border-radius: 12px;
+}
+
+.contact-box p {
+  margin: 8px 0;
+}
+
+.contact-box a {
+  color: var(--green);
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+footer {
+  background: #052f1b;
+  color: #d5e4d9;
+  padding: 35px 20px 20px;
+}
+
+.footer-grid {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 25px;
+}
+
+footer h3,
+footer h4 {
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+footer p,
+footer a {
+  color: #d5e4d9;
+  font-size: 13px;
+}
+
+footer a {
+  display: block;
+  margin-bottom: 8px;
+  overflow-wrap: anywhere;
+}
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 25px auto 0;
+  padding-top: 18px;
+  border-top: 1px solid #28533b;
+  text-align: center;
+  font-size: 12px;
+}
+
+@media (max-width: 800px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .grid,
+  .steps,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 55px 20px;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  nav {
+    gap: 10px;
+  }
+
+  nav a {
+    font-size: 12px;
+  }
+
+  .scanner-card {
+    padding: 17px;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
   <div class="topbar">
-
     <a href="index.html" class="brand">
       <div class="logo">AA</div>
-
       <div>
         <h1>ARNAUD AFROCHAINE<br>TRUST SYSTEMS LTD</h1>
-        <p>International Student & Verification Portal</p>
+        <p>African Roots, Global Vision</p>
       </div>
     </a>
 
@@ -446,230 +488,230 @@
       <a href="verify.html">Verify Certificate</a>
       <a href="StudentRegister.html">Register / Login</a>
     </nav>
-
   </div>
 </header>
 
 <main>
 
-  <section class="hero">
-    <div class="hero-content">
+<section class="hero">
+  <div class="hero-content">
+    <div class="badge">INTERNATIONAL STUDENT SERVICES</div>
 
-      <div class="badge">
-        INTERNATIONAL STUDENT SERVICES
-      </div>
+    <h2>
+      Your Academic Journey.<br>
+      <span>Your Future. Your Verification.</span>
+    </h2>
 
-      <h2>
-        Your Academic Journey.<br>
-        <span>Your Future. Your Verification.</span>
-      </h2>
+    <p>
+      Welcome to ARNAUD AFROCHAINE TRUST SYSTEMS LTD.
+      Submit student applications, track application progress,
+      and check published certificate verification records.
+    </p>
 
+    <div class="hero-buttons">
+      <a href="apply.html" class="button button-gold">Start an Application</a>
+      <a href="StudentRegister.html" class="button button-outline">Create Student Account</a>
+      <a href="verify.html" class="button button-outline">Verify a Certificate</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-title">
+      <h2>Our Portal Services</h2>
+      <div class="gold-line"></div>
+      <p>Choose the service you need from our international portal.</p>
+    </div>
+
+    <div class="grid">
+
+      <article class="card">
+        <div class="card-icon">📝</div>
+        <h3>Student Applications</h3>
+        <p>Submit your application and provide the required academic information.</p>
+        <a href="apply.html" class="text-link">Apply Now →</a>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">👤</div>
+        <h3>Student Registration</h3>
+        <p>Create a student account and verify your email address.</p>
+        <a href="StudentRegister.html" class="text-link">Register or Sign In →</a>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">📋</div>
+        <h3>Application Tracking</h3>
+        <p>Use your tracking details to check application progress.</p>
+        <a href="trackStudentApplication.html" class="text-link">Track Application →</a>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">🎓</div>
+        <h3>Certificate Verification</h3>
+        <p>Check certificate records published for public verification.</p>
+        <a href="verify.html" class="text-link">Verify Certificate →</a>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">📷</div>
+        <h3>QR Code Scanner</h3>
+        <p>Scan a certificate QR code and open the verification service.</p>
+        <a href="#qr-scanner" class="text-link">Open Scanner →</a>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">🌐</div>
+        <h3>International Access</h3>
+        <p>Access the portal from a compatible phone, tablet, or computer.</p>
+        <a href="apply.html" class="text-link">Explore Services →</a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section section-light" id="qr-scanner">
+  <div class="container">
+    <div class="section-title">
+      <h2>Certificate QR Code Scanner</h2>
+      <div class="gold-line"></div>
       <p>
-        Welcome to the ARNAUD AFROCHAINE TRUST SYSTEMS LTD
-        international portal. Access student application services,
-        follow your application progress, and check published
-        certificate verification records.
+        Scan a QR code printed on a certificate. The scanner can open
+        a supported verification link or pass a certificate reference
+        to the verification page. A database check is still required
+        to confirm authenticity.
+      </p>
+    </div>
+
+    <div class="scanner-card">
+      <h3>Scan Your Certificate</h3>
+      <p>
+        Camera access generally requires HTTPS and your permission.
+        If camera access is unavailable, enter the certificate reference
+        below or open the verification page.
       </p>
 
-      <div class="hero-buttons">
-        <a href="apply.html" class="button button-gold">
-          Start an Application
-        </a>
+      <div id="qr-reader"></div>
 
-        <a href="StudentRegister.html" class="button button-outline">
-          Create Student Account
-        </a>
+      <div class="scanner-actions">
+        <button id="startScanner" type="button" class="button button-green">
+          Start Camera Scanner
+        </button>
 
-        <a href="verify.html" class="button button-outline">
-          Verify a Certificate
-        </a>
+        <button id="stopScanner" type="button" class="button button-gold">
+          Stop Scanner
+        </button>
       </div>
 
+      <div id="scannerStatus" class="scanner-status" role="status" aria-live="polite">
+        Scanner is stopped. Tap Start Camera Scanner to begin.
+      </div>
+
+      <label for="certificateReference"><strong>Certificate Reference</strong></label>
+      <input
+        id="certificateReference"
+        type="text"
+        maxlength="150"
+        placeholder="Enter certificate reference"
+        autocomplete="off"
+      >
+
+      <button id="checkReference" type="button" class="button button-green">
+        Continue to Verification
+      </button>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section" id="services">
-    <div class="container">
+<section class="section">
+  <div class="container">
+    <div class="section-title">
+      <h2>How to Use the Portal</h2>
+      <div class="gold-line"></div>
+      <p>Follow these steps to access the available services.</p>
+    </div>
 
-      <div class="section-title">
-        <h2>Our Portal Services</h2>
-        <div class="gold-line"></div>
-        <p>
-          Access the available services through the appropriate
-          portal. Each service will use its configured system
-          and security permissions.
-        </p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Register or Apply</h3>
+        <p>Create an account or begin with the application form.</p>
       </div>
 
-      <div class="grid">
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Verify Your Email</h3>
+        <p>Follow the instructions sent to your email address.</p>
+      </div>
 
-        <article class="card">
-          <div class="card-icon">📝</div>
-          <h3>Student Applications</h3>
-          <p>
-            Submit your application and provide the required
-            personal and academic information.
-          </p>
-          <a href="apply.html" class="text-link">
-            Apply Now →
-          </a>
-        </article>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Track Progress</h3>
+        <p>Use the tracking page to check your application status.</p>
+      </div>
 
-        <article class="card">
-          <div class="card-icon">👤</div>
-          <h3>Student Registration</h3>
-          <p>
-            Create a student account and use email verification
-            to confirm ownership of your email address.
-          </p>
-          <a href="StudentRegister.html" class="text-link">
-            Register or Sign In →
-          </a>
-        </article>
-
-        <article class="card">
-          <div class="card-icon">📋</div>
-          <h3>Application Tracking</h3>
-          <p>
-            Access the tracking portal to check the progress
-            of your application.
-          </p>
-          <a href="trackStudentApplication.html" class="text-link">
-            Track Application →
-          </a>
-        </article>
-
-        <article class="card">
-          <div class="card-icon">🎓</div>
-          <h3>Certificate Verification</h3>
-          <p>
-            Search for a certificate record published for
-            public verification using its reference number.
-          </p>
-          <a href="verify.html" class="text-link">
-            Verify Certificate →
-          </a>
-        </article>
-
-        <article class="card">
-          <div class="card-icon">🔐</div>
-          <h3>Secure Account Access</h3>
-          <p>
-            Use your own account to access features that
-            require student authentication.
-          </p>
-          <a href="StudentRegister.html" class="text-link">
-            Access Your Account →
-          </a>
-        </article>
-
-        <article class="card">
-          <div class="card-icon">🌐</div>
-          <h3>International Access</h3>
-          <p>
-            Open the portal on a supported phone, tablet,
-            or computer with an internet connection.
-          </p>
-          <a href="apply.html" class="text-link">
-            Explore Application Services →
-          </a>
-        </article>
-
+      <div class="step">
+        <div class="step-number">4</div>
+        <h3>Verify Certificates</h3>
+        <p>Search the published verification records.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section section-light">
-    <div class="container">
-
-      <div class="section-title">
-        <h2>How to Use the Portal</h2>
-        <div class="gold-line"></div>
-        <p>
-          Follow these general steps to begin your application
-          and access the relevant services.
-        </p>
-      </div>
-
-      <div class="steps">
-
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Register or Apply</h3>
-          <p>
-            Create an account first or begin with the
-            available application form.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Verify Your Email</h3>
-          <p>
-            If you create an account, follow the verification
-            instructions sent to your email.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>Track Progress</h3>
-          <p>
-            Use the tracking service to access your application
-            status when the tracking system is configured.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">4</div>
-          <h3>Verify Certificates</h3>
-          <p>
-            Use the public verification service to check
-            certificate records that have been published.
-          </p>
-        </div>
-
-      </div>
+<section class="section section-light" id="contact">
+  <div class="container">
+    <div class="section-title">
+      <h2>Contact Our Company</h2>
+      <div class="gold-line"></div>
+      <p>Contact ARNAUD AFROCHAINE TRUST SYSTEMS LTD for enquiries.</p>
     </div>
-  </section>
 
-  <section class="cta">
-    <div class="container">
-
-      <h2>Ready to Get Started?</h2>
-
+    <div class="contact-box">
+      <h3>ARNAUD AFROCHAINE TRUST SYSTEMS LTD</h3>
+      <p><strong>Slogan:</strong> African Roots, Global Vision.</p>
       <p>
-        Choose the service you need to continue to the
-        appropriate section of the portal.
+        <strong>Email:</strong>
+        <a href="mailto:arnaudafrochain@gmail.com">arnaudafrochain@gmail.com</a>
       </p>
-
-      <div class="cta-buttons">
-        <a href="apply.html" class="button button-gold">
-          Submit an Application
-        </a>
-
-        <a href="trackStudentApplication.html" class="button button-outline">
-          Track Your Application
-        </a>
-
-        <a href="verify.html" class="button button-outline">
-          Verify a Certificate
-        </a>
-      </div>
-
+      <p>
+        <strong>Phone:</strong>
+        <a href="tel:+2349132851465">+234 913 285 1465</a>
+      </p>
     </div>
-  </section>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container">
+    <h2>Ready to Get Started?</h2>
+    <p>Choose the service you need to continue.</p>
+
+    <div class="cta-buttons">
+      <a href="apply.html" class="button button-gold">Submit an Application</a>
+      <a href="trackStudentApplication.html" class="button button-outline">Track Application</a>
+      <a href="verify.html" class="button button-outline">Verify a Certificate</a>
+    </div>
+  </div>
+</section>
 
 </main>
 
 <footer>
   <div class="footer-grid">
-
     <div>
       <h3>ARNAUD AFROCHAINE TRUST SYSTEMS LTD</h3>
+      <p>African Roots, Global Vision.</p>
+      <p>International student applications and certificate verification services.</p>
       <p>
-        International student applications and certificate
-        verification services through the ARNAUD portal.
+        Email:
+        <a href="mailto:arnaudafrochain@gmail.com">arnaudafrochain@gmail.com</a>
+      </p>
+      <p>
+        Phone:
+        <a href="tel:+2349132851465">+234 913 285 1465</a>
       </p>
     </div>
 
@@ -683,23 +725,178 @@
     <div>
       <h4>Verification</h4>
       <a href="verify.html">Certificate Verification</a>
-      <a href="#services">Our Services</a>
+      <a href="#qr-scanner">QR Code Scanner</a>
+      <a href="#contact">Contact Us</a>
       <a href="index.html">Home</a>
     </div>
-
   </div>
 
   <div class="footer-bottom">
     &copy; <span id="year"></span>
-    ARNAUD AFROCHAINE TRUST SYSTEMS LTD.
-    All rights reserved.
+    ARNAUD AFROCHAINE TRUST SYSTEMS LTD. All rights reserved.
   </div>
 </footer>
 
+<script src="https://unpkg.com/html5-qrcode"></script>
+
 <script>
-  document.getElementById("year").textContent =
-    new Date().getFullYear();
+"use strict";
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+const scannerStatus = document.getElementById("scannerStatus");
+const referenceInput = document.getElementById("certificateReference");
+const startButton = document.getElementById("startScanner");
+const stopButton = document.getElementById("stopScanner");
+const checkButton = document.getElementById("checkReference");
+
+let qrScanner = null;
+let scannerRunning = false;
+
+function setScannerStatus(message) {
+  scannerStatus.textContent = message;
+}
+
+function openVerification(scannedValue) {
+  const value = String(scannedValue || "").trim();
+
+  if (!value || value.length > 2000) {
+    setScannerStatus("The QR code does not contain a usable value.");
+    return;
+  }
+
+  /*
+    If the QR code contains a URL, only navigate to the same website
+    or to an explicitly trusted verification URL. Do not blindly open
+    arbitrary QR links.
+  */
+  try {
+    const parsedUrl = new URL(value);
+
+    if (parsedUrl.protocol === "https:" || parsedUrl.protocol === "http:") {
+      if (parsedUrl.origin === window.location.origin) {
+        window.location.assign(parsedUrl.href);
+        return;
+      }
+
+      setScannerStatus(
+        "QR code contains an external link. For safety, open your official " +
+        "verification page and check the certificate there."
+      );
+
+      return;
+    }
+  } catch (error) {
+    // The scanned value may be a certificate reference rather than a URL.
+  }
+
+  window.location.href =
+    "verify.html?ref=" + encodeURIComponent(value);
+}
+
+startButton.addEventListener("click", async function() {
+  if (scannerRunning) {
+    setScannerStatus("The scanner is already running.");
+    return;
+  }
+
+  if (!window.Html5Qrcode) {
+    setScannerStatus(
+      "The scanner library could not load. Check your internet connection " +
+      "or enter the certificate reference manually."
+    );
+    return;
+  }
+
+  try {
+    qrScanner = new Html5Qrcode("qr-reader");
+
+    await qrScanner.start(
+      { facingMode: "environment" },
+      {
+        fps: 10,
+        qrbox: { width: 240, height: 240 }
+      },
+      async function(decodedText) {
+        setScannerStatus("QR code detected. Opening verification...");
+
+        try {
+          await qrScanner.stop();
+        } catch (error) {
+          console.warn("Scanner stop notice:", error);
+        }
+
+        scannerRunning = false;
+        openVerification(decodedText);
+      },
+      function() {
+        // Ignore ordinary frames where no QR code is detected.
+      }
+    );
+
+    scannerRunning = true;
+    setScannerStatus("Camera is active. Point it at the certificate QR code.");
+
+  } catch (error) {
+    console.error("QR scanner error:", error);
+
+    scannerRunning = false;
+
+    setScannerStatus(
+      "Unable to start the camera. Allow camera permission and make sure " +
+      "the website uses HTTPS. You can also enter the reference manually."
+    );
+  }
+});
+
+stopButton.addEventListener("click", async function() {
+  if (!qrScanner || !scannerRunning) {
+    setScannerStatus("The scanner is already stopped.");
+    return;
+  }
+
+  try {
+    await qrScanner.stop();
+    scannerRunning = false;
+    setScannerStatus("Scanner stopped.");
+  } catch (error) {
+    console.error("Scanner stop error:", error);
+    setScannerStatus("Could not stop the scanner cleanly. Refresh the page if needed.");
+  }
+});
+
+checkButton.addEventListener("click", function() {
+  const reference = referenceInput.value.trim();
+
+  if (!reference) {
+    setScannerStatus("Enter a certificate reference first.");
+    referenceInput.focus();
+    return;
+  }
+
+  if (reference.length > 150) {
+    setScannerStatus("The reference is too long. Please check it.");
+    return;
+  }
+
+  window.location.href =
+    "verify.html?ref=" + encodeURIComponent(reference);
+});
+
+/*
+  If the homepage was opened with a reference query parameter,
+  preserve it in the input so the visitor can continue verification.
+*/
+const incomingReference = new URLSearchParams(window.location.search).get("ref");
+
+if (incomingReference) {
+  referenceInput.value = incomingReference;
+  setScannerStatus(
+    "A certificate reference was received. Tap Continue to Verification."
+  );
+}
 </script>
 
 </body>
-</html>
+  </html>
