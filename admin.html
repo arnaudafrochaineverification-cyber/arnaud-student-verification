@@ -1,34 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Admin - ARNAUD</title>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin - ARNAUD</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<style>body{font-family:Arial;background:#f3f8f4;padding:15px}.card{background:#fff;max-width:650px;margin:25px auto;padding:20px;border-radius:10px;border:1px solid #ddd}input{width:100%;padding:11px;margin:6px 0;border:1px solid #bbb;border-radius:6px}button{width:100%;padding:12px;background:#08783e;color:#fff;border:0;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:8px}</style>
 </head>
 <body>
-
+<div class="card" id="loginCard">
+<h3>Admin Login - ARNAUD AFROCHAINE TRUST SYSTEMS LTD</h3>
+<input id="email" placeholder="Admin Email"><input id="password" type="password" placeholder="Password">
+<button onclick="login()">Login</button><p id="msg"></p>
+</div>
+<div class="card" id="adminCard" style="display:none">
+<h3>Publish Verified Certificate</h3>
+<p>Your UID: <b id="uidShow"></b></p>
+<input id="ref" placeholder="Reference e.g. ARNAUD-2024-001">
+<input id="fullName" placeholder="Full Name"><input id="school" placeholder="School">
+<input id="certificateType" placeholder="Certificate Type"><input id="course" placeholder="Course">
+<input id="issueDate" placeholder="Issue Date"><input id="certificateNumber" placeholder="Certificate Number">
+<button onclick="handlePublish()">Publish as Verified</button>
+<button onclick="firebase.auth().signOut()" style="background:#333">Logout</button>
+</div>
 <script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCPoq6oxu0oNmIA19Iu4PXM1EKkIbxudPo",
+  authDomain: "arnaud-student-verification.firebaseapp.com",
+  projectId: "arnaud-student-verification",
+  storageBucket: "arnaud-student-verification.firebasestorage.app",
+  messagingSenderId: "1005059025981",
+  appId: "1:1005059025981:web:15d9f281e07470daf24e54",
+  measurementId: "G-LJ0ZCDFVSK"
+};
+firebase.initializeApp(firebaseConfig);
+function login(){ const e=document.getElementById('email').value.trim(); const p=document.getElementById('password').value; firebase.auth().signInWithEmailAndPassword(e,p).then(()=>{}).catch(err=>{document.getElementById('msg').textContent=err.message}); }
+firebase.auth().onAuthStateChanged(user=>{ if(user){ loginCard.style.display='none'; adminCard.style.display='block'; uidShow.textContent=user.uid; } else { loginCard.style.display='block'; adminCard.style.display='none'; } });
 async function publishApprovedCertificate(applicationId, applicationData) {
-  if (!firebase.auth().currentUser) {
-    alert("Please sign in as administrator.");
-    return;
-  }
+  if (!firebase.auth().currentUser) { alert("Please sign in as administrator."); return; }
   const user = firebase.auth().currentUser;
-  if (user.uid !== "5jEJoFV2QfM9BilsYMXJOZDimmQ2") {
-    alert("Administrator access is required.");
-    return;
-  }
-  if (!applicationData || String(applicationData.status || "").trim().toLowerCase() !== "verified") {
-    alert("Only applications marked Verified can be published.");
-    return;
-  }
+  if (user.uid !== "5jEJoFV2QfM9BilsYMXJOZDimmQ2") { alert("Administrator access is required."); return; }
+  if (!applicationData || String(applicationData.status || "").trim().toLowerCase() !== "verified") { alert("Only Verified can be published."); return; }
   const reference = String(applicationData.ref || applicationData.reference || applicationData.certificateNumber || applicationId).trim();
-  if (!reference) {
-    alert("A certificate reference is required.");
-    return;
-  }
+  if (!reference) { alert("A reference is required."); return; }
   const publicRecord = {
     ref: reference,
     certificateNumber: String(applicationData.certificateNumber || reference),
@@ -42,13 +57,14 @@ async function publishApprovedCertificate(applicationId, applicationData) {
   };
   try {
     await firebase.firestore().collection("publicCertificates").doc(reference).set(publicRecord, { merge: true });
-    alert("Certificate published successfully. Its QR verification page is ready.");
-  } catch (error) {
-    console.error("Certificate publishing failed:", error);
-    alert("Publishing failed. Check Firestore security rules and administrator access.");
-  }
+    alert("Published! Check verify.html");
+  } catch (error) { console.error(error); alert("Publishing failed: "+error.message); }
+}
+function handlePublish(){
+  const refVal=document.getElementById('ref').value.trim();
+  const data={ ref:refVal, certificateNumber:document.getElementById('certificateNumber').value.trim()||refVal, fullName:document.getElementById('fullName').value.trim(), school:document.getElementById('school').value.trim(), certificateType:document.getElementById('certificateType').value.trim(), course:document.getElementById('course').value.trim(), issueDate:document.getElementById('issueDate').value.trim(), status:"Verified" };
+  publishApprovedCertificate(refVal, data);
 }
 </script>
-
 </body>
 </html>
