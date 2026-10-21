@@ -1,41 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - ARNAUD</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+<script>
 async function publishApprovedCertificate(applicationId, applicationData) {
   if (!firebase.auth().currentUser) {
     alert("Please sign in as administrator.");
     return;
   }
-
   const user = firebase.auth().currentUser;
-
   if (user.uid !== "5jEJoFV2QfM9BilsYMXJOZDimmQ2") {
     alert("Administrator access is required.");
     return;
   }
-
-  if (
-    !applicationData ||
-    String(applicationData.status || "").trim().toLowerCase() !== "verified"
-  ) {
+  if (!applicationData || String(applicationData.status || "").trim().toLowerCase() !== "verified") {
     alert("Only applications marked Verified can be published.");
     return;
   }
-
-  const reference = String(
-    applicationData.ref ||
-    applicationData.reference ||
-    applicationData.certificateNumber ||
-    applicationId
-  ).trim();
-
+  const reference = String(applicationData.ref || applicationData.reference || applicationData.certificateNumber || applicationId).trim();
   if (!reference) {
     alert("A certificate reference is required.");
     return;
   }
-
   const publicRecord = {
     ref: reference,
-    certificateNumber: String(
-      applicationData.certificateNumber || reference
-    ),
+    certificateNumber: String(applicationData.certificateNumber || reference),
     fullName: String(applicationData.fullName || ""),
     school: String(applicationData.school || ""),
     certificateType: String(applicationData.certificateType || ""),
@@ -44,22 +40,15 @@ async function publishApprovedCertificate(applicationId, applicationData) {
     status: "Verified",
     publishedAt: firebase.firestore.FieldValue.serverTimestamp()
   };
-
   try {
-    await firebase.firestore()
-      .collection("publicCertificates")
-      .doc(reference)
-      .set(publicRecord, { merge: true });
-
-    alert(
-      "Certificate published successfully. Its QR verification page is ready."
-    );
-
+    await firebase.firestore().collection("publicCertificates").doc(reference).set(publicRecord, { merge: true });
+    alert("Certificate published successfully. Its QR verification page is ready.");
   } catch (error) {
     console.error("Certificate publishing failed:", error);
-
-    alert(
-      "Publishing failed. Check Firestore security rules and administrator access."
-    );
+    alert("Publishing failed. Check Firestore security rules and administrator access.");
   }
 }
+</script>
+
+</body>
+</html>
