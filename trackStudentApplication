@@ -6,23 +6,23 @@
 <title>Track Application | ARNAUD</title>
 <style>
 * { box-sizing: border-box; }
-body { margin:0; font-family:Arial,sans-serif; background:#f3fff5; color:#17231a; }
-header { background:#08783e; color:white; text-align:center; padding:25px 15px; }
-header h1 { font-size:22px; margin:0 0 8px; }
-header p { color:#ffe09a; margin:0; }
-main { max-width:600px; margin:30px auto; padding:15px; }
-.card { background:white; padding:24px; border-radius:14px; box-shadow:0 4px 18px #0001; }
-h2 { color:#08783e; }
-.intro { line-height:1.7; color:#555; }
-label { display:block; margin-top:18px; font-weight:bold; font-size:14px; }
-input { width:100%; padding:14px; margin-top:8px; border:1px solid #bbb; border-radius:8px; font-size:16px; }
-button { width:100%; padding:15px; margin-top:22px; border:0; border-radius:8px; background:#08783e; color:white; font-size:16px; font-weight:bold; }
-button:disabled { opacity:0.6; }
-#result { display:none; margin-top:20px; padding:16px; border-radius:8px; line-height:1.8; overflow-wrap:anywhere; }
-.success { background:#e8f7eb; color:#075b2d; }
-.error { background:#fff0f0; color:#8b0000; }
-.row { border-bottom:1px solid #d9e5dc; padding:8px 0; }
-footer { text-align:center; padding:25px; font-size:13px; color:#555; }
+body { margin: 0; font-family: Arial, sans-serif; background: #f3fff5; color: #17231a; }
+header { background: #08783e; color: white; text-align: center; padding: 25px 15px; }
+header h1 { font-size: 22px; margin: 0 0 8px; }
+header p { color: #ffe09a; margin: 0; }
+main { max-width: 600px; margin: 30px auto; padding: 15px; }
+.card { background: white; padding: 24px; border-radius: 14px; box-shadow: 0 4px 18px #0001; }
+h2 { color: #08783e; }
+.intro { line-height: 1.7; color: #555; }
+label { display: block; margin-top: 18px; font-weight: bold; font-size: 14px; }
+input { width: 100%; padding: 14px; margin-top: 8px; border: 1px solid #bbb; border-radius: 8px; font-size: 16px; }
+button { width: 100%; padding: 15px; margin-top: 22px; border: 0; border-radius: 8px; background: #08783e; color: white; font-size: 16px; font-weight: bold; }
+button:disabled { opacity: 0.6; }
+#result { display: none; margin-top: 20px; padding: 16px; border-radius: 8px; line-height: 1.8; overflow-wrap: anywhere; }
+.success { background: #e8f7eb; color: #075b2d; }
+.error { background: #fff0f0; color: #8b0000; }
+.row { border-bottom: 1px solid #d9e5dc; padding: 8px 0; }
+footer { text-align: center; padding: 25px; font-size: 13px; color: #555; }
 </style>
 </head>
 <body>
@@ -34,7 +34,7 @@ footer { text-align:center; padding:25px; font-size:13px; color:#555; }
 <main>
   <section class="card">
     <h2>Track Your Application</h2>
-    <p class="intro">Enter your application reference number and the email address you used when submitting.</p>
+    <p class="intro">Enter your application reference number and the email address you used when submitting your application.</p>
     <form id="trackingForm">
       <label for="reference">Application Reference Number</label>
       <input id="reference" type="text" placeholder="Example: AA-INT-XXXXXXXX" maxlength="100" required>
@@ -57,7 +57,8 @@ const firebaseConfig = {
   projectId: "arnaud-student-verification",
   storageBucket: "arnaud-student-verification.firebasestorage.app",
   messagingSenderId: "1005059025981",
-  appId: "1:1005059025981:web:15d9f281e07470daf24e54"
+  appId: "1:1005059025981:web:15d9f281e07470daf24e54",
+  measurementId: "G-LJ0ZCDFVSK"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -83,34 +84,30 @@ function addRow(label, value) {
   result.appendChild(row);
 }
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
   const reference = document.getElementById("reference").value.trim().toUpperCase();
-  const emailInput = document.getElementById("email").value.trim().toLowerCase();
+  const email = document.getElementById("email").value.trim().toLowerCase();
 
   button.disabled = true;
   button.textContent = "CHECKING...";
   result.style.display = "none";
 
   try {
-    // Search applications by referenceNumber
-    const q = query(collection(db, "applications"), where("referenceNumber", "==", reference));
+    // CORRECTED: Uses your real fields 'ref' and 'email' and queries both together securely
+    const q = query(
+      collection(db, "applications"),
+      where("ref", "==", reference),
+      where("email", "==", email)
+    );
     const snap = await getDocs(q);
 
     if (snap.empty) {
-      showError("No matching application was found. Please check your reference number.");
+      showError("No matching application was found. Please check your reference number and email.");
       return;
     }
 
     const data = snap.docs[0].data();
-    
-    // SECURITY CHECK: Email must match
-    const savedEmail = (data.email || data.emailAddress || "").toLowerCase();
-    if (savedEmail && savedEmail !== emailInput) {
-      showError("Email does not match our records for this reference number.");
-      return;
-    }
-
     result.style.display = "block";
     result.className = "success";
     result.replaceChildren();
@@ -118,22 +115,25 @@ form.addEventListener("submit", async (e) => {
     heading.textContent = "Application Information";
     result.appendChild(heading);
 
-    addRow("Reference", data.referenceNumber || reference);
+    addRow("Reference", data.ref);
     addRow("Student Name", data.fullName);
-    addRow("Institution", data.institution || data.school);
-    addRow("Application Status", data.status || "Pending - Under Review");
-    addRow("Payment Status", data.paymentStatus || "Not Paid");
-    addRow("Submitted", data.createdAt ? new Date(data.createdAt.seconds ? data.createdAt.seconds*1000 : data.createdAt).toLocaleString() : "Available");
+    addRow("Institution", data.school);
+    addRow("Application Status", data.status);
+    addRow("Payment Status", data.paymentStatus);
+    addRow("Certificate Number", data.certificateNumber);
 
     const note = document.createElement("p");
     note.style.marginTop = "14px";
-    note.style.fontSize = "13px";
-    note.textContent = "This tracking shows your application status in Arnaud Afrochaine Trust Systems records. This is not an official university verification. Final certificate verification must be done with the issuing institution.";
+    note.textContent = "Application status is not proof of certificate authenticity. Use the official certificate verification portal for that purpose.";
     result.appendChild(note);
 
   } catch (error) {
-    console.error(error);
-    showError("Unable to fetch record: " + error.message);
+    console.error("Tracking error:", error);
+    if (error.message.includes("index")) {
+      showError("First search needs a one-time index. Go to Firebase Console > Firestore > Indexes > Create Index: collection=applications fields: ref ASCENDING, email ASCENDING. Wait 2 mins then try again.");
+    } else {
+      showError("Unable to retrieve record: " + error.message);
+    }
   } finally {
     button.disabled = false;
     button.textContent = "TRACK MY APPLICATION";
