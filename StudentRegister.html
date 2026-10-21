@@ -3,326 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta name="description"
-        content="Student account registration and application access requests for ARNAUD.">
-
+  <meta name="description" content="Student account registration and application access requests for ARNAUD.">
   <title>Student Account | ARNAUD</title>
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      background: #f3f8f4;
-      color: #222;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 20px auto;
-    }
-
-    .header {
-      background: #08783e;
-      color: white;
-      padding: 25px 18px;
-      text-align: center;
-      border-radius: 12px 12px 0 0;
-    }
-
-    .header h1 {
-      margin: 0 0 8px;
-      font-size: 23px;
-    }
-
-    .header p {
-      margin: 0;
-      line-height: 1.5;
-    }
-
-    .card {
-      background: white;
-      padding: 22px;
-      margin-bottom: 18px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
-    }
-
-    h2 {
-      color: #08783e;
-      font-size: 20px;
-      margin-top: 0;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin: 14px 0 6px;
-    }
-
-    input {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
-    }
-
-    button {
-      width: 100%;
-      padding: 13px;
-      margin-top: 14px;
-      border: none;
-      border-radius: 6px;
-      background: #08783e;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    .secondary {
-      background: #174a72;
-    }
-
-    .danger {
-      background: #9b2525;
-    }
-
-    .message {
-      padding: 12px;
-      margin-top: 14px;
-      border-radius: 6px;
-      line-height: 1.5;
-      overflow-wrap: anywhere;
-    }
-
-    .success {
-      background: #e5f7e9;
-      color: #155724;
-    }
-
-    .error {
-      background: #fde8e8;
-      color: #8a1717;
-    }
-
-    .info {
-      background: #e8f2ff;
-      color: #174a72;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .small {
-      font-size: 14px;
-      line-height: 1.6;
-      color: #555;
-    }
-
-    .status-item {
-      border: 1px solid #ddd;
-      border-radius: 7px;
-      padding: 12px;
-      margin-top: 12px;
-      overflow-wrap: anywhere;
-    }
-
-    footer {
-      text-align: center;
-      color: #666;
-      font-size: 13px;
-      padding: 15px 0;
-    }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 20px; font-family: Arial, sans-serif; background: #f3f8f4; color: #222; }
+    .container { max-width: 600px; margin: 20px auto; }
+    .header { background: #08783e; color: white; padding: 25px 18px; text-align: center; border-radius: 12px 12px 0 0; }
+    .header h1 { margin: 0 0 8px; font-size: 23px; }
+    .header p { margin: 0; line-height: 1.5; }
+    .card { background: white; padding: 22px; margin-bottom: 18px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07); }
+    h2 { color: #08783e; font-size: 20px; margin-top: 0; }
+    label { display: block; font-weight: bold; margin: 14px 0 6px; }
+    input { width: 100%; padding: 13px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+    button { width: 100%; padding: 13px; margin-top: 14px; border: none; border-radius: 6px; background: #08783e; color: white; font-size: 16px; font-weight: bold; cursor: pointer; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .secondary { background: #174a72; }
+    .danger { background: #9b2525; }
+    .message { padding: 12px; margin-top: 14px; border-radius: 6px; line-height: 1.5; overflow-wrap: anywhere; }
+    .success { background: #e5f7e9; color: #155724; }
+    .error { background: #fde8e8; color: #8a1717; }
+    .info { background: #e8f2ff; color: #174a72; }
+    .hidden { display: none; }
+    .small { font-size: 14px; line-height: 1.6; color: #555; }
+    .status-item { border: 1px solid #ddd; border-radius: 7px; padding: 12px; margin-top: 12px; overflow-wrap: anywhere; }
+    footer { text-align: center; color: #666; font-size: 13px; padding: 15px 0; }
   </style>
 </head>
-
 <body>
   <main class="container">
-
     <header class="header">
       <h1>ARNAUD AFROCHAINE</h1>
       <p>International Student Application Portal</p>
       <p>Student Registration & Application Access</p>
     </header>
-
     <section class="card">
       <h2>Create a Student Account</h2>
-
-      <p class="small">
-        Create an account using an email address you can access.
-        You must verify your email before requesting access to an
-        existing application.
-      </p>
-
+      <p class="small">Create an account using an email address you can access. You must verify your email before requesting access to an existing application.</p>
       <form id="registerForm">
         <label for="registerEmail">Your Email Address</label>
-        <input
-          id="registerEmail"
-          type="email"
-          autocomplete="email"
-          maxlength="254"
-          required
-        >
-
+        <input id="registerEmail" type="email" autocomplete="email" maxlength="254" required>
         <label for="registerPassword">Create Password</label>
-        <input
-          id="registerPassword"
-          type="password"
-          autocomplete="new-password"
-          minlength="8"
-          required
-        >
-
-        <button id="registerButton" type="submit">
-          Create Account
-        </button>
+        <input id="registerPassword" type="password" autocomplete="new-password" minlength="8" required>
+        <button id="registerButton" type="submit">Create Account</button>
       </form>
-
       <div id="registerMessage" class="message hidden"></div>
     </section>
-
     <section class="card">
       <h2>Student Login</h2>
-
       <form id="loginForm">
         <label for="loginEmail">Email Address</label>
-        <input
-          id="loginEmail"
-          type="email"
-          autocomplete="email"
-          maxlength="254"
-          required
-        >
-
+        <input id="loginEmail" type="email" autocomplete="email" maxlength="254" required>
         <label for="loginPassword">Password</label>
-        <input
-          id="loginPassword"
-          type="password"
-          autocomplete="current-password"
-          required
-        >
-
-        <button id="loginButton" type="submit">
-          Sign In
-        </button>
+        <input id="loginPassword" type="password" autocomplete="current-password" required>
+        <button id="loginButton" type="submit">Sign In</button>
       </form>
-
-      <button id="resetPasswordButton" class="secondary" type="button">
-        Reset Forgotten Password
-      </button>
-
+      <button id="resetPasswordButton" class="secondary" type="button">Reset Forgotten Password</button>
       <div id="loginMessage" class="message hidden"></div>
     </section>
-
     <section id="accountSection" class="card hidden">
       <h2>Your Student Account</h2>
-
       <p><strong>Signed in as:</strong></p>
       <p id="accountEmail"></p>
-
-      <div id="verificationNotice" class="message info hidden">
-        Your email address is not verified yet.
-        Check your inbox and spam folder for the verification email.
-        After verifying, sign in again.
-      </div>
-
-      <button id="resendVerificationButton"
-              class="secondary hidden"
-              type="button">
-        Send Verification Email Again
-      </button>
-
-      <button id="refreshVerificationButton"
-              class="secondary hidden"
-              type="button">
-        I Have Verified My Email
-      </button>
-
+      <div id="verificationNotice" class="message info hidden">Your email address is not verified yet. Check your inbox and spam folder for the verification email. After verifying, sign in again.</div>
+      <button id="resendVerificationButton" class="secondary hidden" type="button">Send Verification Email Again</button>
+      <button id="refreshVerificationButton" class="secondary hidden" type="button">I Have Verified My Email</button>
       <div id="verifiedSection" class="hidden">
-
         <h2>Request Access to an Existing Application</h2>
-
-        <p class="small">
-          Enter the reference number and the email address you used
-          when submitting your original application. Your request
-          will remain pending until the administrator reviews it.
-        </p>
-
+        <p class="small">Enter the reference number and the email address you used when submitting your original application. Your request will remain pending until the administrator reviews it.</p>
         <form id="requestForm">
           <label for="applicationRef">Application Reference Number</label>
-          <input
-            id="applicationRef"
-            type="text"
-            placeholder="AA-INT-XXXXXXXX"
-            maxlength="20"
-            required
-          >
-
-          <label for="applicationEmail">
-            Email Address Used on the Original Application
-          </label>
-
-          <input
-            id="applicationEmail"
-            type="email"
-            maxlength="254"
-            autocomplete="off"
-            required
-          >
-
-          <button id="requestButton" type="submit">
-            Request Application Access
-          </button>
+          <input id="applicationRef" type="text" placeholder="AA-INT-XXXXXXXX" maxlength="20" required>
+          <label for="applicationEmail">Email Address Used on the Original Application</label>
+          <input id="applicationEmail" type="email" maxlength="254" autocomplete="off" required>
+          <button id="requestButton" type="submit">Request Application Access</button>
         </form>
-
         <div id="requestMessage" class="message hidden"></div>
-
         <h2 style="margin-top: 25px;">My Access Requests</h2>
-
-        <button id="refreshRequestsButton"
-                class="secondary"
-                type="button">
-          Refresh Request Status
-        </button>
-
+        <button id="refreshRequestsButton" class="secondary" type="button">Refresh Request Status</button>
         <div id="requestsList"></div>
-
       </div>
-
-      <button id="logoutButton" class="danger" type="button">
-        Sign Out
-      </button>
+      <button id="logoutButton" class="danger" type="button">Sign Out</button>
     </section>
-
-    <footer>
-      ARNAUD AFROCHAINE TRUST SYSTEMS LTD<br>
-      International Student Application Portal
-    </footer>
-
+    <footer>ARNAUD AFROCHAINE TRUST SYSTEMS LTD<br>International Student Application Portal</footer>
   </main>
-
-  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
   <script>
-    // Existing ARNAUD Firebase project.
     const firebaseConfig = {
-      apiKey: "AIzaSyCPoq6oxu0oNmIA19uI4PXM1EKkIbxudPo",
+      apiKey: "AIzaSyCPoq6oxu0oNmIA19Iu4PXM1EKkIbxudPo",
       authDomain: "arnaud-student-verification.firebaseapp.com",
       projectId: "arnaud-student-verification",
       storageBucket: "arnaud-student-verification.firebasestorage.app",
@@ -330,483 +100,108 @@
       appId: "1:1005059025981:web:15d9f281e07470daf24e54",
       measurementId: "G-LJ0ZCDFVSK"
     };
-
     firebase.initializeApp(firebaseConfig);
-
     const auth = firebase.auth();
     const db = firebase.firestore();
-
     const $ = (id) => document.getElementById(id);
-
     let currentUser = null;
-
-    function showMessage(id, message, type) {
-      const element = $(id);
-
-      element.textContent = message;
-      element.className = "message " + type;
-    }
-
-    function hideMessage(id) {
-      $(id).className = "message hidden";
-      $(id).textContent = "";
-    }
-
-    function setBusy(buttonId, busy, busyText) {
-      const button = $(buttonId);
-
-      if (busy) {
-        button.dataset.originalText = button.textContent;
-        button.textContent = busyText;
-        button.disabled = true;
-      } else {
-        button.textContent =
-          button.dataset.originalText || button.textContent;
-
-        button.disabled = false;
-      }
-    }
-
+    function showMessage(id, message, type) { const element = $(id); element.textContent = message; element.className = "message " + type; }
+    function hideMessage(id) { $(id).className = "message hidden"; $(id).textContent = ""; }
+    function setBusy(buttonId, busy, busyText) { const button = $(buttonId); if (busy) { button.dataset.originalText = button.textContent; button.textContent = busyText; button.disabled = true; } else { button.textContent = button.dataset.originalText || button.textContent; button.disabled = false; } }
     function readableError(error) {
       const messages = {
-        "auth/email-already-in-use":
-          "An account already exists for this email. Please sign in.",
-
-        "auth/invalid-email":
-          "Please enter a valid email address.",
-
-        "auth/weak-password":
-          "Please use a stronger password with at least 8 characters.",
-
-        "auth/invalid-credential":
-          "The email or password is incorrect.",
-
-        "auth/user-not-found":
-          "No account was found. Please register first.",
-
-        "auth/wrong-password":
-          "The password is incorrect.",
-
-        "auth/too-many-requests":
-          "Too many attempts. Please wait and try again.",
-
-        "permission-denied":
-          "The database denied this action. The Firestore security rules must be configured correctly.",
-
-        "unavailable":
-          "The service is temporarily unavailable. Check your internet connection and try again."
+        "auth/email-already-in-use": "An account already exists for this email. Please sign in.",
+        "auth/invalid-email": "Please enter a valid email address.",
+        "auth/weak-password": "Please use a stronger password with at least 8 characters.",
+        "auth/invalid-credential": "The email or password is incorrect.",
+        "auth/user-not-found": "No account was found. Please register first.",
+        "auth/wrong-password": "The password is incorrect.",
+        "auth/too-many-requests": "Too many attempts. Please wait and try again.",
+        "permission-denied": "The database denied this action. The Firestore security rules must be configured correctly.",
+        "unavailable": "The service is temporarily unavailable. Check your internet connection and try again."
       };
-
-      return messages[error.code] ||
-        error.message ||
-        "Something went wrong. Please try again.";
+      return messages[error.code] || error.message || "Something went wrong. Please try again.";
     }
-
-    // Create account.
     $("registerForm").addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      hideMessage("registerMessage");
-
-      const email = $("registerEmail").value.trim();
-      const password = $("registerPassword").value;
-
+      event.preventDefault(); hideMessage("registerMessage");
+      const email = $("registerEmail").value.trim(); const password = $("registerPassword").value;
       setBusy("registerButton", true, "Creating Account...");
-
-      try {
-        const result = await auth.createUserWithEmailAndPassword(
-          email,
-          password
-        );
-
-        await result.user.sendEmailVerification();
-
-        showMessage(
-          "registerMessage",
-          "Your account has been created. A verification email has been sent to " +
-            email +
-            ". Verify your email before requesting access. If necessary, check your spam folder.",
-          "success"
-        );
-
-      } catch (error) {
-        showMessage(
-          "registerMessage",
-          readableError(error),
-          "error"
-        );
-      } finally {
-        setBusy("registerButton", false);
-      }
+      try { const result = await auth.createUserWithEmailAndPassword(email, password); await result.user.sendEmailVerification(); showMessage("registerMessage", "Your account has been created. A verification email has been sent to " + email + ". Verify your email before requesting access. If necessary, check your spam folder.", "success"); }
+      catch (error) { showMessage("registerMessage", readableError(error), "error"); } finally { setBusy("registerButton", false); }
     });
-
-    // Sign in.
     $("loginForm").addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      hideMessage("loginMessage");
-
-      const email = $("loginEmail").value.trim();
-      const password = $("loginPassword").value;
-
+      event.preventDefault(); hideMessage("loginMessage");
+      const email = $("loginEmail").value.trim(); const password = $("loginPassword").value;
       setBusy("loginButton", true, "Signing In...");
-
-      try {
-        await auth.signInWithEmailAndPassword(email, password);
-
-        showMessage(
-          "loginMessage",
-          "Sign-in successful.",
-          "success"
-        );
-
-      } catch (error) {
-        showMessage(
-          "loginMessage",
-          readableError(error),
-          "error"
-        );
-      } finally {
-        setBusy("loginButton", false);
-      }
+      try { await auth.signInWithEmailAndPassword(email, password); showMessage("loginMessage", "Sign-in successful.", "success"); }
+      catch (error) { showMessage("loginMessage", readableError(error), "error"); } finally { setBusy("loginButton", false); }
     });
-
-    // Reset forgotten password.
     $("resetPasswordButton").addEventListener("click", async () => {
-      hideMessage("loginMessage");
-
-      const email = $("loginEmail").value.trim();
-
-      if (!email) {
-        showMessage(
-          "loginMessage",
-          "Enter your email address in the login field first.",
-          "error"
-        );
-        return;
-      }
-
-      try {
-        await auth.sendPasswordResetEmail(email);
-
-        showMessage(
-          "loginMessage",
-          "If an account exists for that address, a password-reset email will be sent. Check your inbox and spam folder.",
-          "success"
-        );
-
-      } catch (error) {
-        showMessage(
-          "loginMessage",
-          readableError(error),
-          "error"
-        );
-      }
+      hideMessage("loginMessage"); const email = $("loginEmail").value.trim();
+      if (!email) { showMessage("loginMessage", "Enter your email address in the login field first.", "error"); return; }
+      try { await auth.sendPasswordResetEmail(email); showMessage("loginMessage", "If an account exists for that address, a password-reset email will be sent. Check your inbox and spam folder.", "success"); }
+      catch (error) { showMessage("loginMessage", readableError(error), "error"); }
     });
-
-    // Send verification email again.
     $("resendVerificationButton").addEventListener("click", async () => {
       if (!currentUser) return;
-
-      try {
-        await currentUser.sendEmailVerification();
-
-        showMessage(
-          "loginMessage",
-          "A new verification email has been sent. Check your inbox and spam folder.",
-          "success"
-        );
-
-      } catch (error) {
-        showMessage(
-          "loginMessage",
-          readableError(error),
-          "error"
-        );
-      }
+      try { await currentUser.sendEmailVerification(); showMessage("loginMessage", "A new verification email has been sent. Check your inbox and spam folder.", "success"); }
+      catch (error) { showMessage("loginMessage", readableError(error), "error"); }
     });
-
-    // Refresh the user's authentication state after email verification.
     $("refreshVerificationButton").addEventListener("click", async () => {
       if (!currentUser) return;
-
-      try {
-        await currentUser.reload();
-
-        currentUser = auth.currentUser;
-
-        if (currentUser && currentUser.emailVerified) {
-          updateAccountDisplay(currentUser);
-          await loadMyRequests();
-
-          showMessage(
-            "loginMessage",
-            "Your email is verified. You can now request application access.",
-            "success"
-          );
-        } else {
-          showMessage(
-            "loginMessage",
-            "Your email is not verified yet. Open the verification email and follow its instructions, then try again.",
-            "info"
-          );
-        }
-
-      } catch (error) {
-        showMessage(
-          "loginMessage",
-          readableError(error),
-          "error"
-        );
-      }
+      try { await currentUser.reload(); currentUser = auth.currentUser; if (currentUser && currentUser.emailVerified) { updateAccountDisplay(currentUser); await loadMyRequests(); showMessage("loginMessage", "Your email is verified. You can now request application access.", "success"); } else { showMessage("loginMessage", "Your email is not verified yet. Open the verification email and follow its instructions, then try again.", "info"); } }
+      catch (error) { showMessage("loginMessage", readableError(error), "error"); }
     });
-
     function updateAccountDisplay(user) {
-      currentUser = user;
-
-      $("accountSection").classList.remove("hidden");
-      $("accountEmail").textContent = user.email || "";
-
+      currentUser = user; $("accountSection").classList.remove("hidden"); $("accountEmail").textContent = user.email || "";
       const verified = user.emailVerified;
-
-      $("verificationNotice").classList.toggle(
-        "hidden",
-        verified
-      );
-
-      $("resendVerificationButton").classList.toggle(
-        "hidden",
-        verified
-      );
-
-      $("refreshVerificationButton").classList.toggle(
-        "hidden",
-        verified
-      );
-
-      $("verifiedSection").classList.toggle(
-        "hidden",
-        !verified
-      );
-
-      if (verified) {
-        loadMyRequests();
-      } else {
-        $("requestsList").textContent = "";
-      }
+      $("verificationNotice").classList.toggle("hidden", verified); $("resendVerificationButton").classList.toggle("hidden", verified); $("refreshVerificationButton").classList.toggle("hidden", verified); $("verifiedSection").classList.toggle("hidden", !verified);
+      if (verified) { loadMyRequests(); } else { $("requestsList").textContent = ""; }
     }
-
-    // Submit an access request. This does NOT grant access to an application.
     $("requestForm").addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      hideMessage("requestMessage");
-
-      if (!currentUser) {
-        showMessage(
-          "requestMessage",
-          "Please sign in first.",
-          "error"
-        );
-        return;
-      }
-
+      event.preventDefault(); hideMessage("requestMessage");
+      if (!currentUser) { showMessage("requestMessage", "Please sign in first.", "error"); return; }
       try {
-        await currentUser.reload();
-        currentUser = auth.currentUser;
-
-        if (!currentUser || !currentUser.emailVerified) {
-          showMessage(
-            "requestMessage",
-            "Please verify your account email before submitting a request.",
-            "error"
-          );
-          return;
-        }
-
-        const ref = $("applicationRef").value
-          .trim()
-          .toUpperCase();
-
-        const applicationEmail = $("applicationEmail").value
-          .trim()
-          .toLowerCase();
-
+        await currentUser.reload(); currentUser = auth.currentUser;
+        if (!currentUser || !currentUser.emailVerified) { showMessage("requestMessage", "Please verify your account email before submitting a request.", "error"); return; }
+        const ref = $("applicationRef").value.trim().toUpperCase(); const applicationEmail = $("applicationEmail").value.trim().toLowerCase();
         const refPattern = /^AA-INT-[A-F0-9]{8}$/;
-
-        if (!refPattern.test(ref)) {
-          showMessage(
-            "requestMessage",
-            "The reference must look like AA-INT-1234ABCD. Please check your original application reference.",
-            "error"
-          );
-          return;
-        }
-
-        if (!applicationEmail || applicationEmail.length > 254) {
-          showMessage(
-            "requestMessage",
-            "Enter the email address used on your original application.",
-            "error"
-          );
-          return;
-        }
-
+        if (!refPattern.test(ref)) { showMessage("requestMessage", "The reference must look like AA-INT-1234ABCD. Please check your original application reference.", "error"); return; }
+        if (!applicationEmail || applicationEmail.length > 254) { showMessage("requestMessage", "Enter the email address used on your original application.", "error"); return; }
         setBusy("requestButton", true, "Submitting Request...");
-
-        await db.collection("applicationAccessRequests").add({
-          uid: currentUser.uid,
-          ref: ref,
-          email: applicationEmail,
-          status: "Pending",
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-
-        $("applicationRef").value = "";
-        $("applicationEmail").value = "";
-
-        showMessage(
-          "requestMessage",
-          "Your access request has been submitted. The administrator must verify your details and approve the request before you can view the application.",
-          "success"
-        );
-
+        await db.collection("applicationAccessRequests").add({ uid: currentUser.uid, ref: ref, email: applicationEmail, status: "Pending", createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+        $("applicationRef").value = ""; $("applicationEmail").value = "";
+        showMessage("requestMessage", "Your access request has been submitted. The administrator must verify your details and approve the request before you can view the application.", "success");
         await loadMyRequests();
-
-      } catch (error) {
-        showMessage(
-          "requestMessage",
-          readableError(error),
-          "error"
-        );
-      } finally {
-        setBusy("requestButton", false);
-      }
+      } catch (error) { showMessage("requestMessage", readableError(error), "error"); } finally { setBusy("requestButton", false); }
     });
-
-    // Show only access requests belonging to the signed-in account.
     async function loadMyRequests() {
-      if (!currentUser || !currentUser.emailVerified) return;
-
-      $("requestsList").textContent = "Loading requests...";
-
+      if (!currentUser || !currentUser.emailVerified) return; $("requestsList").textContent = "Loading requests...";
       try {
-        const snapshot = await db
-          .collection("applicationAccessRequests")
-          .where("uid", "==", currentUser.uid)
-          .get();
-
-        $("requestsList").textContent = "";
-
-        if (snapshot.empty) {
-          $("requestsList").textContent =
-            "You have not submitted any access requests yet.";
-          return;
-        }
-
-        const requests = [];
-
-        snapshot.forEach((doc) => {
-          requests.push({
-            id: doc.id,
-            ...doc.data()
-          });
-        });
-
-        requests.sort((a, b) => {
-          const timeA = a.createdAt && a.createdAt.toMillis
-            ? a.createdAt.toMillis()
-            : 0;
-
-          const timeB = b.createdAt && b.createdAt.toMillis
-            ? b.createdAt.toMillis()
-            : 0;
-
-          return timeB - timeA;
-        });
-
+        const snapshot = await db.collection("applicationAccessRequests").where("uid", "==", currentUser.uid).get(); $("requestsList").textContent = "";
+        if (snapshot.empty) { $("requestsList").textContent = "You have not submitted any access requests yet."; return; }
+        const requests = []; snapshot.forEach((doc) => { requests.push({ id: doc.id, ...doc.data() }); });
+        requests.sort((a, b) => { const timeA = a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis() : 0; const timeB = b.createdAt && b.createdAt.toMillis ? b.createdAt.toMillis() : 0; return timeB - timeA; });
         requests.forEach((request) => {
-          const box = document.createElement("div");
-          box.className = "status-item";
-
-          const refLine = document.createElement("p");
-          refLine.textContent = "Reference: " + (request.ref || "");
-
-          const statusLine = document.createElement("p");
-          statusLine.textContent =
-            "Request status: " + (request.status || "Pending");
-
-          const dateLine = document.createElement("p");
-          const date = request.createdAt &&
-            request.createdAt.toDate
-              ? request.createdAt.toDate().toLocaleString()
-              : "Just submitted";
-
-          dateLine.textContent = "Submitted: " + date;
-
-          box.appendChild(refLine);
-          box.appendChild(statusLine);
-          box.appendChild(dateLine);
-
-          if (request.status === "Approved") {
-            const note = document.createElement("p");
-            note.textContent =
-              "Your request has been approved. Application tracking must be completed through the secure student tracking page.";
-            box.appendChild(note);
-          } else if (request.status === "Rejected") {
-            const note = document.createElement("p");
-            note.textContent =
-              "Your request was not approved. Contact the administrator for assistance.";
-            box.appendChild(note);
-          } else {
-            const note = document.createElement("p");
-            note.textContent =
-              "Your request is waiting for administrator review.";
-            box.appendChild(note);
-          }
-
+          const box = document.createElement("div"); box.className = "status-item";
+          const refLine = document.createElement("p"); refLine.textContent = "Reference: " + (request.ref || "");
+          const statusLine = document.createElement("p"); statusLine.textContent = "Request status: " + (request.status || "Pending");
+          const dateLine = document.createElement("p"); const date = request.createdAt && request.createdAt.toDate ? request.createdAt.toDate().toLocaleString() : "Just submitted"; dateLine.textContent = "Submitted: " + date;
+          box.appendChild(refLine); box.appendChild(statusLine); box.appendChild(dateLine);
+          if (request.status === "Approved") { const note = document.createElement("p"); note.textContent = "Your request has been approved. Application tracking must be completed through the secure student tracking page."; box.appendChild(note); }
+          else if (request.status === "Rejected") { const note = document.createElement("p"); note.textContent = "Your request was not approved. Contact the administrator for assistance."; box.appendChild(note); }
+          else { const note = document.createElement("p"); note.textContent = "Your request is waiting for administrator review."; box.appendChild(note); }
           $("requestsList").appendChild(box);
         });
-
-      } catch (error) {
-        $("requestsList").textContent = readableError(error);
-      }
+      } catch (error) { $("requestsList").textContent = readableError(error); }
     }
-
-    $("refreshRequestsButton").addEventListener(
-      "click",
-      loadMyRequests
-    );
-
-    // Sign out.
+    $("refreshRequestsButton").addEventListener("click", loadMyRequests);
     $("logoutButton").addEventListener("click", async () => {
-      try {
-        await auth.signOut();
-
-        showMessage(
-          "loginMessage",
-          "You have signed out successfully.",
-          "success"
-        );
-
-      } catch (error) {
-        showMessage(
-          "loginMessage",
-          readableError(error),
-          "error"
-        );
-      }
+      try { await auth.signOut(); showMessage("loginMessage", "You have signed out successfully.", "success"); }
+      catch (error) { showMessage("loginMessage", readableError(error), "error"); }
     });
-
-    // Keep the account panel in sync with Firebase Authentication.
     auth.onAuthStateChanged((user) => {
-      if (user) {
-        updateAccountDisplay(user);
-      } else {
-        currentUser = null;
-        $("accountSection").classList.add("hidden");
-        $("requestsList").textContent = "";
-      }
+      if (user) { updateAccountDisplay(user); } else { currentUser = null; $("accountSection").classList.add("hidden"); $("requestsList").textContent = ""; }
     });
   </script>
 </body>
