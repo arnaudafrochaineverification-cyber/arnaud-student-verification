@@ -4,21 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="theme-color" content="#08783e">
-<meta name="description" content="Search ARNAUD STUDENT VERIFICATION records.">
+<meta name="description"
+content="Verify published academic certificates through ARNAUD Student Verification.">
 
-<title>ARNAUD STUDENT VERIFICATION</title>
+<meta name="theme-color" content="#08783e">
+
+<title>ARNAUD Student Verification</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f3fff5;
-  color: #17231a;
+  background: #f3f7f4;
+  color: #202820;
 }
 
 header {
@@ -29,58 +33,48 @@ header {
 }
 
 header h1 {
-  margin: 0;
+  margin: 0 0 8px;
   font-size: 25px;
-  line-height: 1.4;
 }
 
-header p {
-  margin: 8px 0 0;
-  color: #ffe09a;
-}
+header p { margin: 5px 0; }
 
-main {
-  max-width: 650px;
-  margin: 28px auto;
-  padding: 20px;
-}
-
-.card {
+.container {
+  width: min(94%, 680px);
+  margin: 25px auto;
   background: white;
-  padding: 24px;
-  border-radius: 14px;
-  box-shadow: 0 4px 18px #0001;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 3px 14px #00000012;
 }
 
-h2 {
-  color: #08783e;
-}
+h2 { color: #08783e; }
 
-input,
-button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 12px;
-  border-radius: 8px;
-  font-size: 16px;
+label {
+  display: block;
+  margin: 15px 0 7px;
+  font-weight: bold;
 }
 
 input {
-  border: 1px solid #bbb;
-}
-
-input:focus {
-  outline: 2px solid #08783e;
-  outline-offset: 2px;
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #b8c9bc;
+  border-radius: 7px;
+  font-size: 16px;
 }
 
 button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 15px;
   border: 0;
+  border-radius: 7px;
   background: #08783e;
   color: white;
   font-weight: bold;
+  font-size: 16px;
   cursor: pointer;
-  min-height: 48px;
 }
 
 button:disabled {
@@ -88,48 +82,66 @@ button:disabled {
   cursor: wait;
 }
 
-#result {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 8px;
+#message {
+  margin-top: 18px;
+  padding: 13px;
+  border-radius: 7px;
   overflow-wrap: anywhere;
-  line-height: 1.6;
 }
 
-#result:empty {
+.error { background: #ffebee; color: #a31325; }
+.success { background: #e5f5e9; color: #075d2e; }
+.info { background: #edf3f8; color: #21425c; }
+
+#result {
   display: none;
+  margin-top: 22px;
+  padding: 18px;
+  border: 2px solid #08783e;
+  border-radius: 9px;
 }
 
-#result h3 {
-  margin-top: 0;
+.row {
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e9e6;
+  overflow-wrap: anywhere;
+}
+
+.row strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #08783e;
+}
+
+#qrArea {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#qrcode {
+  display: inline-block;
+  padding: 12px;
+  background: white;
+}
+
+#qrcode img, #qrcode canvas {
+  max-width: 100%;
+  height: auto;
 }
 
 footer {
   text-align: center;
-  padding: 25px;
-  color: #555;
+  padding: 20px 10px;
+  color: #536158;
   font-size: 13px;
-  line-height: 1.8;
 }
 
-.small {
-  font-size: 13px;
-  color: #555;
-  line-height: 1.6;
-}
-
-@media (max-width: 480px) {
-  header h1 {
-    font-size: 21px;
-  }
-
-  .card {
-    padding: 18px;
-  }
-
-  main {
-    padding: 12px;
-  }
+@media print {
+  body { background: white; }
+  header { background: white; color: #08783e; }
+  .search-area, .no-print, footer { display: none !important; }
+  .container { width: 100%; box-shadow: none; margin: 0; }
+  #result { display: block !important; }
 }
 </style>
 </head>
@@ -137,57 +149,106 @@ footer {
 <body>
 
 <header>
-  <h1>ARNAUD STUDENT VERIFICATION</h1>
+  <h1>ARNAUD AFROCHAINE TRUST SYSTEMS LTD</h1>
+  <p><strong>ARNAUD STUDENT VERIFICATION</strong></p>
   <p>African Roots, Global Vision</p>
 </header>
 
-<main>
-  <div class="card">
+<main class="container">
 
-    <h2>Verify a Certificate</h2>
-
-    <p>
-      Enter the certificate number or reference supplied by
-      ARNAUD STUDENT VERIFICATION.
-    </p>
+  <section class="search-area">
+    <h2>Certificate Verification</h2>
+    <p>Enter the certificate number or verification reference.</p>
 
     <form id="verifyForm">
+      <label for="reference">Certificate Number / Reference</label>
       <input
-        id="certificateNumber"
+        id="reference"
         type="text"
         maxlength="150"
         placeholder="Enter certificate number or reference"
-        autocomplete="off"
         required
       >
 
       <button id="verifyButton" type="submit">
-        VERIFY CERTIFICATE
+        Verify Certificate
       </button>
     </form>
+  </section>
 
-    <div id="result" aria-live="polite"></div>
+  <div id="message" class="info" role="status">
+    Enter a reference to begin verification.
+  </div>
 
-    <p class="small">
-      A search result alone does not establish that an award is genuine.
-      Verification must be based on reliable records and, where necessary,
-      confirmation from the issuing institution.
+  <section id="result">
+    <h2>Certificate Verification Result</h2>
+
+    <div class="row">
+      <strong>Verification Status</strong>
+      <span id="outStatus"></span>
+    </div>
+
+    <div class="row">
+      <strong>Certificate Number</strong>
+      <span id="outNumber"></span>
+    </div>
+
+    <div class="row">
+      <strong>Student Name</strong>
+      <span id="outName"></span>
+    </div>
+
+    <div class="row">
+      <strong>School / Institution</strong>
+      <span id="outSchool"></span>
+    </div>
+
+    <div class="row">
+      <strong>Certificate Type</strong>
+      <span id="outType"></span>
+    </div>
+
+    <div class="row">
+      <strong>Course / Qualification</strong>
+      <span id="outCourse"></span>
+    </div>
+
+    <div class="row">
+      <strong>Issue Date</strong>
+      <span id="outDate"></span>
+    </div>
+
+    <div class="row">
+      <strong>Verification Reference</strong>
+      <span id="outReference"></span>
+    </div>
+
+    <div id="qrArea">
+      <h3>Scan to Verify</h3>
+      <div id="qrcode"></div>
+      <p>Scan this QR code to open the online verification page.</p>
+    </div>
+
+    <p>
+      <strong>Issued by:</strong><br>
+      ARNAUD AFROCHAINE TRUST SYSTEMS LTD
     </p>
 
-  </div>
+    <p><em>African Roots, Global Vision</em></p>
+
+    <button class="no-print" type="button" onclick="window.print()">
+      Print / Save Verification Result
+    </button>
+  </section>
+
 </main>
 
 <footer>
-  ARNAUD STUDENT VERIFICATION<br>
-  African Roots, Global Vision
+  ARNAUD AFROCHAINE TRUST SYSTEMS LTD<br>
+  International Student and Academic Certificate Verification
 </footer>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
 <script>
-"use strict";
-
 const firebaseConfig = {
   apiKey: "AIzaSyCPoq6oxu0oNmIA19Iu4PXM1EKkIbxudPo",
   authDomain: "arnaud-student-verification.firebaseapp.com",
@@ -205,361 +266,166 @@ if (!firebase.apps.length) {
 const db = firebase.firestore();
 
 const form = document.getElementById("verifyForm");
+const input = document.getElementById("reference");
+const button = document.getElementById("verifyButton");
+const message = document.getElementById("message");
 const result = document.getElementById("result");
-const verifyButton = document.getElementById("verifyButton");
-const certificateInput = document.getElementById("certificateNumber");
 
-/*
-  Display text safely.
-*/
-function setMessage(message, background, color) {
-  result.replaceChildren();
-  result.style.background = background;
-  result.style.color = color;
-
-  const paragraph = document.createElement("p");
-  paragraph.textContent = message;
-
-  result.appendChild(paragraph);
+function showMessage(text, type) {
+  message.textContent = text;
+  message.className = type;
+  message.style.display = "block";
 }
 
-/*
-  Search a collection by document ID, certificate number,
-  ref, or reference.
+function safeText(value) {
+  if (value === null || value === undefined) return "Not provided";
 
-  Return the matching record and its document ID.
-*/
-async function searchCollection(collectionName, number) {
-  const collection = db.collection(collectionName);
-
-  // 1. Search by document ID.
-  const byDocument = await collection.doc(number).get();
-
-  if (byDocument.exists) {
-    return {
-      data: byDocument.data(),
-      documentId: byDocument.id,
-      collectionName: collectionName
-    };
+  if (typeof value === "string" || typeof value === "number") {
+    return String(value);
   }
 
-  // 2. Search by certificate number.
-  const byCertificate = await collection
-    .where("certificateNumber", "==", number)
-    .limit(1)
-    .get();
-
-  if (!byCertificate.empty) {
-    const document = byCertificate.docs[0];
-
-    return {
-      data: document.data(),
-      documentId: document.id,
-      collectionName: collectionName
-    };
+  if (value && typeof value.toDate === "function") {
+    return value.toDate().toLocaleDateString();
   }
 
-  // 3. Search by application/public reference.
-  const byRef = await collection
-    .where("ref", "==", number)
-    .limit(1)
-    .get();
-
-  if (!byRef.empty) {
-    const document = byRef.docs[0];
-
-    return {
-      data: document.data(),
-      documentId: document.id,
-      collectionName: collectionName
-    };
-  }
-
-  // 4. Search by alternate reference field.
-  const byReference = await collection
-    .where("reference", "==", number)
-    .limit(1)
-    .get();
-
-  if (!byReference.empty) {
-    const document = byReference.docs[0];
-
-    return {
-      data: document.data(),
-      documentId: document.id,
-      collectionName: collectionName
-    };
-  }
-
-  return null;
+  return "Not provided";
 }
 
-/*
-  Find the record.
-
-  IMPORTANT:
-  Public certificate records are searched first.
-  Applications are searched only if no public certificate
-  record matches the supplied number.
-*/
-async function findRecord(number) {
-  const publicRecord = await searchCollection(
-    "publicCertificates",
-    number
-  );
-
-  if (publicRecord) {
-    return publicRecord;
-  }
-
-  /*
-    This query is subject to your Firestore security rules.
-    If applications are private, unauthenticated users cannot
-    read them. That is expected and protects student information.
-  */
-  try {
-    const applicationRecord = await searchCollection(
-      "applications",
-      number
-    );
-
-    if (applicationRecord) {
-      return applicationRecord;
-    }
-  } catch (error) {
-    if (
-      error.code !== "permission-denied" &&
-      error.code !== "unauthenticated"
-    ) {
-      throw error;
-    }
-  }
-
-  /*
-    Keep support for a legacy certificates collection.
-  */
-  try {
-    const legacyRecord = await searchCollection(
-      "certificates",
-      number
-    );
-
-    if (legacyRecord) {
-      return legacyRecord;
-    }
-  } catch (error) {
-    if (
-      error.code !== "permission-denied" &&
-      error.code !== "unauthenticated"
-    ) {
-      throw error;
-    }
-  }
-
-  return null;
+function setField(id, value) {
+  document.getElementById(id).textContent = safeText(value);
 }
 
-/*
-  Display a record using its stored status.
+function makeQr(reference) {
+  const qr = document.getElementById("qrcode");
+  qr.replaceChildren();
 
-  Only records explicitly marked Verified are labelled
-  VERIFIED. Approved is displayed as APPROVED.
-*/
-function displayRecord(record, searchedNumber) {
-  const found = record.data || {};
-
-  const status = String(found.status || "Pending").trim();
-
-  const name = String(
-    found.fullName || found.name || "Not provided"
-  );
-
-  const school = String(
-    found.school || found.institution || "Not provided"
-  );
-
-  const type = String(
-    found.certificateType ||
-    found.qualification ||
-    "Not provided"
-  );
-
-  const course = String(
-    found.course || "Not provided"
-  );
-
-  const certificateNumber = String(
-    found.certificateNumber ||
-    found.ref ||
-    found.reference ||
-    record.documentId ||
-    searchedNumber
-  );
-
-  const normalizedStatus = status.toLowerCase();
-
-  let background = "#fff8e1";
-  let headingColor = "#8a5a00";
-  let headingText = "RECORD FOUND";
-
-  if (normalizedStatus === "approved") {
-    background = "#e8f7eb";
-    headingColor = "#075b2d";
-    headingText = "APPROVED";
-  } else if (normalizedStatus === "verified") {
-    background = "#e8f7eb";
-    headingColor = "#075b2d";
-    headingText = "VERIFIED";
-  } else if (
-    normalizedStatus === "rejected" ||
-    normalizedStatus === "declined"
-  ) {
-    background = "#fff0f0";
-    headingColor = "#8b0000";
-    headingText = "NOT APPROVED";
-  } else if (normalizedStatus === "pending") {
-    headingText = "PENDING REVIEW";
-  }
-
-  result.replaceChildren();
-  result.style.background = background;
-  result.style.color = "#17231a";
-
-  const heading = document.createElement("h3");
-  heading.textContent = headingText;
-  heading.style.color = headingColor;
-  result.appendChild(heading);
-
-  /*
-    Show the actual stored status.
-  */
-  addField("Status", status);
-  addField("Full Name", name);
-  addField("Certificate / Reference Number", certificateNumber);
-  addField("Institution", school);
-  addField("Certificate Type", type);
-  addField("Course / Qualification", course);
-
-  /*
-    Display an issue date only if one is stored.
-  */
-  const issueDate = found.issueDate || found.dateIssued;
-
-  if (issueDate) {
-    let formattedDate = String(issueDate);
-
-    if (
-      typeof issueDate === "object" &&
-      issueDate.toDate
-    ) {
-      formattedDate = issueDate.toDate().toLocaleDateString();
-    }
-
-    addField("Issue Date", formattedDate);
-  }
-
-  if (record.collectionName === "applications") {
-    const note = document.createElement("p");
-
-    note.textContent =
-      "This is an application record, not a public certificate " +
-      "verification record. Its application status alone does not " +
-      "confirm that the qualification has been verified.";
-
-    result.appendChild(note);
-  } else if (normalizedStatus === "approved") {
-    const note = document.createElement("p");
-
-    note.textContent =
-      "This record is marked Approved. Approval alone is not " +
-      "confirmation of authenticity unless the required verification " +
-      "checks have been completed.";
-
-    result.appendChild(note);
-  } else if (normalizedStatus === "verified") {
-    const note = document.createElement("p");
-
-    note.textContent =
-      "This record is marked Verified. Refer to the issuing " +
-      "institution's confirmation and ARNAUD's verification procedures.";
-
-    result.appendChild(note);
-  }
-
-  function addField(label, value) {
-    const paragraph = document.createElement("p");
-
-    const strong = document.createElement("strong");
-    strong.textContent = label + ": ";
-
-    paragraph.appendChild(strong);
-    paragraph.appendChild(
-      document.createTextNode(String(value))
-    );
-
-    result.appendChild(paragraph);
-  }
-}
-
-/*
-  Main search handler.
-*/
-form.addEventListener("submit", async function(event) {
-  event.preventDefault();
-
-  const number = certificateInput.value.trim();
-
-  if (!number) {
-    setMessage(
-      "Enter a certificate number or reference.",
-      "#fff0f0",
-      "#8b0000"
+  if (typeof QRCode === "undefined") {
+    showMessage(
+      "The QR-code service did not load. The certificate record was found, but the QR code could not be generated.",
+      "info"
     );
     return;
   }
 
-  verifyButton.disabled = true;
-  verifyButton.textContent = "SEARCHING...";
+  const url = new URL(window.location.pathname, window.location.origin);
+  url.searchParams.set("ref", reference);
 
-  setMessage(
-    "Searching the verification database...",
-    "#f2f2f2",
-    "#17231a"
-  );
+  new QRCode(qr, {
+    text: url.href,
+    width: 190,
+    height: 190,
+    correctLevel: QRCode.CorrectLevel.M
+  });
+}
+
+async function findRecord(reference) {
+  // First check whether the reference is the Firestore document ID.
+  const direct = await db.collection("publicCertificates")
+    .doc(reference).get();
+
+  if (direct.exists) {
+    return { id: direct.id, data: direct.data() };
+  }
+
+  // Then check known published reference fields.
+  const fields = ["ref", "certificateNumber", "reference"];
+
+  for (const field of fields) {
+    const snapshot = await db.collection("publicCertificates")
+      .where(field, "==", reference)
+      .limit(1)
+      .get();
+
+    if (!snapshot.empty) {
+      const doc = snapshot.docs[0];
+      return { id: doc.id, data: doc.data() };
+    }
+  }
+
+  return null;
+}
+
+async function verify(reference) {
+  reference = String(reference || "").trim();
+
+  if (!reference) {
+    result.style.display = "none";
+    showMessage("Please enter a certificate number or reference.", "error");
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "Checking...";
+  result.style.display = "none";
+  showMessage("Checking the published verification records...", "info");
 
   try {
-    const record = await findRecord(number);
+    const record = await findRecord(reference);
 
     if (!record) {
-      setMessage(
-        "No matching public verification record was found. " +
-        "This does not automatically mean the certificate is fake. " +
-        "Check the number or contact ARNAUD for assistance.",
-        "#fff0f0",
-        "#8b0000"
+      showMessage(
+        "No matching public certificate record was found. Please check the reference or contact the issuing institution.",
+        "error"
       );
-
       return;
     }
 
-    displayRecord(record, number);
+    const data = record.data;
+    const status = String(data.status || "").trim().toLowerCase();
 
-  } catch (error) {
-    console.error("Certificate search error:", error);
+    if (status !== "verified") {
+      showMessage(
+        "A public record exists, but it is not marked Verified. Please contact the issuing institution.",
+        "error"
+      );
+      return;
+    }
 
-    setMessage(
-      "The search could not be completed. Please check your " +
-      "internet connection or contact the administrator. " +
-      "The database may have denied access to the requested record.",
-      "#fff0f0",
-      "#8b0000"
+    const publicReference = data.ref || data.certificateNumber ||
+      data.reference || record.id;
+
+    setField("outStatus", "VERIFIED");
+    setField("outNumber", data.certificateNumber || publicReference);
+    setField("outName", data.fullName);
+    setField("outSchool", data.school);
+    setField("outType", data.certificateType);
+    setField("outCourse", data.course);
+    setField("outDate", data.issueDate);
+    setField("outReference", publicReference);
+
+    result.style.display = "block";
+    showMessage(
+      "Verified: a matching record marked Verified was found in the public certificate register.",
+      "success"
     );
 
+    makeQr(publicReference);
+
+  } catch (error) {
+    console.error("Verification error:", error);
+
+    showMessage(
+      "Verification could not be completed. Please check your internet connection and Firestore rules, then try again.",
+      "error"
+    );
   } finally {
-    verifyButton.disabled = false;
-    verifyButton.textContent = "VERIFY CERTIFICATE";
+    button.disabled = false;
+    button.textContent = "Verify Certificate";
   }
+}
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+  verify(input.value);
 });
+
+// Allow QR links such as ?ref=AA-INT-12345678 to verify automatically.
+const urlReference = new URLSearchParams(window.location.search).get("ref");
+
+if (urlReference) {
+  input.value = urlReference;
+  verify(urlReference);
+}
 </script>
 
 </body>
