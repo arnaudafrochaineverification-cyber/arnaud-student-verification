@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08783e">
+  <title>Certificate Verification | ARNAUD AFROCHAINE TRUST SYSTEMS LTD</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <style>
+    :root { --green:#08783e; --dark:#064d2b; --gold:#d9ad43; --light:#f3f8f4; --text:#25362b; }
+    *{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:var(--light);color:var(--text);line-height:1.6}
+    header{background:var(--green);color:white;text-align:center;padding:25px 15px;border-bottom:4px solid var(--gold)}
+    header h1{font-size:22px;margin:0 0 5px} header p{margin:0;font-size:13px}
+    nav{text-align:center;padding:15px;background:white} nav a{color:var(--green);text-decoration:none;font-weight:bold}
+    main{max-width:650px;margin:35px auto;padding:0 16px} .card{background:white;border:1px solid #e0e8e1;border-radius:12px;padding:25px;box-shadow:0 5px 20px rgba(0,0,0,.05)}
+    h2{color:var(--dark);margin-top:0} label{display:block;margin:18px 0 7px;font-weight:bold}
+    input{width:100%;padding:13px;border:1px solid #bbc9bd;border-radius:6px;font-size:16px}
+    button{width:100%;padding:14px;margin-top:15px;background:var(--green);color:white;border:0;border-radius:6px;font-size:16px;font-weight:bold;cursor:pointer}
+    button:disabled{opacity:.6;cursor:wait} #message{margin-top:20px;padding:14px;border-radius:6px;overflow-wrap:anywhere} .hidden{display:none}
+    .success{background:#e6f5e9;border:1px solid #72b780} .error{background:#fff0ef;border:1px solid #dc9690} .info{background:#fff7df;border:1px solid var(--gold)}
+    .record{margin-top:20px;padding:18px;border:2px solid var(--green);border-radius:8px} .record p{overflow-wrap:anywhere}
+    footer{margin-top:40px;background:var(--dark);color:white;text-align:center;padding:20px;font-size:12px}
+  </style>
+</head>
+<body>
+<header><h1>ARNAUD AFROCHAINE TRUST SYSTEMS LTD</h1><p>International Certificate Verification Portal</p></header>
+<nav><a href="index.html">← Return to Main Website</a></nav>
+<main>
+  <section class="card">
+    <h2>Verify a Certificate</h2>
+    <p>Enter the certificate reference number to search for its published verification record.</p>
+    <form id="verifyForm">
+      <label for="reference">Certificate Reference Number</label>
+      <input id="reference" name="reference" type="text" maxlength="150" required autocomplete="off" placeholder="Enter certificate reference">
+      <button id="verifyButton" type="submit">Verify Certificate</button>
+    </form>
+    <div id="message" class="hidden" role="status" aria-live="polite"></div>
+    <section id="record" class="record hidden">
+      <h3>Certificate Record</h3>
+      <p><strong>Reference:</strong> <span id="outRef"></span></p>
+      <p><strong>Certificate Number:</strong> <span id="outNumber"></span></p>
+      <p><strong>Full Name:</strong> <span id="outName"></span></p>
+      <p><strong>School:</strong> <span id="outSchool"></span></p>
+      <p><strong>Certificate Type:</strong> <span id="outType"></span></p>
+      <p><strong>Course:</strong> <span id="outCourse"></span></p>
+      <p><strong>Issue Date:</strong> <span id="outDate"></span></p>
+      <p><strong>Status:</strong> <span id="outStatus"></span></p>
+    </section>
+  </section>
+</main>
+<footer>&copy; <span id="year"></span> ARNAUD AFROCHAINE TRUST SYSTEMS LTD.<br>Certificate results are limited to records published for public verification.</footer>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  const firebaseConfig = {
+    apiKey: "AIzaSyCPoq6oxu0oNmIA19Iu4PXM1EKkIbxudPo",
+    authDomain: "arnaud-student-verification.firebaseapp.com",
+    projectId: "arnaud-student-verification",
+    storageBucket: "arnaud-student-verification.firebasestorage.app",
+    messagingSenderId: "1005059025981",
+    appId: "1:1005059025981:web:15d9f281e07470daf24e54",
+    measurementId: "G-LJ0ZCDFVSK"
+  };
+  const message = document.getElementById("message");
+  const record = document.getElementById("record");
+  const button = document.getElementById("verifyButton");
+  function showMessage(text, type) { message.textContent = text; message.className = type; }
+  function setText(id, value) { document.getElementById(id).textContent = value == null || value === "" ? "Not provided" : String(value); }
+  let database = null;
+  try {
+    firebase.initializeApp(firebaseConfig);
+    database = firebase.firestore();
+  } catch (error) { console.error("Firebase init failed:", error); showMessage("Firebase could not be initialized.", "error"); }
+  document.getElementById("verifyForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+      record.classList.add("hidden");
+      const reference = document.getElementById("reference").value.trim();
+      if (!reference) { showMessage("Enter a certificate reference number.", "error"); return; }
+      if (!database) { showMessage("Database not ready.", "error"); return; }
+      button.disabled = true; button.textContent = "Checking...";
+      showMessage("Searching for the certificate record...", "info");
+      try {
+        const snapshot = await database.collection("publicCertificates").doc(reference).get();
+        if (!snapshot.exists) { showMessage("No published certificate was found for this reference.", "error"); return; }
+        const data = snapshot.data() || {};
+        if (String(data.status || "").trim().toLowerCase() !== "verified") { showMessage("This record is not marked Verified.", "error"); return; }
+        setText("outRef", data.ref || reference);
+        setText("outNumber", data.certificateNumber || reference);
+        setText("outName", data.fullName);
+        setText("outSchool", data.school);
+        setText("outType", data.certificateType);
+        setText("outCourse", data.course);
+        setText("outDate", data.issueDate);
+        setText("outStatus", "Verified");
+        record.classList.remove("hidden");
+        showMessage("A published record marked Verified was found.", "success");
+      } catch (error) {
+        console.error("Lookup failed:", error);
+        showMessage("Unable to complete verification. Check Firestore rules and internet.", "error");
+      } finally {
+        button.disabled = false; button.textContent = "Verify Certificate";
+      }
+    });
+</script>
+</body>
+</html>
