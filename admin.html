@@ -1,270 +1,227 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-
-<title>Admin Dashboard | ARNAUD STUDENT VERIFICATION</title>
-
+<meta name="theme-color" content="#08783e">
+<title>Admin Dashboard | ARNAUD AFROCHAINE TRUST SYSTEMS LTD</title>
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f3fff5;
-  color: #17231a;
-}
-
-header {
-  background: #08783e;
-  color: white;
-  padding: 22px 15px;
-  text-align: center;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 22px;
-}
-
-header p {
-  color: #ffe09a;
-}
-
-main {
-  max-width: 1000px;
-  margin: 25px auto;
-  padding: 15px;
-}
-
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  box-shadow: 0 3px 15px #0001;
-}
-
-h2 {
-  color: #08783e;
-}
-
-input,
-select,
-button {
-  width: 100%;
-  padding: 12px;
-  margin: 7px 0;
-  font-size: 15px;
-  border-radius: 7px;
-}
-
-input,
-select {
-  border: 1px solid #bbb;
-  background: white;
-}
-
-button {
-  background: #08783e;
-  color: white;
-  border: 0;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-button.secondary {
-  background: #555;
-}
-
-button.danger {
-  background: #a32121;
-}
-
-button:disabled {
-  opacity: .6;
-  cursor: not-allowed;
-}
-
-.application {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 15px;
-  margin: 15px 0;
-  overflow-wrap: anywhere;
-}
-
-.application p {
-  line-height: 1.5;
-}
-
-.hidden {
-  display: none !important;
-}
-
-.status {
-  font-weight: bold;
-}
-
-.notice {
-  line-height: 1.5;
-  overflow-wrap: anywhere;
-}
-
-.small {
-  font-size: 13px;
-  color: #555;
-}
-
-.section-count {
-  display: inline-block;
-  background: #e1f5e7;
-  color: #08783e;
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-weight: bold;
-}
-
-hr {
-  border: 0;
-  border-top: 1px solid #ddd;
-  margin: 20px 0;
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3fff5;color:#17231a}
+header{background:#08783e;color:#fff;padding:22px 15px;text-align:center}
+header h1{font-size:21px;margin:0 0 8px}
+header p{color:#ffe09a;margin:6px 0}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;background:#fff;padding:12px;border-bottom:1px solid #ddd}
+nav a{color:#08783e;text-decoration:none;font-weight:bold;padding:9px}
+main{max-width:1150px;margin:22px auto;padding:12px}
+.card{background:#fff;padding:18px;border-radius:12px;margin-bottom:18px;box-shadow:0 3px 15px #0001}
+h2{color:#08783e;margin-top:0;font-size:21px}
+input,select,textarea,button{width:100%;padding:12px;margin:6px 0;font-size:15px;border-radius:7px}
+input,select,textarea{border:1px solid #bbb;background:#fff;color:#17231a}
+textarea{min-height:85px;resize:vertical}
+button{background:#08783e;color:#fff;border:0;cursor:pointer;font-weight:bold}
+button.secondary{background:#555}
+button.danger{background:#a32121}
+button:disabled{opacity:.6;cursor:not-allowed}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:18px}
+.stat{background:#fff;border-left:4px solid #08783e;padding:15px;border-radius:8px;box-shadow:0 2px 8px #0001}
+.stat strong{display:block;font-size:25px;margin-top:8px;overflow-wrap:anywhere}
+.application{border:1px solid #ddd;border-radius:10px;padding:15px;margin:13px 0;overflow-wrap:anywhere}
+.application p{line-height:1.5;margin:8px 0}
+.small{font-size:13px;color:#58645b;line-height:1.5;overflow-wrap:anywhere}
+.message{padding:12px;margin:10px 0;border-radius:7px;overflow-wrap:anywhere;line-height:1.5}
+.success{background:#e1f5e7;color:#075b32}
+.error{background:#ffe7e7;color:#8b1717}
+.warning{background:#fff4d5;color:#705000}
+.hidden{display:none!important}
+.section-count{display:inline-block;background:#e1f5e7;color:#08783e;padding:5px 10px;border-radius:20px;font-weight:bold}
+.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.actions button{width:auto;flex:1;min-width:130px}
+.badge{display:inline-block;padding:5px 10px;border-radius:20px;background:#fff0c8;color:#765400;font-size:12px;font-weight:bold}
+.badge.approved{background:#dcf7e3;color:#17602d}
+.badge.rejected{background:#ffe2e2;color:#8a1717}
+.qr{display:block;width:180px;max-width:100%;height:auto;margin:12px 0;border:1px solid #ddd;padding:6px;background:#fff}
+footer{text-align:center;padding:25px 12px;color:#58645b;font-size:12px}
+[hidden]{display:none!important}
 </style>
 </head>
-
 <body>
-
 <header>
-  <h1>ARNAUD STUDENT VERIFICATION</h1>
+  <h1>ARNAUD AFROCHAINE TRUST SYSTEMS LTD</h1>
   <p>African Roots, Global Vision</p>
-  <div>Administrator Dashboard</div>
+  <div>Central Student &amp; Document Administration</div>
 </header>
 
+<nav>
+  <a href="Index.html">Home</a>
+  <a href="Apply.html">Student Application</a>
+  <a href="trackStudentsApplication.html">Track Application</a>
+  <a href="verify-document.html">Verify Document</a>
+</nav>
+
 <main>
+<section class="card" id="loginPanel">
+  <h2>Administrator Login</h2>
+  <p class="small">Use your existing authorized student-project administrator account.</p>
+  <form id="loginForm">
+    <label for="email">Administrator email</label>
+    <input id="email" type="email" autocomplete="username" required>
+    <label for="password">Password</label>
+    <input id="password" type="password" autocomplete="current-password" required>
+    <button id="loginButton" type="submit">SIGN IN</button>
+  </form>
+  <div id="loginMessage" aria-live="polite"></div>
+</section>
 
-  <!-- ADMINISTRATOR LOGIN -->
+<section id="dashboard" class="hidden">
+  <section class="card">
+    <h2>Central Administrator Dashboard</h2>
+    <p id="accountInfo" class="small"></p>
+    <p class="small">Firebase project: <strong>arnaud-student-verification</strong></p>
+    <div class="actions">
+      <button id="refreshButton" type="button">Refresh All Data</button>
+      <button id="logoutButton" class="secondary" type="button">Sign Out</button>
+    </div>
+    <div id="dashboardMessage" aria-live="polite"></div>
+  </section>
 
-  <section class="card" id="loginPanel">
-    <h2>Administrator Login</h2>
+  <div class="stats">
+    <div class="stat">Student Applications<strong id="totalApplications">0</strong></div>
+    <div class="stat">Tracking Requests<strong id="totalAccessRequests">0</strong></div>
+    <div class="stat">Document Requests<strong id="totalDocuments">0</strong></div>
+    <div class="stat">Documents Pending<strong id="pendingDocuments">0</strong></div>
+    <div class="stat">Published Records<strong id="publishedDocuments">0</strong></div>
+  </div>
 
-    <p class="small">
-      Sign in using your authorized administrator account.
-    </p>
+  <section class="card">
+    <h2>1. Student Tracking Access Requests</h2>
+    <p class="small">Review requests to link applications to student accounts. The reference and email are checked before linking.</p>
+    <p>Requests: <span id="requestCount" class="section-count">0</span></p>
+    <div id="requestList">Sign in to load requests.</div>
+  </section>
 
-    <form id="loginForm">
-      <input
-        id="email"
-        type="email"
-        placeholder="Administrator email"
-        autocomplete="username"
-        required
-      >
+  <section class="card">
+    <h2>2. Student Applications</h2>
+    <p class="small">Review applications, update application/payment status, publish approved student records, and contact students.</p>
+    <input id="applicationSearch" type="search" placeholder="Search name, reference, email, school or certificate number">
+    <div class="grid">
+      <div>
+        <label for="applicationStatusFilter">Application status</label>
+        <select id="applicationStatusFilter">
+          <option value="all">All statuses</option>
+          <option>Pending</option><option>Verified</option>
+          <option>Rejected</option><option>Unable to Verify</option>
+        </select>
+      </div>
+      <div>
+        <label for="paymentFilter">Payment status</label>
+        <select id="paymentFilter">
+          <option value="all">All payment statuses</option>
+          <option>Unpaid</option><option>Pending</option>
+          <option>Paid</option><option>Refunded</option>
+        </select>
+      </div>
+    </div>
+    <div id="applicationList">Sign in to load applications.</div>
+  </section>
 
-      <input
-        id="password"
-        type="password"
-        placeholder="Password"
-        autocomplete="current-password"
-        required
-      >
+  <section class="card">
+    <h2>3. Register an Academic Document</h2>
+    <p class="small">Create a document request for review. Registration alone does not prove authenticity; independently check the issuing institution before approval.</p>
+    <form id="documentForm">
+      <label for="documentTitle">Document title</label>
+      <input id="documentTitle" required maxlength="180" placeholder="e.g. Bachelor of Science Certificate">
 
-      <button id="loginButton" type="submit">
-        SIGN IN
-      </button>
+      <label for="documentCategory">Document category</label>
+      <select id="documentCategory" required>
+        <option value="">Choose category</option>
+        <option>Certificate</option><option>Transcript</option>
+        <option>Diploma</option><option>Degree</option>
+        <option>Statement of Result</option><option>Academic Record</option>
+        <option>Professional Qualification</option>
+        <option>Other Approved Academic Document</option>
+      </select>
+
+      <label for="documentReference">ARNAUD reference number</label>
+      <input id="documentReference" required maxlength="100" placeholder="e.g. AA-DOC-2026-0001">
+
+      <label for="originalDocumentNumber">Original document/certificate number</label>
+      <input id="originalDocumentNumber" maxlength="150">
+
+      <label for="issuedTo">Name on document</label>
+      <input id="issuedTo" required maxlength="180">
+
+      <label for="documentSchool">Issuing institution</label>
+      <input id="documentSchool" required maxlength="180">
+
+      <label for="documentCourse">Course/programme</label>
+      <input id="documentCourse" maxlength="180">
+
+      <label for="documentIssueDate">Issue date</label>
+      <input id="documentIssueDate" type="date">
+
+      <label for="documentDescription">Review notes/description</label>
+      <textarea id="documentDescription" maxlength="1500" placeholder="Record the evidence checked and relevant notes. Do not enter passwords or sensitive identity numbers."></textarea>
+
+      <button id="registerDocumentButton" type="submit">REGISTER FOR REVIEW</button>
     </form>
-
-    <p id="loginMessage" class="notice" aria-live="polite"></p>
+    <div id="documentFormMessage" aria-live="polite"></div>
   </section>
 
-
-  <!-- ADMINISTRATOR DASHBOARD -->
-
-  <section id="dashboard" class="hidden">
-
-    <div class="card">
-      <h2>Dashboard</h2>
-
-      <p id="accountInfo" class="small"></p>
-
-      <button id="refreshButton" type="button">
-        Refresh All Dashboard Data
-      </button>
-
-      <button id="logoutButton" class="secondary" type="button">
-        Sign Out
-      </button>
-
-      <p id="dashboardMessage" class="notice" aria-live="polite"></p>
-    </div>
-
-
-    <!-- STUDENT TRACKING ACCESS REQUESTS -->
-
-    <div class="card">
-
-      <h2>Student Tracking Access Requests</h2>
-
-      <p class="small">
-        Review student requests to access application tracking.
-        Approving a request links the matching application to the
-        student's authenticated account.
-      </p>
-
-      <p>
-        Requests:
-        <span id="requestCount" class="section-count">0</span>
-      </p>
-
-      <div id="requestList">
-        Sign in to load access requests.
+  <section class="card">
+    <h2>4. Document Verification Management</h2>
+    <p class="small">Review requests, publish verified records, or reject requests.</p>
+    <div class="grid">
+      <div>
+        <label for="documentSearch">Search documents</label>
+        <input id="documentSearch" type="search" placeholder="Reference, name, institution, title">
       </div>
-
-    </div>
-
-
-    <!-- STUDENT APPLICATIONS -->
-
-    <div class="card">
-
-      <h2>Student Applications</h2>
-
-      <p class="small">
-        Private application records are displayed here for the
-        authorized administrator.
-      </p>
-
-      <div id="applicationList">
-        Sign in to load applications.
+      <div>
+        <label for="documentStatusFilter">Filter by status</label>
+        <select id="documentStatusFilter">
+          <option value="all">All document statuses</option>
+          <option value="Pending Review">Pending Review</option>
+          <option value="Verified">Verified/Published</option>
+          <option value="Rejected">Rejected</option>
+        </select>
       </div>
-
     </div>
-
+    <div id="documentList">Sign in to load document requests.</div>
   </section>
 
+  <section class="card">
+    <h2>5. Published Verification Records</h2>
+    <p class="small">Published records are saved in <code>publicVerifications</code> in this Firebase project.</p>
+    <button id="refreshPublishedButton" type="button">Refresh Published Records</button>
+    <div id="publishedList">Sign in to load published records.</div>
+  </section>
+
+  <section class="card">
+    <h2>Company Information</h2>
+    <p><strong>ARNAUD AFROCHAINE TRUST SYSTEMS LTD</strong></p>
+    <p>Email: <a href="mailto:arnaudafrochain@gmail.com">arnaudafrochain@gmail.com</a></p>
+    <p>Company reference: AV 179223482696</p>
+    <p>Phone: <a href="tel:+2349132851465">+234 913 285 1465</a></p>
+    <p class="small">African Roots, Global Vision.</p>
+  </section>
+</section>
 </main>
 
-
-<!-- FIREBASE SDK -->
+<footer>&copy; <span id="year"></span> ARNAUD AFROCHAINE TRUST SYSTEMS LTD. All rights reserved.</footer>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-
 <script>
+"use strict";
 
-// =====================================================
-// FIREBASE CONFIGURATION
-// Existing ARNAUD student verification project
-// =====================================================
-
+// Existing student Firebase project. The separate document project is not used.
 const firebaseConfig = {
-  apiKey: "AIzaSyCPoq6oxu0oNmIA19Iu4PXM1EKkIbxudPo",
+  apiKey: "AIzaSyCPoq6oxu0oNmIA19iU4PXM1EKkIbxudPo",
   authDomain: "arnaud-student-verification.firebaseapp.com",
   projectId: "arnaud-student-verification",
   storageBucket: "arnaud-student-verification.firebasestorage.app",
@@ -274,1068 +231,672 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-
-// =====================================================
-// ADMINISTRATOR AUTHORIZATION
-// =====================================================
-
 const ADMIN_UID = "5jEJoFV2QfM9BilsYMXJOZDimmQ2";
+const COMPANY_NAME = "ARNAUD AFROCHAINE TRUST SYSTEMS LTD";
+const COMPANY_EMAIL = "arnaudafrochain@gmail.com";
+const COMPANY_NUMBER = "AV 179223482696";
 
+const $ = id => document.getElementById(id);
+let generation = 0;
+let applicationsCache = [];
+let accessCache = [];
+let documentCache = [];
+let publishedCache = [];
 
-// =====================================================
-// PAGE ELEMENTS
-// =====================================================
-
-const loginPanel = document.getElementById("loginPanel");
-const dashboard = document.getElementById("dashboard");
-
-const loginMessage = document.getElementById("loginMessage");
-const dashboardMessage = document.getElementById("dashboardMessage");
-
-const applicationList = document.getElementById("applicationList");
-const requestList = document.getElementById("requestList");
-const requestCount = document.getElementById("requestCount");
-
-let dashboardGeneration = 0;
-
-
-// =====================================================
-// SAFE TEXT DISPLAY
-// =====================================================
-
-function addText(parent, tag, value) {
-  const element = document.createElement(tag);
-  element.textContent = String(value ?? "");
-  parent.appendChild(element);
-  return element;
-}
-
-
-function makeButton(label, className, callback) {
-  const button = document.createElement("button");
-
-  button.type = "button";
-  button.textContent = label;
-
-  if (className) {
-    button.className = className;
-  }
-
-  button.addEventListener("click", callback);
-
-  return button;
-}
-
-
-function timestampValue(value) {
-  if (value && typeof value.toMillis === "function") {
-    return value.toMillis();
-  }
-
-  return 0;
-}
-
+$("year").textContent = new Date().getFullYear();
 
 function isAdmin() {
-  return Boolean(
-    auth.currentUser &&
-    auth.currentUser.uid === ADMIN_UID
-  );
+  return !!auth.currentUser && auth.currentUser.uid === ADMIN_UID;
 }
-
-
 function requireAdmin() {
-  if (!isAdmin()) {
-    throw new Error("Administrator authorization required.");
+  if (!isAdmin()) throw new Error("Administrator authorization required.");
+}
+function showMessage(element, message, type = "error") {
+  element.replaceChildren();
+  const box = document.createElement("div");
+  box.className = "message " + type;
+  box.textContent = message;
+  element.appendChild(box);
+}
+function addText(parent, tag, value) {
+  const el = document.createElement(tag);
+  el.textContent = value === undefined || value === null || value === ""
+    ? "Not provided" : String(value);
+  parent.appendChild(el);
+  return el;
+}
+function addDetail(parent, label, value) {
+  const p = document.createElement("p");
+  const strong = document.createElement("strong");
+  strong.textContent = label + ": ";
+  const span = document.createElement("span");
+  span.textContent = value === undefined || value === null || value === ""
+    ? "Not provided" : String(value);
+  p.append(strong, span);
+  parent.appendChild(p);
+  return p;
+}
+function makeButton(label, className, callback) {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.textContent = label;
+  if (className) b.className = className;
+  b.addEventListener("click", callback);
+  return b;
+}
+function millis(value) {
+  if (value && typeof value.toMillis === "function") return value.toMillis();
+  if (value) {
+    const d = new Date(value);
+    if (!Number.isNaN(d.getTime())) return d.getTime();
   }
+  return 0;
+}
+function formatDate(value) {
+  if (!value) return "Not available";
+  if (typeof value.toDate === "function") return value.toDate().toLocaleString();
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? "Not available" : d.toLocaleString();
+}
+function sortedNewest(docs) {
+  return docs.slice().sort((a,b) => millis(b.data().createdAt) - millis(a.data().createdAt));
+}
+function validateReference(value) {
+  const ref = String(value || "").trim();
+  if (!/^[A-Za-z0-9_-]{1,100}$/.test(ref)) {
+    throw new Error("Reference must contain only letters, numbers, hyphens or underscores (maximum 100 characters).");
+  }
+  return ref;
+}
+function badge(status) {
+  const el = document.createElement("span");
+  el.className = "badge";
+  el.textContent = status || "Pending";
+  if (["Verified","Approved"].includes(status)) el.classList.add("approved");
+  if (status === "Rejected") el.classList.add("rejected");
+  return el;
+}
+function safeRecord(data, ref) {
+  return {
+    ref: ref,
+    referenceNumber: ref,
+    certificateNumber: ref,
+    documentTitle: String(data.documentTitle || data.certificateType || ""),
+    issuedTo: String(data.issuedTo || data.fullName || ""),
+    fullName: String(data.issuedTo || data.fullName || ""),
+    originalDocumentNumber: String(data.originalDocumentNumber || data.certificateNumber || ""),
+    documentCategory: String(data.documentCategory || data.certificateType || "Academic Document"),
+    certificateType: String(data.documentCategory || data.certificateType || "Academic Document"),
+    school: String(data.school || ""),
+    course: String(data.course || ""),
+    issueDate: String(data.issueDate || ""),
+    status: "Verified",
+    companyName: COMPANY_NAME,
+    companyEmail: COMPANY_EMAIL,
+    companyNumber: COMPANY_NUMBER,
+    publishedAt: firebase.firestore.FieldValue.serverTimestamp()
+  };
 }
 
-
-// =====================================================
-// ADMINISTRATOR LOGIN
-// =====================================================
-
-document.getElementById("loginForm").addEventListener(
-  "submit",
-  async function(event) {
-
-    event.preventDefault();
-
-    const loginButton = document.getElementById("loginButton");
-
-    loginButton.disabled = true;
-    loginMessage.style.color = "";
-    loginMessage.textContent = "Signing in...";
-
-    try {
-
-      const email = document.getElementById("email").value.trim();
-
-      const password = document.getElementById("password").value;
-
-      const credential = await auth.signInWithEmailAndPassword(
-        email,
-        password
-      );
-
-      if (credential.user.uid !== ADMIN_UID) {
-
-        await auth.signOut();
-
-        loginMessage.textContent =
-          "Access denied. This account is not authorized as administrator.";
-
-        return;
-      }
-
-      loginMessage.textContent = "";
-
-    } catch (error) {
-
-      console.error("Administrator login error:", error);
-
-      loginMessage.style.color = "red";
-
-      loginMessage.textContent =
-        "Login failed. Check your email, password, and Firebase Authentication settings.";
-
-    } finally {
-
-      loginButton.disabled = false;
-
+// LOGIN
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  $("loginButton").disabled = true;
+  showMessage($("loginMessage"), "Signing in...", "warning");
+  try {
+    const credential = await auth.signInWithEmailAndPassword(
+      $("email").value.trim(), $("password").value
+    );
+    if (credential.user.uid !== ADMIN_UID) {
+      await auth.signOut();
+      showMessage($("loginMessage"), "Access denied. This account is not the authorized administrator.");
+      return;
     }
-
+    $("loginMessage").replaceChildren();
+  } catch (error) {
+    console.error(error);
+    showMessage($("loginMessage"), "Login failed. Check your email, password and Firebase Authentication settings. " + error.message);
+  } finally {
+    $("loginButton").disabled = false;
   }
-);
-
-
-// =====================================================
-// AUTHENTICATION STATE
-// =====================================================
-
-auth.onAuthStateChanged(async function(user) {
-
-  dashboardGeneration++;
-
-  if (user && user.uid === ADMIN_UID) {
-
-    loginPanel.classList.add("hidden");
-    dashboard.classList.remove("hidden");
-
-    document.getElementById("accountInfo").textContent =
-      "Signed in as " + (user.email || "Administrator");
-
-    await refreshDashboard();
-
-  } else {
-
-    dashboard.classList.add("hidden");
-    loginPanel.classList.remove("hidden");
-
-    applicationList.textContent =
-      "Sign in to load applications.";
-
-    requestList.textContent =
-      "Sign in to load access requests.";
-
-    requestCount.textContent = "0";
-
-    dashboardMessage.textContent = "";
-
-  }
-
 });
 
-
-// =====================================================
-// SIGN OUT
-// =====================================================
-
-document.getElementById("logoutButton").addEventListener(
-  "click",
-  async function() {
-
-    try {
-      await auth.signOut();
-    } catch (error) {
-      console.error("Sign-out error:", error);
-      alert("Unable to sign out. Please try again.");
-    }
-
+auth.onAuthStateChanged(async user => {
+  generation++;
+  if (user && user.uid === ADMIN_UID) {
+    $("loginPanel").classList.add("hidden");
+    $("dashboard").classList.remove("hidden");
+    $("accountInfo").textContent = "Signed in as " + (user.email || "Administrator") + " | Authorized UID confirmed";
+    await refreshDashboard();
+  } else {
+    $("dashboard").classList.add("hidden");
+    $("loginPanel").classList.remove("hidden");
+    $("applicationList").textContent = "Sign in to load applications.";
+    $("requestList").textContent = "Sign in to load requests.";
+    $("documentList").textContent = "Sign in to load document requests.";
+    $("publishedList").textContent = "Sign in to load published records.";
+    $("requestCount").textContent = "0";
+    $("loginMessage").replaceChildren();
+    $("dashboardMessage").replaceChildren();
   }
-);
+});
 
-
-// =====================================================
-// REFRESH DASHBOARD
-// =====================================================
-
-document.getElementById("refreshButton").addEventListener(
-  "click",
-  refreshDashboard
-);
-
+$("logoutButton").addEventListener("click", async () => {
+  try { await auth.signOut(); }
+  catch (error) { showMessage($("dashboardMessage"), "Unable to sign out: " + error.message); }
+});
+$("refreshButton").addEventListener("click", refreshDashboard);
+$("refreshPublishedButton").addEventListener("click", loadPublished);
+$("applicationSearch").addEventListener("input", renderApplications);
+$("applicationStatusFilter").addEventListener("change", renderApplications);
+$("paymentFilter").addEventListener("change", renderApplications);
+$("documentSearch").addEventListener("input", renderDocuments);
+$("documentStatusFilter").addEventListener("change", renderDocuments);
 
 async function refreshDashboard() {
-
   requireAdmin();
-
-  const generation = dashboardGeneration;
-
-  dashboardMessage.textContent = "Refreshing dashboard...";
-
-  applicationList.textContent = "Loading applications...";
-
-  requestList.textContent = "Loading access requests...";
-
+  const currentGeneration = generation;
+  showMessage($("dashboardMessage"), "Refreshing dashboard data...", "warning");
   try {
-
     await Promise.all([
-      loadApplications(generation),
-      loadAccessRequests(generation)
+      loadApplications(currentGeneration),
+      loadAccessRequests(currentGeneration),
+      loadDocuments(currentGeneration),
+      loadPublished(currentGeneration)
     ]);
-
-    if (
-      isAdmin() &&
-      generation === dashboardGeneration
-    ) {
-      dashboardMessage.textContent =
-        "Dashboard refresh completed.";
+    if (isAdmin() && currentGeneration === generation) {
+      showMessage($("dashboardMessage"), "Dashboard refresh completed.", "success");
     }
-
   } catch (error) {
-
-    console.error("Dashboard refresh error:", error);
-
-    if (
-      isAdmin() &&
-      generation === dashboardGeneration
-    ) {
-      dashboardMessage.textContent =
-        "Some dashboard data could not be loaded. Check Firestore Security Rules and your connection.";
+    console.error(error);
+    if (isAdmin() && currentGeneration === generation) {
+      showMessage($("dashboardMessage"), "Some data could not be loaded. Check Firestore security rules in arnaud-student-verification. " + error.message);
     }
-
   }
-
 }
 
-
-// =====================================================
-// STUDENT ACCESS REQUESTS
-//
-// Collection: applicationAccessRequests
-//
-// Expected request fields:
-// uid, ref, email, status, createdAt
-//
-// Approval:
-// 1. Match the request to the student's application.
-// 2. Confirm the application belongs to the supplied email.
-// 3. Set applications.ownerUid to the student's UID.
-// 4. Mark the request Approved.
-// =====================================================
-
-async function loadAccessRequests(generation) {
-
+// TRACKING ACCESS REQUESTS
+async function loadAccessRequests(currentGeneration) {
   requireAdmin();
-
-  requestList.replaceChildren();
-
-  const snapshot = await db
-    .collection("applicationAccessRequests")
-    .get();
-
+  const snapshot = await db.collection("applicationAccessRequests").get();
   requireAdmin();
+  if (currentGeneration !== generation) return;
+  accessCache = sortedNewest(snapshot.docs);
+  $("totalAccessRequests").textContent = accessCache.length;
+  $("requestCount").textContent = accessCache.length;
+  renderAccessRequests();
+}
 
-  if (generation !== dashboardGeneration) {
+function renderAccessRequests() {
+  $("requestList").replaceChildren();
+  if (!accessCache.length) {
+    addText($("requestList"), "p", "No student tracking access requests found.");
     return;
   }
-
-  const documents = snapshot.docs.slice().sort(function(a, b) {
-
-    const ad = a.data();
-    const bd = b.data();
-
-    return timestampValue(bd.createdAt) -
-           timestampValue(ad.createdAt);
-
-  });
-
-  requestCount.textContent = String(documents.length);
-
-  if (documents.length === 0) {
-
-    addText(
-      requestList,
-      "p",
-      "No student tracking access requests have been submitted."
-    );
-
-    return;
-  }
-
-  documents.forEach(function(doc) {
-
-    const data = doc.data();
-
+  accessCache.forEach(requestDoc => {
+    const data = requestDoc.data();
     const box = document.createElement("article");
-
     box.className = "application";
-
-    addText(
-      box,
-      "h3",
-      "Student Access Request"
-    );
-
-    addText(
-      box,
-      "p",
-      "Student UID: " + (data.uid || "Not provided")
-    );
-
-    addText(
-      box,
-      "p",
-      "Application reference: " + (data.ref || "Not provided")
-    );
-
-    addText(
-      box,
-      "p",
-      "Student email: " + (data.email || "Not provided")
-    );
-
-    const statusLabel = addText(
-      box,
-      "p",
-      "Request status: " + (data.status || "Pending")
-    );
-
-    statusLabel.className = "status";
-
-    addText(
-      box,
-      "p",
-      "Submitted: " +
-      (
-        data.createdAt &&
-        typeof data.createdAt.toDate === "function"
-          ? data.createdAt.toDate().toLocaleString()
-          : "Date unavailable"
-      )
-    );
-
-
-    // Only pending requests can be approved or rejected.
+    addText(box, "h3", "Student Tracking Access Request");
+    addDetail(box, "Student UID", data.uid);
+    addDetail(box, "Application reference", data.ref);
+    addDetail(box, "Student email", data.email);
+    addDetail(box, "Submitted", formatDate(data.createdAt));
+    box.appendChild(badge(data.status || "Pending"));
 
     if ((data.status || "Pending") === "Pending") {
-
-      const approveButton = makeButton(
-        "Approve Tracking Access",
-        "",
-        async function() {
-
-          if (!confirm(
-            "Approve this student? The system will check the application reference and email before linking the application to the student's account."
-          )) {
-            return;
-          }
-
-          approveButton.disabled = true;
-          rejectButton.disabled = true;
-
-          try {
-
-            await approveAccessRequest(doc.id, data);
-
-            alert(
-              "Access request approved. The student can track the linked application after signing in with the same account and verifying their email."
-            );
-
-            await refreshDashboard();
-
-          } catch (error) {
-
-            console.error("Approval error:", error);
-
-            alert(
-              "Approval failed: " +
-              (error.message || "Check the application details and Firestore Security Rules.")
-            );
-
-            approveButton.disabled = false;
-            rejectButton.disabled = false;
-
-          }
-
+      const actions = document.createElement("div");
+      actions.className = "actions";
+      const approve = makeButton("Approve Tracking Access", "", async () => {
+        if (!confirm("Approve this request? The application reference and email will be checked.")) return;
+        approve.disabled = true; reject.disabled = true;
+        try {
+          await approveAccessRequest(requestDoc.id, data);
+          alert("Tracking access approved.");
+          await refreshDashboard();
+        } catch (error) {
+          alert("Approval failed: " + error.message);
+          approve.disabled = false; reject.disabled = false;
         }
-      );
-
-
-      const rejectButton = makeButton(
-        "Reject Access Request",
-        "danger",
-        async function() {
-
-          if (!confirm(
-            "Are you sure you want to reject this student tracking access request?"
-          )) {
-            return;
-          }
-
-          approveButton.disabled = true;
-          rejectButton.disabled = true;
-
-          try {
-
-            requireAdmin();
-
-            await db
-              .collection("applicationAccessRequests")
-              .doc(doc.id)
-              .update({
-                status: "Rejected",
-                reviewedAt:
-                  firebase.firestore.FieldValue.serverTimestamp(),
-                reviewedBy: ADMIN_UID
-              });
-
-            alert("Access request rejected.");
-
-            await refreshDashboard();
-
-          } catch (error) {
-
-            console.error("Request rejection error:", error);
-
-            alert(
-              "Could not reject the request. Check Firestore Security Rules."
-            );
-
-            approveButton.disabled = false;
-            rejectButton.disabled = false;
-
-          }
-
+      });
+      const reject = makeButton("Reject Request", "danger", async () => {
+        if (!confirm("Reject this tracking access request?")) return;
+        approve.disabled = true; reject.disabled = true;
+        try {
+          requireAdmin();
+          await db.collection("applicationAccessRequests").doc(requestDoc.id).update({
+            status: "Rejected",
+            reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            reviewedBy: ADMIN_UID
+          });
+          await refreshDashboard();
+        } catch (error) {
+          alert("Rejection failed: " + error.message);
+          approve.disabled = false; reject.disabled = false;
         }
-      );
-
-      box.appendChild(approveButton);
-      box.appendChild(rejectButton);
-
+      });
+      actions.append(approve, reject);
+      box.appendChild(actions);
     }
-
-    requestList.appendChild(box);
-
+    $("requestList").appendChild(box);
   });
-
 }
-
-
-// =====================================================
-// APPROVE A STUDENT TRACKING ACCESS REQUEST
-// =====================================================
 
 async function approveAccessRequest(requestId, requestData) {
-
   requireAdmin();
+  const uid = String(requestData.uid || "").trim();
+  const ref = String(requestData.ref || "").trim();
+  const email = String(requestData.email || "").trim().toLowerCase();
+  if (!uid || !ref || !email) throw new Error("Request is missing UID, reference or email.");
+  if (!/^[A-Za-z0-9_-]{1,128}$/.test(ref)) throw new Error("Invalid application reference.");
 
-  const studentUid = String(requestData.uid || "").trim();
-
-  const reference = String(requestData.ref || "").trim();
-
-  const requestEmail = String(requestData.email || "")
-    .trim()
-    .toLowerCase();
-
-  if (!studentUid || !reference || !requestEmail) {
-
-    throw new Error(
-      "The request is missing the student UID, application reference, or email."
-    );
-
-  }
-
-  if (
-    !/^[A-Za-z0-9_-]{1,128}$/.test(reference)
-  ) {
-
-    throw new Error(
-      "The application reference contains unsupported characters."
-    );
-
-  }
-
-
-  // Find the application by its stored reference first.
-
+  const query = await db.collection("applications").where("ref","==",ref).limit(2).get();
   requireAdmin();
-
-  let matchingApplication = null;
-
-  const querySnapshot = await db
-    .collection("applications")
-    .where("ref", "==", reference)
-    .limit(2)
-    .get();
-
-  requireAdmin();
-
-  if (querySnapshot.size > 1) {
-
-    throw new Error(
-      "More than one application has this reference. Resolve the duplicate before approving."
-    );
-
-  }
-
-  if (querySnapshot.size === 1) {
-
-    matchingApplication = querySnapshot.docs[0];
-
-  } else {
-
-    // Some existing applications may use the document ID as
-    // their reference. Check that case if no stored ref matched.
-
-    const directDocument = await db
-      .collection("applications")
-      .doc(reference)
-      .get();
-
+  if (query.size > 1) throw new Error("Duplicate application references found.");
+  let application = query.size === 1 ? query.docs[0] : null;
+  if (!application) {
+    const direct = await db.collection("applications").doc(ref).get();
     requireAdmin();
+    if (direct.exists) application = direct;
+  }
+  if (!application) throw new Error("No application matches this reference.");
 
-    if (directDocument.exists) {
-      matchingApplication = directDocument;
-    }
-
+  let appData = application.data();
+  if (String(appData.email || "").trim().toLowerCase() !== email) {
+    throw new Error("Request email does not match application email.");
+  }
+  if (appData.ownerUid && appData.ownerUid !== uid) {
+    throw new Error("Application is already linked to another account.");
   }
 
-
-  if (!matchingApplication) {
-
-    throw new Error(
-      "No application matches this reference. Check the reference submitted by the student."
-    );
-
-  }
-
-
-  const applicationData = matchingApplication.data();
-
-  const applicationEmail = String(applicationData.email || "")
-    .trim()
-    .toLowerCase();
-
-  if (!applicationEmail || applicationEmail !== requestEmail) {
-
-    throw new Error(
-      "The request email does not match the application email. Verify the student's identity before approving."
-    );
-
-  }
-
-
-  if (
-    applicationData.ownerUid &&
-    applicationData.ownerUid !== studentUid
-  ) {
-
-    throw new Error(
-      "This application is already linked to another student account. Do not overwrite that link."
-    );
-
-  }
-
-
-  // Ensure the request still exists and is still pending.
-
-  const requestRef = db
-    .collection("applicationAccessRequests")
-    .doc(requestId);
-
+  const requestRef = db.collection("applicationAccessRequests").doc(requestId);
   const latestRequest = await requestRef.get();
-
   requireAdmin();
-
-  if (!latestRequest.exists) {
-
-    throw new Error(
-      "This access request no longer exists."
-    );
-
+  if (!latestRequest.exists) throw new Error("Access request no longer exists.");
+  const latest = latestRequest.data();
+  if (latest.uid !== uid ||
+      String(latest.ref || "").trim() !== ref ||
+      String(latest.email || "").trim().toLowerCase() !== email) {
+    throw new Error("Access request changed. Refresh the dashboard.");
   }
+  if ((latest.status || "Pending") !== "Pending") throw new Error("Request is no longer pending.");
 
-  const latestData = latestRequest.data();
-
-  if (
-    latestData.uid !== studentUid ||
-    String(latestData.ref || "").trim() !== reference ||
-    String(latestData.email || "").trim().toLowerCase() !== requestEmail
-  ) {
-
-    throw new Error(
-      "The access request changed while it was being reviewed. Refresh the dashboard."
-    );
-
-  }
-
-  if ((latestData.status || "Pending") !== "Pending") {
-
-    throw new Error(
-      "This request is no longer pending. Refresh the dashboard."
-    );
-
-  }
-
-
-  // Re-read the application before writing, to avoid overwriting
-  // a link that another administrator may have created.
-
-  const latestApplication = await db
-    .collection("applications")
-    .doc(matchingApplication.id)
-    .get();
-
+  const latestApp = await db.collection("applications").doc(application.id).get();
   requireAdmin();
+  if (!latestApp.exists) throw new Error("Application no longer exists.");
+  appData = latestApp.data();
+  if (String(appData.email || "").trim().toLowerCase() !== email) throw new Error("Application email has changed.");
+  if (appData.ownerUid && appData.ownerUid !== uid) throw new Error("Application is already linked to another account.");
 
-  if (!latestApplication.exists) {
-
-    throw new Error(
-      "The application no longer exists."
-    );
-
-  }
-
-  const latestApplicationData = latestApplication.data();
-
-  const latestEmail = String(latestApplicationData.email || "")
-    .trim()
-    .toLowerCase();
-
-  if (latestEmail !== requestEmail) {
-
-    throw new Error(
-      "The application email has changed. Verify the application before approving."
-    );
-
-  }
-
-  if (
-    latestApplicationData.ownerUid &&
-    latestApplicationData.ownerUid !== studentUid
-  ) {
-
-    throw new Error(
-      "This application has already been linked to another student."
-    );
-
-  }
-
-
-  // Link the application to the student account.
-
-  await db
-    .collection("applications")
-    .doc(matchingApplication.id)
-    .update({
-      ownerUid: studentUid,
-      updatedAt:
-        firebase.firestore.FieldValue.serverTimestamp()
-    });
-
+  await db.collection("applications").doc(application.id).update({
+    ownerUid: uid,
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  });
   requireAdmin();
-
-
-  // Mark the request approved only after the application link
-  // has been saved successfully.
-
   await requestRef.update({
     status: "Approved",
-    reviewedAt:
-      firebase.firestore.FieldValue.serverTimestamp(),
+    reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
     reviewedBy: ADMIN_UID
   });
-
 }
 
-
-// =====================================================
-// LOAD STUDENT APPLICATIONS
-// =====================================================
-
-async function loadApplications(generation) {
-
+// STUDENT APPLICATIONS
+async function loadApplications(currentGeneration) {
   requireAdmin();
-
-  applicationList.replaceChildren();
-
-  const snapshot = await db
-    .collection("applications")
-    .get();
-
+  const snapshot = await db.collection("applications").get();
   requireAdmin();
+  if (currentGeneration !== generation) return;
+  applicationsCache = sortedNewest(snapshot.docs);
+  $("totalApplications").textContent = applicationsCache.length;
+  renderApplications();
+}
 
-  if (generation !== dashboardGeneration) {
-    return;
-  }
+function renderApplications() {
+  $("applicationList").replaceChildren();
+  const search = $("applicationSearch").value.trim().toLowerCase();
+  const statusFilter = $("applicationStatusFilter").value;
+  const paymentFilter = $("paymentFilter").value;
 
-  if (snapshot.empty) {
-
-    addText(
-      applicationList,
-      "p",
-      "No applications have been submitted yet."
-    );
-
-    return;
-  }
-
-
-  const documents = snapshot.docs.slice().sort(function(a, b) {
-
-    const ad = a.data();
-    const bd = b.data();
-
-    return timestampValue(bd.createdAt) -
-           timestampValue(ad.createdAt);
-
+  const filtered = applicationsCache.filter(docSnap => {
+    const d = docSnap.data();
+    const text = [d.fullName,d.ref,docSnap.id,d.email,d.school,d.certificateNumber,d.course,d.certificateType]
+      .join(" ").toLowerCase();
+    return (!search || text.includes(search)) &&
+      (statusFilter === "all" || (d.status || "Pending") === statusFilter) &&
+      (paymentFilter === "all" || (d.paymentStatus || "Unpaid") === paymentFilter);
   });
 
+  if (!filtered.length) {
+    addText($("applicationList"), "p", applicationsCache.length ? "No applications match your filters." : "No applications have been submitted.");
+    return;
+  }
 
-  documents.forEach(function(doc) {
-
-    const data = doc.data();
-
+  filtered.forEach(docSnap => {
+    const d = docSnap.data();
     const box = document.createElement("article");
-
     box.className = "application";
-
-
-    addText(
-      box,
-      "h3",
-      data.fullName || "Name not provided"
-    );
-
-    addText(
-      box,
-      "p",
-      "Reference: " + (data.ref || doc.id)
-    );
-
-    addText(
-      box,
-      "p",
-      "Certificate number: " +
-      (data.certificateNumber || "Not provided")
-    );
-
-    addText(
-      box,
-      "p",
-      "Institution: " + (data.school || "Not provided")
-    );
-
-    addText(
-      box,
-      "p",
-      "Qualification: " +
-      (data.certificateType || "Not provided")
-    );
-
-    addText(
-      box,
-      "p",
-      "Course: " + (data.course || "Not provided")
-    );
-
-    addText(
-      box,
-      "p",
-      "Email: " + (data.email || "Not provided")
-    );
-
-    addText(
-      box,
-      "p",
-      "Phone: " + (data.phone || "Not provided")
-    );
-
-    addText(
-      box,
-      "p",
-      "Tracking owner UID: " +
-      (data.ownerUid || "Not linked to a student account")
-    );
-
-
-    const statusLabel = addText(
-      box,
-      "p",
-      "Application status: " + (data.status || "Pending")
-    );
-
-    statusLabel.className = "status";
-
-
-    // PAYMENT STATUS
+    addText(box, "h3", d.fullName || "Name not provided");
+    addDetail(box, "Reference", d.ref || docSnap.id);
+    addDetail(box, "Certificate number", d.certificateNumber);
+    addDetail(box, "Institution", d.school);
+    addDetail(box, "Qualification", d.certificateType);
+    addDetail(box, "Course", d.course);
+    addDetail(box, "Email", d.email);
+    addDetail(box, "Phone", d.phone);
+    addDetail(box, "Country", d.country);
+    addDetail(box, "Graduation year", d.graduationYear);
+    addDetail(box, "Purpose", d.purpose);
+    addDetail(box, "Tracking owner UID", d.ownerUid || "Not linked");
 
     const payment = document.createElement("select");
-
-    payment.setAttribute(
-      "aria-label",
-      "Payment status for " + (data.ref || doc.id)
-    );
-
-    ["Unpaid", "Pending", "Paid", "Refunded"].forEach(
-      function(value) {
-
-        const option = document.createElement("option");
-
-        option.value = value;
-        option.textContent = "Payment: " + value;
-
-        option.selected =
-          (data.paymentStatus || "Unpaid") === value;
-
-        payment.appendChild(option);
-
-      }
-    );
-
+    payment.setAttribute("aria-label", "Payment status");
+    ["Unpaid","Pending","Paid","Refunded"].forEach(value => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = "Payment: " + value;
+      option.selected = (d.paymentStatus || "Unpaid") === value;
+      payment.appendChild(option);
+    });
     box.appendChild(payment);
 
-
-    // APPLICATION STATUS
-
     const status = document.createElement("select");
-
-    status.setAttribute(
-      "aria-label",
-      "Application status for " + (data.ref || doc.id)
-    );
-
-    [
-      "Pending",
-      "Verified",
-      "Rejected",
-      "Unable to Verify"
-    ].forEach(function(value) {
-
+    status.setAttribute("aria-label", "Application status");
+    ["Pending","Verified","Rejected","Unable to Verify"].forEach(value => {
       const option = document.createElement("option");
-
       option.value = value;
       option.textContent = "Status: " + value;
-
-      option.selected =
-        (data.status || "Pending") === value;
-
+      option.selected = (d.status || "Pending") === value;
       status.appendChild(option);
-
     });
-
     box.appendChild(status);
 
-
-    // SAVE APPLICATION UPDATES
-
-    const saveButton = makeButton(
-      "Save Application Updates",
-      "",
-      async function() {
-
-        if (!isAdmin()) {
-
-          alert("Administrator authorization required.");
-
-          return;
-
-        }
-
-        saveButton.disabled = true;
-
-        try {
-
-          await db
-            .collection("applications")
-            .doc(doc.id)
-            .update({
-              paymentStatus: payment.value,
-              status: status.value,
-              updatedAt:
-                firebase.firestore.FieldValue.serverTimestamp()
-            });
-
-          alert("Application updated successfully.");
-
-          await refreshDashboard();
-
-        } catch (error) {
-
-          console.error("Application update error:", error);
-
-          alert(
-            "Could not update the application. Check Firestore Security Rules."
-          );
-
-          saveButton.disabled = false;
-
-        }
-
+    box.appendChild(makeButton("Save Application Updates", "", async event => {
+      // The callback button is recovered from the rendered card below.
+    }));
+    const saveButton = box.lastElementChild;
+    saveButton.addEventListener("click", async () => {
+      requireAdmin();
+      saveButton.disabled = true;
+      try {
+        await db.collection("applications").doc(docSnap.id).update({
+          paymentStatus: payment.value,
+          status: status.value,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        alert("Application updated.");
+        await refreshDashboard();
+      } catch (error) {
+        alert("Could not update application: " + error.message);
+      } finally {
+        saveButton.disabled = false;
       }
-    );
+    });
 
-    box.appendChild(saveButton);
-
-
-    // CONTACT STUDENT THROUGH WHATSAPP
-
-    const whatsappButton = makeButton(
-      "Contact Student on WhatsApp",
-      "secondary",
-      function() {
-
-        let phone = String(data.phone || "")
-          .replace(/\D/g, "");
-
-        if (phone.startsWith("0")) {
-          phone = "234" + phone.slice(1);
-        }
-
-        if (!phone) {
-
-          alert("This application has no phone number.");
-
-          return;
-
-        }
-
-        const message = encodeURIComponent(
-          "Hello " +
-          (data.fullName || "Student") +
-          ", we are contacting you about your ARNAUD certificate verification application. Reference: " +
-          (data.ref || doc.id)
-        );
-
-        const url =
-          "https://wa.me/" + phone + "?text=" + message;
-
-        window.open(
-          url,
-          "_blank",
-          "noopener,noreferrer"
-        );
-
-      }
-    );
-
-    box.appendChild(whatsappButton);
-
-
-    // PUBLISH VERIFIED CERTIFICATE RECORD
-
-    if (data.status === "Verified") {
-
-      const publishButton = makeButton(
-        "Publish Approved Public Record",
-        "",
-        async function() {
-
-          if (!isAdmin()) {
-
-            alert("Administrator authorization required.");
-
-            return;
-
-          }
-
-          const confirmed = confirm(
-            "Confirm that the issuing institution has verified this certificate and that publication of these limited details is authorized."
-          );
-
-          if (!confirmed) {
-            return;
-          }
-
-          publishButton.disabled = true;
-
-          try {
-
-            const reference = String(data.ref || doc.id);
-
-            if (
-              !/^[A-Za-z0-9_-]{1,128}$/.test(reference)
-            ) {
-
-              throw new Error(
-                "The certificate reference contains unsupported characters."
-              );
-
-            }
-
-            const publicRecord = {
-              ref: reference,
-              certificateNumber:
-                String(data.certificateNumber || ""),
-              fullName:
-                String(data.fullName || ""),
-              school:
-                String(data.school || ""),
-              certificateType:
-                String(data.certificateType || ""),
-              course:
-                String(data.course || ""),
-              issueDate:
-                String(data.issueDate || ""),
-              status: "Verified",
-              publishedAt:
-                firebase.firestore.FieldValue.serverTimestamp()
-            };
-
-            requireAdmin();
-
-            await db
-              .collection("publicCertificates")
-              .doc(reference)
-              .set(publicRecord);
-
-            alert("Public record published successfully.");
-
-          } catch (error) {
-
-            console.error("Publishing error:", error);
-
-            alert(
-              "Publishing failed. Check the reference and Firestore Security Rules."
-            );
-
-          } finally {
-
-            publishButton.disabled = false;
-
-          }
-
-        }
+    box.appendChild(makeButton("Contact Student on WhatsApp", "secondary", () => {
+      let phone = String(d.phone || "").replace(/\D/g, "");
+      if (phone.startsWith("0")) phone = "234" + phone.slice(1);
+      if (!phone) { alert("No phone number is recorded."); return; }
+      if (phone.startsWith("2340")) phone = "234" + phone.slice(4);
+      const message = encodeURIComponent(
+        "Hello " + (d.fullName || "Student") +
+        ", we are contacting you about your ARNAUD application. Reference: " + (d.ref || docSnap.id)
       );
+      window.open("https://wa.me/" + phone + "?text=" + message, "_blank", "noopener,noreferrer");
+    }));
 
-      box.appendChild(publishButton);
-
+    if (d.status === "Verified") {
+      box.appendChild(makeButton("Publish Student Verification Record", "gold", async button => {
+        if (!confirm("Confirm the issuing institution has verified this document and publication is authorized?")) return;
+        button.disabled = true;
+        try {
+          const ref = validateReference(d.ref || docSnap.id);
+          await db.collection("publicVerifications").doc(ref).set(safeRecord({
+            fullName: d.fullName,
+            certificateNumber: d.certificateNumber,
+            certificateType: d.certificateType,
+            school: d.school,
+            course: d.course,
+            issueDate: d.issueDate
+          }, ref), {merge:true});
+          alert("Student verification record published.");
+          await loadPublished();
+        } catch (error) {
+          alert("Publishing failed: " + error.message);
+        } finally {
+          button.disabled = false;
+        }
+      }));
     }
 
-
-    applicationList.appendChild(box);
-
+    $("applicationList").appendChild(box);
   });
-
 }
 
-</script>
+// REGISTER DOCUMENT FOR REVIEW
+$("documentForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  requireAdmin();
+  const button = $("registerDocumentButton");
+  button.disabled = true;
+  button.textContent = "Registering...";
+  try {
+    const ref = validateReference($("documentReference").value);
+    const existing = await db.collection("documentRequests").doc(ref).get();
+    requireAdmin();
+    if (existing.exists) throw new Error("This reference already exists. Use a new reference.");
 
+    await db.collection("documentRequests").doc(ref).set({
+      referenceNumber: ref,
+      ref: ref,
+      documentTitle: $("documentTitle").value.trim(),
+      documentCategory: $("documentCategory").value,
+      originalDocumentNumber: $("originalDocumentNumber").value.trim(),
+      issuedTo: $("issuedTo").value.trim(),
+      school: $("documentSchool").value.trim(),
+      course: $("documentCourse").value.trim(),
+      issueDate: $("documentIssueDate").value,
+      description: $("documentDescription").value.trim(),
+      status: "Pending Review",
+      createdByEmail: auth.currentUser.email || "",
+      createdByUid: auth.currentUser.uid,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    $("documentForm").reset();
+    showMessage($("documentFormMessage"), "Document registered for review. It has not been publicly verified.", "success");
+    await refreshDashboard();
+  } catch (error) {
+    console.error(error);
+    showMessage($("documentFormMessage"), "Could not register document: " + error.message);
+  } finally {
+    button.disabled = false;
+    button.textContent = "REGISTER FOR REVIEW";
+  }
+});
+
+// DOCUMENT REQUESTS
+async function loadDocuments(currentGeneration) {
+  requireAdmin();
+  const snapshot = await db.collection("documentRequests").get();
+  requireAdmin();
+  if (currentGeneration !== generation) return;
+  documentCache = sortedNewest(snapshot.docs);
+  $("totalDocuments").textContent = documentCache.length;
+  $("pendingDocuments").textContent = documentCache.filter(x => (x.data().status || "Pending Review") === "Pending Review").length;
+  renderDocuments();
+}
+
+function renderDocuments() {
+  $("documentList").replaceChildren();
+  const search = $("documentSearch").value.trim().toLowerCase();
+  const filter = $("documentStatusFilter").value;
+  const list = documentCache.filter(docSnap => {
+    const d = docSnap.data();
+    const text = [d.referenceNumber,docSnap.id,d.documentTitle,d.issuedTo,d.school,d.originalDocumentNumber,d.documentCategory]
+      .join(" ").toLowerCase();
+    return (!search || text.includes(search)) &&
+      (filter === "all" || (d.status || "Pending Review") === filter);
+  });
+
+  if (!list.length) {
+    addText($("documentList"), "p", documentCache.length ? "No documents match the filters." : "No document requests registered yet.");
+    return;
+  }
+
+  list.forEach(docSnap => {
+    const d = docSnap.data();
+    const ref = d.referenceNumber || d.ref || docSnap.id;
+    const box = document.createElement("article");
+    box.className = "application";
+    addText(box, "h3", d.documentTitle || "Academic Document");
+    box.appendChild(badge(d.status || "Pending Review"));
+    addDetail(box, "ARNAUD reference", ref);
+    addDetail(box, "Name on document", d.issuedTo);
+    addDetail(box, "Original document number", d.originalDocumentNumber);
+    addDetail(box, "Category", d.documentCategory);
+    addDetail(box, "Institution", d.school);
+    addDetail(box, "Course", d.course);
+    addDetail(box, "Issue date", d.issueDate);
+    addDetail(box, "Review notes", d.description);
+    addDetail(box, "Submitted by", d.createdByEmail);
+    addDetail(box, "Submitted on", formatDate(d.createdAt));
+
+    if ((d.status || "Pending Review") === "Pending Review") {
+      const actions = document.createElement("div");
+      actions.className = "actions";
+
+      const approve = makeButton("Approve & Publish", "", async () => {
+        if (!confirm("Have you independently verified this document with the issuing institution and confirmed publication is authorized?")) return;
+        approve.disabled = true; reject.disabled = true;
+        try {
+          requireAdmin();
+          const safeRef = validateReference(ref);
+          const record = safeRecord({
+            documentTitle: d.documentTitle,
+            issuedTo: d.issuedTo,
+            originalDocumentNumber: d.originalDocumentNumber,
+            documentCategory: d.documentCategory,
+            school: d.school,
+            course: d.course,
+            issueDate: d.issueDate
+          }, safeRef);
+
+          // Publish first, then update the internal request.
+          await db.collection("publicVerifications").doc(safeRef).set(record);
+          requireAdmin();
+          await db.collection("documentRequests").doc(docSnap.id).update({
+            status: "Verified",
+            reviewedByUid: auth.currentUser.uid,
+            reviewedByEmail: auth.currentUser.email || "",
+            reviewedAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          alert("Document approved and published. Reference: " + safeRef);
+          await refreshDashboard();
+        } catch (error) {
+          console.error(error);
+          alert("Approval failed: " + error.message + ". Check both Firestore collections before retrying.");
+          approve.disabled = false; reject.disabled = false;
+        }
+      });
+
+      const reject = makeButton("Reject Request", "danger", async () => {
+        if (!confirm("Reject this document request? It will not be published by this action.")) return;
+        approve.disabled = true; reject.disabled = true;
+        try {
+          requireAdmin();
+          await db.collection("documentRequests").doc(docSnap.id).update({
+            status: "Rejected",
+            reviewedByUid: auth.currentUser.uid,
+            reviewedByEmail: auth.currentUser.email || "",
+            reviewedAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          await refreshDashboard();
+        } catch (error) {
+          alert("Rejection failed: " + error.message);
+          approve.disabled = false; reject.disabled = false;
+        }
+      });
+
+      actions.append(approve, reject);
+      box.appendChild(actions);
+    }
+
+    if (d.status === "Verified") {
+      box.appendChild(makeButton("Copy Verification Link", "secondary", async () => {
+        const url = new URL("verify-document.html", window.location.href);
+        url.searchParams.set("certificate", ref);
+        try {
+          await navigator.clipboard.writeText(url.href);
+          alert("Verification link copied:\n" + url.href);
+        } catch {
+          prompt("Copy this verification link:", url.href);
+        }
+      }));
+    }
+
+    $("documentList").appendChild(box);
+  });
+}
+
+// PUBLIC RECORDS
+async function loadPublished(currentGeneration) {
+  if (!isAdmin()) return;
+  const startGeneration = currentGeneration === undefined ? generation : currentGeneration;
+  try {
+    const snapshot = await db.collection("publicVerifications").get();
+    requireAdmin();
+    if (startGeneration !== generation) return;
+    publishedCache = sortedNewest(snapshot.docs);
+    $("publishedDocuments").textContent = publishedCache.length;
+    $("publishedList").replaceChildren();
+
+    if (!publishedCache.length) {
+      addText($("publishedList"), "p", "No public verification records have been published yet.");
+      return;
+    }
+
+    publishedCache.forEach(docSnap => {
+      const d = docSnap.data();
+      const ref = d.referenceNumber || d.certificateNumber || d.ref || docSnap.id;
+      const box = document.createElement("article");
+      box.className = "application";
+      addText(box, "h3", d.documentTitle || d.fullName || d.issuedTo || "Verification Record");
+      box.appendChild(badge(d.status || "Unknown"));
+      addDetail(box, "Reference", ref);
+      addDetail(box, "Company", d.companyName || COMPANY_NAME);
+      addDetail(box, "Company email", d.companyEmail || COMPANY_EMAIL);
+      addDetail(box, "Company number", d.companyNumber || COMPANY_NUMBER);
+
+      const url = new URL("verify-document.html", window.location.href);
+      url.searchParams.set("certificate", ref);
+
+      const qr = document.createElement("img");
+      qr.className = "qr";
+      qr.alt = "QR code linking to this verification record";
+      qr.loading = "lazy";
+      qr.src = "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" + encodeURIComponent(url.href);
+      box.appendChild(qr);
+      addDetail(box, "Verification link", url.href);
+
+      box.appendChild(makeButton("Copy Verification Link", "secondary", async () => {
+        try {
+          await navigator.clipboard.writeText(url.href);
+          alert("Verification link copied:\n" + url.href);
+        } catch {
+          prompt("Copy this verification link:", url.href);
+        }
+      }));
+
+      $("publishedList").appendChild(box);
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+</script>
 </body>
-  </html>
+                          </html>
+  
