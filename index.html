@@ -7,92 +7,38 @@
 <meta name="description" content="ARNAUD AFROCHAINE TRUST SYSTEMS LTD — International student applications, certificate verification, QR scanning and academic services.">
 <title>ARNAUD AFROCHAINE TRUST SYSTEMS LTD</title>
 <style>
-:root {
-  --green: #08783e;
-  --dark: #07552f;
-  --gold: #d9ad43;
-  --white: #fff;
-  --light: #f4f8f5;
-  --text: #26352c;
-  --muted: #68776d;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: Arial, Helvetica, sans-serif; color: var(--text); line-height: 1.7; background: var(--white); }
-a { text-decoration: none; }
-header { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); }
-.topbar { max-width: 1200px; margin: auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; gap: 18px; }
-.brand { display: flex; align-items: center; gap: 12px; color: var(--dark); }
-.logo { width: 75px; height: 75px; border-radius: 50%; background: #fff; color: var(--gold); border: 3px solid var(--gold); display: block; place-items: center; font-weight: bold; flex-shrink: 0; object-fit:cover; padding:2px; box-shadow:0 2px 10px #0002; }
-.brand h1 { font-size: 14px; line-height: 1.4; }
-.brand p { color: var(--muted); font-size: 11px; }
-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
-nav a { color: var(--dark); font-size: 13px; font-weight: bold; }
-nav a:hover { color: #b18319; }
-.button { display: inline-block; padding: 12px 18px; border-radius: 7px; text-align: center; font-size: 14px; font-weight: bold; cursor: pointer; border: 0; }
-.button-green { background: var(--green); color: white; }
-.button-gold { background: var(--gold); color: #17251b; }
-.button-outline { border: 1px solid var(--gold); color: white; }
-.hero { background: linear-gradient(120deg, #044123, #08783e); color: white; padding: 75px 20px; border-bottom: 5px solid var(--gold); }
-.hero-content { max-width: 1100px; margin: auto; }
-.badge { display: inline-block; border: 1px solid var(--gold); color: #ffe5a0; border-radius: 30px; padding: 5px 12px; font-size: 12px; margin-bottom: 20px; }
-.hero h2 { font-size: clamp(30px, 5vw, 52px); line-height: 1.2; margin-bottom: 20px; }
-.hero h2 span { color: var(--gold); }
-.hero p { max-width: 700px; color: #e4f0e8; margin-bottom: 25px; }
-.hero-buttons, .cta-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
-.section { padding: 65px 20px; }
-.section-light { background: var(--light); }
-.container { max-width: 1100px; margin: auto; }
-.section-title { text-align: center; margin-bottom: 35px; }
-.section-title h2 { color: var(--dark); font-size: clamp(25px, 4vw, 35px); }
-.section-title p { max-width: 700px; margin: 10px auto 0; color: var(--muted); }
-.gold-line { width: 65px; height: 4px; background: var(--gold); margin: 13px auto; border-radius: 5px; }
-.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-.card { background: white; padding: 24px; border: 1px solid #e0e9e2; border-radius: 12px; box-shadow: 0 5px 18px #00000008; }
-.card-icon { font-size: 28px; margin-bottom: 10px; }
-.card h3 { color: var(--dark); font-size: 19px; margin-bottom: 8px; }
-.card p { color: var(--muted); font-size: 14px; margin-bottom: 15px; }
-.text-link { color: var(--green); font-weight: bold; font-size: 14px; }
-.scanner-card { max-width: 720px; margin: auto; background: white; padding: 25px; border-radius: 14px; border: 1px solid #dce9df; box-shadow: 0 5px 20px #0000000b; }
-.scanner-card p { color: var(--muted); margin-bottom: 15px; }
-#qr-reader { width: 100%; max-width: 500px; margin: 18px auto; }
-#qr-reader video { border-radius: 10px; }
-.scanner-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-.scanner-actions button { flex: 1; min-width: 150px; }
-.scanner-status { margin-top: 15px; padding: 12px; background: #eef7f0; border-radius: 8px; overflow-wrap: anywhere; }
-input[type="text"] { width: 100%; padding: 13px; border: 1px solid #bbc9bd; border-radius: 7px; margin: 8px 0 12px; font-size: 15px; }
-.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
-.step { text-align: center; padding: 15px; }
-.step-number { width: 43px; height: 43px; display: grid; place-items: center; border-radius: 50%; background: var(--green); color: var(--gold); border: 2px solid var(--gold); font-weight: bold; margin: 0 auto 12px; }
-.step h3 { color: var(--dark); font-size: 16px; margin-bottom: 7px; }
-.step p { color: var(--muted); font-size: 13px; }
-.cta { background: var(--dark); color: white; padding: 50px 20px; text-align: center; border-top: 4px solid var(--gold); }
-.cta h2 { font-size: clamp(25px, 4vw, 35px); }
-.cta p { color: #dbece0; margin: 12px 0 22px; }
-.cta-buttons { justify-content: center; }
-.contact-box { text-align: center; background: white; border: 1px solid #dce9df; padding: 25px; border-radius: 12px; }
-.contact-box p { margin: 8px 0; }
-.contact-box a { color: var(--green); font-weight: bold; overflow-wrap: anywhere; }
-footer { background: #052f1b; color: #d5e4d9; padding: 35px 20px 20px; }
-.footer-grid { max-width: 1100px; margin: auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 25px; }
-footer h3, footer h4 { color: var(--gold); margin-bottom: 12px; }
-footer p, footer a { color: #d5e4d9; font-size: 13px; }
-footer a { display: block; margin-bottom: 8px; overflow-wrap: anywhere; }
-.footer-bottom { max-width: 1100px; margin: 25px auto 0; padding-top: 18px; border-top: 1px solid #28533b; text-align: center; font-size: 12px; }
-.image-band{max-width:1100px;margin:25px auto;border-radius:14px;overflow:hidden;box-shadow:0 6px 25px #0002}
-.image-band img{width:100%;height:380px;object-fit:cover;display:block}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:center;background:white;padding:25px;border-radius:14px;border:1px solid #e0e9e2;box-shadow:0 5px 18px #00000008;margin-bottom:25px}
-.split img{width:100%;height:320px;object-fit:cover;border-radius:12px}
+:root{--green:#08783e;--dark:#07552f;--gold:#d9ad43;--white:#fff;--light:#f4f8f5;--text:#26352c;--muted:#68776d}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Arial,sans-serif;color:var(--text);line-height:1.7;background:var(--white)}a{text-decoration:none}
+header{position:sticky;top:0;z-index:100;background:white;border-bottom:3px solid var(--gold)}
+.topbar{max-width:1200px;margin:auto;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:18px}
+.brand{display:flex;align-items:center;gap:12px;color:var(--dark)}
+.logo{width:75px;height:75px;border-radius:50%;background:#fff;border:3px solid var(--gold);display:block;flex-shrink:0;object-fit:cover;padding:2px;box-shadow:0 2px 10px #0002}
+.brand h1{font-size:14px;line-height:1.4}.brand p{color:var(--muted);font-size:11px}
+nav{display:flex;flex-wrap:wrap;align-items:center;gap:14px}nav a{color:var(--dark);font-size:13px;font-weight:bold}nav a:hover{color:#b18319}
+.button{display:inline-block;padding:12px 18px;border-radius:7px;text-align:center;font-size:14px;font-weight:bold;cursor:pointer;border:0}
+.button-green{background:var(--green);color:white}.button-gold{background:var(--gold);color:#17251b}.button-outline{border:1px solid var(--gold);color:white}
+.hero{background:linear-gradient(120deg,#044123,#08783e);color:white;padding:75px 20px;border-bottom:5px solid var(--gold)}.hero-content{max-width:1100px;margin:auto}
+.badge{display:inline-block;border:1px solid var(--gold);color:#ffe5a0;border-radius:30px;padding:5px 12px;font-size:12px;margin-bottom:20px}
+.hero h2{font-size:clamp(30px,5vw,52px);line-height:1.2;margin-bottom:20px}.hero h2 span{color:var(--gold)}.hero p{max-width:700px;color:#e4f0e8;margin-bottom:25px}.hero-buttons,.cta-buttons{display:flex;flex-wrap:wrap;gap:12px}
+.section{padding:65px 20px}.section-light{background:var(--light)}.container{max-width:1100px;margin:auto}.section-title{text-align:center;margin-bottom:35px}.section-title h2{color:var(--dark);font-size:clamp(25px,4vw,35px)}.section-title p{max-width:700px;margin:10px auto 0;color:var(--muted)}.gold-line{width:65px;height:4px;background:var(--gold);margin:13px auto;border-radius:5px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.card{background:white;padding:24px;border:1px solid #e0e9e2;border-radius:12px;box-shadow:0 5px 18px #00000008}.card-icon{font-size:28px;margin-bottom:10px}.card h3{color:var(--dark);font-size:19px;margin-bottom:8px}.card p{color:var(--muted);font-size:14px;margin-bottom:15px}.text-link{color:var(--green);font-weight:bold;font-size:14px}
+.scanner-card{max-width:720px;margin:auto;background:white;padding:25px;border-radius:14px;border:1px solid #dce9df;box-shadow:0 5px 20px #0000000b}.scanner-card p{color:var(--muted);margin-bottom:15px}#qr-reader{width:100%;max-width:500px;margin:18px auto}#qr-reader video{border-radius:10px}.scanner-actions{display:flex;flex-wrap:wrap;gap:10px}.scanner-actions button{flex:1;min-width:150px}.scanner-status{margin-top:15px;padding:12px;background:#eef7f0;border-radius:8px;overflow-wrap:anywhere}input[type="text"]{width:100%;padding:13px;border:1px solid #bbc9bd;border-radius:7px;margin:8px 0 12px;font-size:15px}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.step{text-align:center;padding:15px}.step-number{width:43px;height:43px;display:grid;place-items:center;border-radius:50%;background:var(--green);color:var(--gold);border:2px solid var(--gold);font-weight:bold;margin:0 auto 12px}.step h3{color:var(--dark);font-size:16px;margin-bottom:7px}.step p{color:var(--muted);font-size:13px}
+.cta{background:var(--dark);color:white;padding:50px 20px;text-align:center;border-top:4px solid var(--gold)}.cta h2{font-size:clamp(25px,4vw,35px)}.cta p{color:#dbece0;margin:12px 0 22px}.cta-buttons{justify-content:center}
+.contact-box{text-align:center;background:white;border:1px solid #dce9df;padding:25px;border-radius:12px}.contact-box p{margin:8px 0}.contact-box a{color:var(--green);font-weight:bold;overflow-wrap:anywhere}
+footer{background:#052f1b;color:#d5e4d9;padding:35px 20px 20px}.footer-grid{max-width:1100px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:25px}footer h3,footer h4{color:var(--gold);margin-bottom:12px}footer p,footer a{color:#d5e4d9;font-size:13px}footer a{display:block;margin-bottom:8px;overflow-wrap:anywhere}.footer-bottom{max-width:1100px;margin:25px auto 0;padding-top:18px;border-top:1px solid #28533b;text-align:center;font-size:12px}
+.image-band{max-width:1100px;margin:25px auto;border-radius:14px;overflow:hidden;box-shadow:0 6px 25px #0002}.image-band img{width:100%;height:380px;object-fit:cover;display:block}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:center;background:white;padding:25px;border-radius:14px;border:1px solid #e0e9e2;box-shadow:0 5px 18px #00000008;margin-bottom:25px}.split img{width:100%;height:320px;object-fit:cover;border-radius:12px}
 .whatsapp-float{position:fixed;bottom:22px;right:22px;background:#25D366;color:#fff;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;text-decoration:none;box-shadow:0 6px 20px #0004;z-index:9999}
-@media (max-width: 800px) { .topbar { flex-direction: column; align-items: flex-start; } .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .split{grid-template-columns:1fr} .split img{order:-1;height:260px} .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } .footer-grid { grid-template-columns: 1fr 1fr; } .image-band img{height:260px} }
-@media (max-width: 520px) { .grid, .steps, .footer-grid { grid-template-columns: 1fr; } .hero { padding: 55px 20px; } .button { width: 100%; } nav { gap: 10px; } nav a { font-size: 12px; } .scanner-card { padding: 17px; } }
+@media(max-width:800px){.topbar{flex-direction:column;align-items:flex-start}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.split{grid-template-columns:1fr}.split img{order:-1;height:260px}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.footer-grid{grid-template-columns:1fr 1fr}.image-band img{height:260px}}
+@media(max-width:520px){.grid,.steps,.footer-grid{grid-template-columns:1fr}.hero{padding:55px 20px}.button{width:100%}nav{gap:10px}nav a{font-size:12px}.scanner-card{padding:17px}}
 </style>
 </head>
 <body>
 <header>
   <div class="topbar">
     <a href="index.html" class="brand">
-      <img src="IMG-20261028-WA0015_1.jpg" alt="AA Logo" class="logo" onerror="this.src='logo.jpg'">
+      <img src="logo.jpg" alt="ARNAUD AFROCHAINE Logo" class="logo">
       <div>
         <h1>ARNAUD AFROCHAINE<br>TRUST SYSTEMS LTD</h1>
         <p>African Roots, Global Vision</p>
@@ -284,4 +230,4 @@ const incomingReference = new URLSearchParams(window.location.search).get("ref")
 if (incomingReference) { referenceInput.value = incomingReference; setScannerStatus("A certificate reference was received. Tap Continue to Verification."); }
 </script>
 </body>
-  </html>
+        </html>
