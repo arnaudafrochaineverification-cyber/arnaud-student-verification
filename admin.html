@@ -97,14 +97,14 @@ footer{text-align:center;padding:25px 12px;color:#58645b;font-size:12px}
 
   <section class="card">
     <h2>1. Student Tracking Access Requests</h2>
-    <p class="small">Review requests to link applications to student accounts.</p>
+    <p class="small">Review requests to link applications to student accounts. The reference and email are checked before linking.</p>
     <p>Requests: <span id="requestCount" class="section-count">0</span></p>
     <div id="requestList">Sign in to load requests.</div>
   </section>
 
   <section class="card">
     <h2>2. Student Applications</h2>
-    <p class="small">Review applications, update status, publish records, contact students.</p>
+    <p class="small">Review applications, update application/payment status, publish approved student records, and contact students.</p>
     <input id="applicationSearch" type="search" placeholder="Search name, reference, email, school or certificate number">
     <div class="grid">
       <div>
@@ -129,6 +129,7 @@ footer{text-align:center;padding:25px 12px;color:#58645b;font-size:12px}
 
   <section class="card">
     <h2>3. Register an Academic Document</h2>
+    <p class="small">Create a document request for review. Registration alone does not prove authenticity; independently check the issuing institution before approval.</p>
     <form id="documentForm">
       <label for="documentTitle">Document title</label>
       <input id="documentTitle" required maxlength="180" placeholder="e.g. Bachelor of Science Certificate">
@@ -154,7 +155,7 @@ footer{text-align:center;padding:25px 12px;color:#58645b;font-size:12px}
       <label for="documentIssueDate">Issue date</label>
       <input id="documentIssueDate" type="date">
       <label for="documentDescription">Review notes/description</label>
-      <textarea id="documentDescription" maxlength="1500"></textarea>
+      <textarea id="documentDescription" maxlength="1500" placeholder="Record the evidence checked and relevant notes. Do not enter passwords or sensitive identity numbers."></textarea>
       <button id="registerDocumentButton" type="submit">REGISTER FOR REVIEW</button>
     </form>
     <div id="documentFormMessage" aria-live="polite"></div>
@@ -162,6 +163,7 @@ footer{text-align:center;padding:25px 12px;color:#58645b;font-size:12px}
 
   <section class="card">
     <h2>4. Document Verification Management</h2>
+    <p class="small">Review requests, publish verified records, or reject requests.</p>
     <div class="grid">
       <div>
         <label for="documentSearch">Search documents</label>
@@ -182,9 +184,20 @@ footer{text-align:center;padding:25px 12px;color:#58645b;font-size:12px}
 
   <section class="card">
     <h2>5. Published Verification Records</h2>
+    <p class="small">Published records are saved in <code>publicVerifications</code> in this Firebase project.</p>
     <button id="refreshPublishedButton" type="button">Refresh Published Records</button>
     <div id="publishedList">Sign in to load published records.</div>
   </section>
+
+  <section class="card">
+    <h2>Company Information</h2>
+    <p><strong>ARNAUD AFROCHAINE TRUST SYSTEMS LTD</strong></p>
+    <p>Email: <a href="mailto:arnaudafrochain@gmail.com">arnaudafrochain@gmail.com</a></p>
+    <p>Company reference: AV 179223482696</p>
+    <p>Phone: <a href="tel:+2349132851465">+234 913 285 1465</a></p>
+    <p class="small">African Roots, Global Vision.</p>
+  </section>
+</section>
 </main>
 
 <footer>&copy; <span id="year"></span> ARNAUD AFROCHAINE TRUST SYSTEMS LTD. All rights reserved.</footer>
@@ -195,8 +208,10 @@ footer{text-align:center;padding:25px 12px;color:#58645b;font-size:12px}
 
 <script>
 "use strict";
+
+// Existing student Firebase project - NEW VALID KEY
 const firebaseConfig = {
-  apiKey: "AIzaSyCPoq6oxu0oNmIA19iU4PXM1EKkIbxudPo",
+  apiKey: "AIzaSyCPoq6oxu0oNmIA19Iu4PXM1EKkIbxudPo",
   authDomain: "arnaud-student-verification.firebaseapp.com",
   projectId: "arnaud-student-verification",
   storageBucket: "arnaud-student-verification.firebasestorage.app",
@@ -209,7 +224,7 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// UPDATED - 2 ADMINS NOW ALLOWED
+// CORRECTED - 2 ADMINS NOW
 const ADMIN_UIDS = ["5jEJoFV2QfM9BilsYMXJOZDimmQ2", "XH0iATMSxjZvE2KwR4XKsxmFLJ22"];
 const ADMIN_UID = ADMIN_UIDS[0];
 const COMPANY_NAME = "ARNAUD AFROCHAINE TRUST SYSTEMS LTD";
@@ -329,7 +344,8 @@ $("loginForm").addEventListener("submit", async event => {
     }
     $("loginMessage").replaceChildren();
   } catch (error) {
-    showMessage($("loginMessage"), "Login failed. " + error.message);
+    console.error(error);
+    showMessage($("loginMessage"), "Login failed. Check your email, password and Firebase Authentication settings. " + error.message);
   } finally {
     $("loginButton").disabled = false;
   }
@@ -382,8 +398,9 @@ async function refreshDashboard() {
       showMessage($("dashboardMessage"), "Dashboard refresh completed.", "success");
     }
   } catch (error) {
+    console.error(error);
     if (isAdmin() && currentGeneration === generation) {
-      showMessage($("dashboardMessage"), "Some data could not be loaded. Check Firestore security rules. " + error.message);
+      showMessage($("dashboardMessage"), "Some data could not be loaded. Check Firestore security rules in arnaud-student-verification. " + error.message);
     }
   }
 }
@@ -419,7 +436,7 @@ function renderAccessRequests() {
       const actions = document.createElement("div");
       actions.className = "actions";
       const approve = makeButton("Approve Tracking Access", "", async () => {
-        if (!confirm("Approve this request?")) return;
+        if (!confirm("Approve this request? The application reference and email will be checked.")) return;
         approve.disabled = true; reject.disabled = true;
         try {
           await approveAccessRequest(requestDoc.id, data);
@@ -431,7 +448,7 @@ function renderAccessRequests() {
         }
       });
       const reject = makeButton("Reject Request", "danger", async () => {
-        if (!confirm("Reject?")) return;
+        if (!confirm("Reject this tracking access request?")) return;
         approve.disabled = true; reject.disabled = true;
         try {
           requireAdmin();
@@ -459,8 +476,10 @@ async function approveAccessRequest(requestId, requestData) {
   const ref = String(requestData.ref || "").trim();
   const email = String(requestData.email || "").trim().toLowerCase();
   if (!uid || !ref || !email) throw new Error("Request is missing UID, reference or email.");
+  if (!/^[A-Za-z0-9_-]{1,128}$/.test(ref)) throw new Error("Invalid application reference.");
   const query = await db.collection("applications").where("ref","==",ref).limit(2).get();
   requireAdmin();
+  if (query.size > 1) throw new Error("Duplicate application references found.");
   let application = query.size === 1 ? query.docs[0] : null;
   if (!application) {
     const direct = await db.collection("applications").doc(ref).get();
@@ -469,12 +488,21 @@ async function approveAccessRequest(requestId, requestData) {
   }
   if (!application) throw new Error("No application matches this reference.");
   let appData = application.data();
-  if (String(appData.email || "").trim().toLowerCase() !== email) throw new Error("Email mismatch.");
-  if (appData.ownerUid && appData.ownerUid !== uid) throw new Error("Already linked.");
+  if (String(appData.email || "").trim().toLowerCase() !== email) throw new Error("Request email does not match application email.");
+  if (appData.ownerUid && appData.ownerUid !== uid) throw new Error("Application is already linked to another account.");
   const requestRef = db.collection("applicationAccessRequests").doc(requestId);
   const latestRequest = await requestRef.get();
   requireAdmin();
-  if (!latestRequest.exists) throw new Error("Request no longer exists.");
+  if (!latestRequest.exists) throw new Error("Access request no longer exists.");
+  const latest = latestRequest.data();
+  if (latest.uid !== uid || String(latest.ref || "").trim() !== ref || String(latest.email || "").trim().toLowerCase() !== email) throw new Error("Access request changed. Refresh the dashboard.");
+  if ((latest.status || "Pending") !== "Pending") throw new Error("Request is no longer pending.");
+  const latestApp = await db.collection("applications").doc(application.id).get();
+  requireAdmin();
+  if (!latestApp.exists) throw new Error("Application no longer exists.");
+  appData = latestApp.data();
+  if (String(appData.email || "").trim().toLowerCase() !== email) throw new Error("Application email has changed.");
+  if (appData.ownerUid && appData.ownerUid !== uid) throw new Error("Application is already linked to another account.");
   await db.collection("applications").doc(application.id).update({
     ownerUid: uid,
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -521,10 +549,16 @@ function renderApplications() {
     addDetail(box, "Reference", d.ref || docSnap.id);
     addDetail(box, "Certificate number", d.certificateNumber);
     addDetail(box, "Institution", d.school);
+    addDetail(box, "Qualification", d.certificateType);
+    addDetail(box, "Course", d.course);
     addDetail(box, "Email", d.email);
     addDetail(box, "Phone", d.phone);
+    addDetail(box, "Country", d.country);
+    addDetail(box, "Graduation year", d.graduationYear);
+    addDetail(box, "Purpose", d.purpose);
     addDetail(box, "Tracking owner UID", d.ownerUid || "Not linked");
     const payment = document.createElement("select");
+    payment.setAttribute("aria-label", "Payment status");
     ["Unpaid","Pending","Paid","Refunded"].forEach(value => {
       const option = document.createElement("option");
       option.value = value;
@@ -534,6 +568,7 @@ function renderApplications() {
     });
     box.appendChild(payment);
     const status = document.createElement("select");
+    status.setAttribute("aria-label", "Application status");
     ["Pending","Verified","Rejected","Unable to Verify"].forEach(value => {
       const option = document.createElement("option");
       option.value = value;
@@ -554,13 +589,12 @@ function renderApplications() {
         alert("Application updated.");
         await refreshDashboard();
       } catch (error) {
-        alert("Could not update: " + error.message);
+        alert("Could not update application: " + error.message);
       } finally {
         saveButton.disabled = false;
       }
     });
     box.appendChild(saveButton);
-    $("applicationList").appendChild(box);
   });
 }
 
@@ -569,11 +603,12 @@ $("documentForm").addEventListener("submit", async event => {
   requireAdmin();
   const button = $("registerDocumentButton");
   button.disabled = true;
+  button.textContent = "Registering...";
   try {
     const ref = validateReference($("documentReference").value);
     const existing = await db.collection("documentRequests").doc(ref).get();
     requireAdmin();
-    if (existing.exists) throw new Error("Reference already exists.");
+    if (existing.exists) throw new Error("This reference already exists. Use a new reference.");
     await db.collection("documentRequests").doc(ref).set({
       referenceNumber: ref,
       ref: ref,
@@ -591,10 +626,11 @@ $("documentForm").addEventListener("submit", async event => {
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
     $("documentForm").reset();
-    showMessage($("documentFormMessage"), "Document registered for review.", "success");
+    showMessage($("documentFormMessage"), "Document registered for review. It has not been publicly verified.", "success");
     await refreshDashboard();
   } catch (error) {
-    showMessage($("documentFormMessage"), "Could not register: " + error.message);
+    console.error(error);
+    showMessage($("documentFormMessage"), "Could not register document: " + error.message);
   } finally {
     button.disabled = false;
     button.textContent = "REGISTER FOR REVIEW";
@@ -622,7 +658,7 @@ function renderDocuments() {
     return (!search || text.includes(search)) && (filter === "all" || (d.status || "Pending Review") === filter);
   });
   if (!list.length) {
-    addText($("documentList"), "p", documentCache.length ? "No documents match." : "No document requests yet.");
+    addText($("documentList"), "p", documentCache.length ? "No documents match the filters." : "No document requests registered yet.");
     return;
   }
   list.forEach(docSnap => {
@@ -634,14 +670,19 @@ function renderDocuments() {
     box.appendChild(badge(d.status || "Pending Review"));
     addDetail(box, "ARNAUD reference", ref);
     addDetail(box, "Name on document", d.issuedTo);
-    addDetail(box, "Original number", d.originalDocumentNumber);
+    addDetail(box, "Original document number", d.originalDocumentNumber);
+    addDetail(box, "Category", d.documentCategory);
     addDetail(box, "Institution", d.school);
+    addDetail(box, "Course", d.course);
+    addDetail(box, "Issue date", d.issueDate);
+    addDetail(box, "Review notes", d.description);
+    addDetail(box, "Submitted by", d.createdByEmail);
     addDetail(box, "Submitted on", formatDate(d.createdAt));
     if ((d.status || "Pending Review") === "Pending Review") {
       const actions = document.createElement("div");
       actions.className = "actions";
       const approve = makeButton("Approve & Publish", "", async () => {
-        if (!confirm("Have you verified with issuing institution?")) return;
+        if (!confirm("Have you independently verified this document with the issuing institution and confirmed publication is authorized?")) return;
         approve.disabled = true; reject.disabled = true;
         try {
           requireAdmin();
@@ -663,15 +704,16 @@ function renderDocuments() {
             reviewedByEmail: auth.currentUser.email || "",
             reviewedAt: firebase.firestore.FieldValue.serverTimestamp()
           });
-          alert("Approved and published: " + safeRef);
+          alert("Document approved and published. Reference: " + safeRef);
           await refreshDashboard();
         } catch (error) {
+          console.error(error);
           alert("Approval failed: " + error.message);
           approve.disabled = false; reject.disabled = false;
         }
       });
       const reject = makeButton("Reject Request", "danger", async () => {
-        if (!confirm("Reject?")) return;
+        if (!confirm("Reject this document request?")) return;
         approve.disabled = true; reject.disabled = true;
         try {
           requireAdmin();
@@ -690,6 +732,18 @@ function renderDocuments() {
       actions.append(approve, reject);
       box.appendChild(actions);
     }
+    if (d.status === "Verified") {
+      box.appendChild(makeButton("Copy Verification Link", "secondary", async () => {
+        const url = new URL("verify-document.html", window.location.href);
+        url.searchParams.set("certificate", ref);
+        try {
+          await navigator.clipboard.writeText(url.href);
+          alert("Verification link copied:\n" + url.href);
+        } catch {
+          prompt("Copy this verification link:", url.href);
+        }
+      }));
+    }
     $("documentList").appendChild(box);
   });
 }
@@ -697,36 +751,51 @@ function renderDocuments() {
 async function loadPublished(currentGeneration) {
   if (!isAdmin()) return;
   const startGeneration = currentGeneration === undefined ? generation : currentGeneration;
-  const snapshot = await db.collection("publicVerifications").get();
-  requireAdmin();
-  if (startGeneration !== generation) return;
-  publishedCache = sortedNewest(snapshot.docs);
-  $("publishedDocuments").textContent = publishedCache.length;
-  $("publishedList").replaceChildren();
-  if (!publishedCache.length) {
-    addText($("publishedList"), "p", "No public verification records yet.");
-    return;
+  try {
+    const snapshot = await db.collection("publicVerifications").get();
+    requireAdmin();
+    if (startGeneration !== generation) return;
+    publishedCache = sortedNewest(snapshot.docs);
+    $("publishedDocuments").textContent = publishedCache.length;
+    $("publishedList").replaceChildren();
+    if (!publishedCache.length) {
+      addText($("publishedList"), "p", "No public verification records have been published yet.");
+      return;
+    }
+    publishedCache.forEach(docSnap => {
+      const d = docSnap.data();
+      const ref = d.referenceNumber || d.certificateNumber || d.ref || docSnap.id;
+      const box = document.createElement("article");
+      box.className = "application";
+      addText(box, "h3", d.documentTitle || d.fullName || d.issuedTo || "Verification Record");
+      box.appendChild(badge(d.status || "Unknown"));
+      addDetail(box, "Reference", ref);
+      addDetail(box, "Company", d.companyName || COMPANY_NAME);
+      addDetail(box, "Company email", d.companyEmail || COMPANY_EMAIL);
+      addDetail(box, "Company number", d.companyNumber || COMPANY_NUMBER);
+      const url = new URL("verify-document.html", window.location.href);
+      url.searchParams.set("certificate", ref);
+      const qr = document.createElement("img");
+      qr.className = "qr";
+      qr.alt = "QR code linking to this verification record";
+      qr.loading = "lazy";
+      qr.src = "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" + encodeURIComponent(url.href);
+      box.appendChild(qr);
+      addDetail(box, "Verification link", url.href);
+      box.appendChild(makeButton("Copy Verification Link", "secondary", async () => {
+        try {
+          await navigator.clipboard.writeText(url.href);
+          alert("Verification link copied:\n" + url.href);
+        } catch {
+          prompt("Copy this verification link:", url.href);
+        }
+      }));
+      $("publishedList").appendChild(box);
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
-  publishedCache.forEach(docSnap => {
-    const d = docSnap.data();
-    const ref = d.referenceNumber || d.certificateNumber || d.ref || docSnap.id;
-    const box = document.createElement("article");
-    box.className = "application";
-    addText(box, "h3", d.documentTitle || d.fullName || d.issuedTo || "Verification Record");
-    box.appendChild(badge(d.status || "Verified"));
-    addDetail(box, "Reference", ref);
-    addDetail(box, "Company", d.companyName || COMPANY_NAME);
-    const url = new URL("verify-document.html", window.location.href);
-    url.searchParams.set("certificate", ref);
-    const qr = document.createElement("img");
-    qr.className = "qr";
-    qr.alt = "QR code";
-    qr.loading = "lazy";
-    qr.src = "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" + encodeURIComponent(url.href);
-    box.appendChild(qr);
-    addDetail(box, "Verification link", url.href);
-    $("publishedList").appendChild(box);
-  });
 }
 </script>
 </body>
