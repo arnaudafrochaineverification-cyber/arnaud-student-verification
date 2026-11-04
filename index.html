@@ -23,7 +23,7 @@ a { text-decoration: none; }
 header { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); }
 .topbar { max-width: 1200px; margin: auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; gap: 18px; }
 .brand { display: flex; align-items: center; gap: 12px; color: var(--dark); }
-.logo { width: 52px; height: 52px; border-radius: 50%; background: var(--green); color: var(--gold); border: 2px solid var(--gold); display: grid; place-items: center; font-weight: bold; flex-shrink: 0; object-fit:cover; }
+.logo { width: 75px; height: 75px; border-radius: 50%; background: #fff; color: var(--gold); border: 3px solid var(--gold); display: block; place-items: center; font-weight: bold; flex-shrink: 0; object-fit:cover; padding:2px; box-shadow:0 2px 10px #0002; }
 .brand h1 { font-size: 14px; line-height: 1.4; }
 .brand p { color: var(--muted); font-size: 11px; }
 nav { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
@@ -79,7 +79,6 @@ footer h3, footer h4 { color: var(--gold); margin-bottom: 12px; }
 footer p, footer a { color: #d5e4d9; font-size: 13px; }
 footer a { display: block; margin-bottom: 8px; overflow-wrap: anywhere; }
 .footer-bottom { max-width: 1100px; margin: 25px auto 0; padding-top: 18px; border-top: 1px solid #28533b; text-align: center; font-size: 12px; }
-/* ONLY ADDED FOR YOUR IMAGES - NOT REMOVING ANYTHING */
 .image-band{max-width:1100px;margin:25px auto;border-radius:14px;overflow:hidden;box-shadow:0 6px 25px #0002}
 .image-band img{width:100%;height:380px;object-fit:cover;display:block}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:center;background:white;padding:25px;border-radius:14px;border:1px solid #e0e9e2;box-shadow:0 5px 18px #00000008;margin-bottom:25px}
@@ -93,7 +92,6 @@ footer a { display: block; margin-bottom: 8px; overflow-wrap: anywhere; }
 <header>
   <div class="topbar">
     <a href="index.html" class="brand">
-      <!-- YOUR LOGO WITH EXACT NUMBER -->
       <img src="IMG-20261028-WA0015_1.jpg" alt="AA Logo" class="logo" onerror="this.src='logo.jpg'">
       <div>
         <h1>ARNAUD AFROCHAINE<br>TRUST SYSTEMS LTD</h1>
@@ -124,7 +122,6 @@ footer a { display: block; margin-bottom: 8px; overflow-wrap: anywhere; }
   </div>
 </section>
 
-<!-- IMAGE 1 ADDED - ANTI FRAUD -->
 <div class="container" style="padding:25px 20px 0">
   <div class="image-band"><img src="IMG-20261104-WA0022.jpg" alt="Anti Fraud"></div>
 </div>
@@ -147,7 +144,6 @@ footer a { display: block; margin-bottom: 8px; overflow-wrap: anywhere; }
   </div>
 </section>
 
-<!-- IMAGE 2 & 3 ADDED -->
 <div class="container" style="padding:0 20px">
   <div class="split"><img src="IMG-20261104-WA0018.jpg" alt="Education"><div><h3>Professional Education Verification</h3><p>Our dedicated verification officers validate every academic record directly with issuing institutions.</p></div></div>
   <div class="split"><div><h3>University to Corporation — Blockchain Verified</h3><p>From University directly to Corporation, our blockchain-verified badge ensures no fake certificate can pass.</p></div><img src="IMG-20261104-WA0020.jpg" alt="University Verified"></div>
@@ -160,7 +156,6 @@ footer a { display: block; margin-bottom: 8px; overflow-wrap: anywhere; }
       <div class="gold-line"></div>
       <p>Scan a QR code printed on a certificate. The scanner can open a supported verification link or pass a certificate reference to the verification page. A database check is still required to confirm authenticity.</p>
     </div>
-    <!-- IMAGE 4 ADDED -->
     <div class="split" style="margin-bottom:30px"><img src="IMG-20261104-WA0021.jpg" alt="QR"><div><h3>Instant QR Verification</h3><p>Every verified document gets a unique QR code and public verification link.</p></div></div>
     <div class="scanner-card">
       <h3>Scan Your Certificate</h3>
@@ -178,7 +173,6 @@ footer a { display: block; margin-bottom: 8px; overflow-wrap: anywhere; }
   </div>
 </section>
 
-<!-- IMAGE 5,6,7 ADDED -->
 <div class="container" style="padding:0 20px">
   <div class="image-band"><img src="IMG-20261104-WA0017.jpg" alt="Sentinel Map"></div>
   <div class="split"><img src="IMG-20261104-WA0016_1.jpg" alt="Support"><div><h3>24/7 Customer Support Team</h3><p>Our friendly support team dey always ready to help you.</p><a href="https://wa.me/2349132851465" class="button button-green">Chat on WhatsApp</a></div></div>
@@ -290,4 +284,4 @@ const incomingReference = new URLSearchParams(window.location.search).get("ref")
 if (incomingReference) { referenceInput.value = incomingReference; setScannerStatus("A certificate reference was received. Tap Continue to Verification."); }
 </script>
 </body>
-    </html>
+  </html>
